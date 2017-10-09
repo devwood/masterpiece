@@ -1,4 +1,6 @@
 <?php
 
-echo 'Error!';
+include ('line-bot-api/php/line-bot.php');
+
+echo 'Step1';
 
