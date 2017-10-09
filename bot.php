@@ -17,7 +17,8 @@ if (!empty($bot->isEvents)) {
     }
 
     // Failed
-    echo $bot->response->getHTTPStatus . ' ' . $bot->response->getRawBody(); 
+    //echo $bot->response->getHTTPStatus . ' ' . $bot->response->getRawBody(); 
+	echo 'Error!';
     exit();
 
 }
