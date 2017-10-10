@@ -11,7 +11,7 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) 
 	{
 		// Reply only when message sent is in 'text' format
-		if ($event['type'] == 'message' && $event['message']['type'] == 'text' && 1==0) 
+		if ($event['type'] == 'message' && $event['message']['type'] == 'text' && 1==1) 
 		{
 			// Get text sent
 			$text = $event['message']['text'];
@@ -48,7 +48,7 @@ if (!is_null($events['events'])) {
 			$result = curl_exec($ch);
 			curl_close($ch);
 
-			echo $result . "\r\n";
+			//echo $result . "\r\n";
 		}
 		
 		if($event['type'] == 'message' && $event['message']['type'] == 'text')
