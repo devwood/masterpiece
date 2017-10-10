@@ -26,7 +26,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'Test4 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id
+				'text' => 'Test5 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -53,7 +53,7 @@ if (!is_null($events['events'])) {
 		if(1==0)
 		{
 		// Get text sent
-			$text = $event['message']['text'];
+			//$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
@@ -66,7 +66,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'Test44 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id
+				'text' => 'Test55 '
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
