@@ -49,7 +49,8 @@ if (!is_null($events['events'])) {
 
 			echo $result . "\r\n";
 		}
-		else
+		
+		if(1==0)
 		{
 			// Build message to reply back
 			$messages = [
