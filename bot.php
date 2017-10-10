@@ -8,7 +8,8 @@ $events = json_decode($content, true);
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
-	foreach ($events['events'] as $event) {
+	foreach ($events['events'] as $event) 
+	{
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') 
 		{
@@ -26,7 +27,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'Test5 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id
+				'text' => 'Test6 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -50,7 +51,7 @@ if (!is_null($events['events'])) {
 			echo $result . "\r\n";
 		}
 		
-		if(1==0)
+		if($event['type'] == 'message' && $event['message']['type'] == 'text')
 		{
 		// Get text sent
 			//$text = $event['message']['text'];
@@ -66,7 +67,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'Test55 '
+				'text' => 'Test66'
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
