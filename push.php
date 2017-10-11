@@ -9,8 +9,9 @@ $events = json_decode($content, true);
 
 			// Build message to reply back
 			$messages = [
-				'type' => 'text',
-				'text' => 'Push10 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id
+				'type' => 'sticker',
+				'packageId' => '1',
+				'stickerId' => '1'
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
