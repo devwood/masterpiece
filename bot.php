@@ -51,7 +51,7 @@ if (!is_null($events['events'])) {
 			echo $result . "\r\n";
 		}
 		
-		if($event['type'] == 'sticker')
+		if ($event['type'] == 'message' && $event['message']['type'] == 'sticker') 		
 		{
 		// Get text sent
 			//$text = $event['message']['text'];
@@ -67,7 +67,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'Test8 Sticker'
+				'text' => 'Test9 Sticker'
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
