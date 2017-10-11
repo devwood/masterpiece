@@ -11,7 +11,7 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) 
 	{
 		// Reply only when message sent is in 'text' format
-		if ($event['type'] == 'message' && $event['message']['type'] == 'text' && 1==1) 
+		if ($event['type'] == 'message' && $event['message']['type'] == 'text') 
 		{
 			// Get text sent
 			$text = $event['message']['text'];
@@ -51,7 +51,7 @@ if (!is_null($events['events'])) {
 			echo $result . "\r\n";
 		}
 		
-		if($event['type'] == '"sticker"')
+		if($event['type'] == 'sticker')
 		{
 		// Get text sent
 			//$text = $event['message']['text'];
