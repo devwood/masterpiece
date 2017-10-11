@@ -27,7 +27,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'Test7 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id
+				'text' => 'Test8 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -48,10 +48,10 @@ if (!is_null($events['events'])) {
 			$result = curl_exec($ch);
 			curl_close($ch);
 
-			//echo $result . "\r\n";
+			echo $result . "\r\n";
 		}
 		
-		if($event['type'] == 'message' && $event['message']['type'] == 'text')
+		if($event['type'] == '"sticker"')
 		{
 		// Get text sent
 			//$text = $event['message']['text'];
@@ -67,7 +67,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'Test77'
+				'text' => 'Test8 Sticker'
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
