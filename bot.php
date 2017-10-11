@@ -27,7 +27,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'Test9 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id
+				'text' => 'Test10 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -66,8 +66,9 @@ if (!is_null($events['events'])) {
 
 			// Build message to reply back
 			$messages = [
-				'type' => 'text',
-				'text' => 'Test9 Sticker'
+				'type' => 'sticker',
+				'packageId' => '1',
+				'stickerId' => '1'
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
