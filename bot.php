@@ -1,5 +1,16 @@
 <?php
 $access_token = 'NENB7H4HyQxHVCl8OJ94uvbss5SOxzlTNYPk02k+BuzBjG3OczD2x7rDlXgfjR9VAr3FJqIdK8GoKzbsNAiDfQ6NWVPy+JCYNhjZ/5zyt2H+4RHcDvtHNE5JDS27CRHsAyS5El5uVBXYds2s76MeRAdB04t89/1O/w1cDnyilFU=';
+//Connect DB
+$dbopts = parse_url(getenv('DATABASE_URL'));
+$app->register(new Herrera\Pdo\PdoServiceProvider(),
+               array(
+                   'pdo.dsn' => 'pgsql:dbname='.ltrim($dbopts["path"],'/').';host='.$dbopts["ec2-107-22-252-91.compute-1.amazonaws.com"] . ';port=' . $dbopts["5432"],
+                   'pdo.username' => $dbopts["feajajzganbfiq"],
+                   'pdo.password' => $dbopts["57ba34efa8018b168b1edbdd5849b55f67c2a8a1f48e644a1e1fc6e951d9517a"]
+               )
+);
+
+
 
 // Get POST body content
 $content = file_get_contents('php://input');
@@ -68,7 +79,7 @@ if (!is_null($events['events'])) {
 			$messages = [
 				'type' => 'sticker',
 				'packageId' => '1',
-				'stickerId' => '1'
+				'stickerId' => '3'
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
