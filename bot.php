@@ -1,6 +1,9 @@
 <?php
 $access_token = 'NENB7H4HyQxHVCl8OJ94uvbss5SOxzlTNYPk02k+BuzBjG3OczD2x7rDlXgfjR9VAr3FJqIdK8GoKzbsNAiDfQ6NWVPy+JCYNhjZ/5zyt2H+4RHcDvtHNE5JDS27CRHsAyS5El5uVBXYds2s76MeRAdB04t89/1O/w1cDnyilFU=';
 //Connect DB
+
+
+/**
 $dbopts = parse_url(getenv('DATABASE_URL'));
 $app->register(new Herrera\Pdo\PdoServiceProvider(),
                array(
@@ -9,7 +12,7 @@ $app->register(new Herrera\Pdo\PdoServiceProvider(),
                    'pdo.password' => $dbopts["57ba34efa8018b168b1edbdd5849b55f67c2a8a1f48e644a1e1fc6e951d9517a"]
                )
 );
-
+**/
 
 
 // Get POST body content
