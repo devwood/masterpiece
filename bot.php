@@ -14,6 +14,8 @@ $app->register(new Herrera\Pdo\PdoServiceProvider(),
 );
 **/
 
+$dbconn = pg_connect("host=ec2-107-22-252-91.compute-1.amazonaws.com port=5432 dbname=d1t089mnl00iir user=feajajzganbfiq password=57ba34efa8018b168b1edbdd5849b55f67c2a8a1f48e644a1e1fc6e951d9517a");
+//connect to a database named "mary" on the host "sheep" with a username and password
 
 // Get POST body content
 $content = file_get_contents('php://input');
