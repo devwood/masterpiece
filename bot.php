@@ -3,8 +3,8 @@ $access_token = 'NENB7H4HyQxHVCl8OJ94uvbss5SOxzlTNYPk02k+BuzBjG3OczD2x7rDlXgfjR9
 //Connect DB
 $dbconn = pg_connect("host=ec2-107-22-252-91.compute-1.amazonaws.com port=5432 dbname=d1t089mnl00iir user=feajajzganbfiq password=57ba34efa8018b168b1edbdd5849b55f67c2a8a1f48e644a1e1fc6e951d9517a");
 //$result = pg_query($dbconn, "SELECT * FROM KNOW");
-$result = pg_exec($dbconn, "SELECT * FROM KNOW");
-$numrows = pg_numrows($result);
+$result = pg_exec($dbconn, "SELECT 1 as one");
+$numrows = 5;//pg_numrows($result);
 //var_dump(pg_fetch_all($result));
 //connect to a database named "mary" on the host "sheep" with a username and password
 
@@ -34,7 +34,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'Test13 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id.'rows = '.$numrows
+				'text' => 'Test14 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id.'rows = '.$numrows
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
