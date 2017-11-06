@@ -34,7 +34,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'Test11 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id.'rows = '.$numrows
+				'text' => 'Test12 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id.'rows = '.$numrows
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
