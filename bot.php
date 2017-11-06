@@ -36,7 +36,7 @@ if (!is_null($events['events'])) {
 			$id = $event['message']['id'];
 
 
-			$messagesX = array($numrows+2);
+			$messagesX = array($numrows+1);
 			$retMsg = 0;
 			
 			if($numrows > 0)
@@ -65,7 +65,7 @@ if (!is_null($events['events'])) {
 				$messagesX[0] = $messages;
 			}
 			// Build message to reply back
-			
+			/*
 			if(1==1)
 			{
 				$messages = [
@@ -74,7 +74,7 @@ if (!is_null($events['events'])) {
 				];
 				$messagesX[$numrows+1] = $messages;
 			}
-			
+			*/
 			
 
 			// Make a POST Request to Messaging API to reply to sender
