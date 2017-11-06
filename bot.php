@@ -29,40 +29,57 @@ if (!is_null($events['events'])) {
 			
 			$return = '';
 			
+			// Get replyToken
+			$replyToken = $event['replyToken'];
+			$userId = $event['source']['userId'];
+			$id = $event['message']['id'];
+
+
+			$messagesX = array($numrows+1);
+			$retMsg = 0;
+			
 			if($numrows > 0)
 			{
-				while ($row = pg_fetch_row($result)) {					
-						$return = 'JOB='.$row[1].' '.$row[2].'; ';
+				while ($row = pg_fetch_row($result)) 
+				{					
+					$return = 'JOB='.$row[1].' '.$row[2].'; ';
+					$messages = [
+					'type' => 'text',			
+					'text' => $return
+					];
+
+					$messagesX[$retMsg] = $messages;
+					$retMsg++;
 				}
 			}
 			else
 			{
 				$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
+				
+				$messages = [
+				'type' => 'text',			
+				'text' => 'R1='.$return
+				];
+				
+				$messagesX[0] = $messages;
 			}
-			
-			// Get replyToken
-			$replyToken = $event['replyToken'];
-
-
-			$userId = $event['source']['userId'];
-			$id = $event['message']['id'];
-
-
 
 			// Build message to reply back
-			$messages = [
-				'type' => 'text',
-				//'text' => 'Test19 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id.'rows = '.$numrows
-				//'text' => 'Test21 '.$text.' query='.$know.'rows = '.$numrows
-				'text' => $return
-			];
+			
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
+			/*
 			$data = [
 				'replyToken' => $replyToken,
 				'messages' => [$messages, $messages],
 			];
+			*/
+			$data = [
+				'replyToken' => $replyToken,
+				'messages' => $messagesX,
+			];
+			
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
