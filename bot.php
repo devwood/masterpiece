@@ -32,10 +32,11 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			$userId = $event['source']['userId'];
+			$userX = $event['source'][0];
 			$id = $event['message']['id'];
 
 
-			$messagesX = array($numrows+1);
+			$messagesX = array($numrows+2);
 			$retMsg = 0;
 			
 			if($numrows > 0)
@@ -63,8 +64,17 @@ if (!is_null($events['events'])) {
 				
 				$messagesX[0] = $messages;
 			}
-
 			// Build message to reply back
+			
+			if(true)
+			{
+				$messages = [
+				'type' => 'text',			
+				'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
+				];
+				$messagesX[$numrows+1] = $messages;
+			}
+			
 			
 
 			// Make a POST Request to Messaging API to reply to sender
