@@ -36,7 +36,7 @@ if (!is_null($events['events'])) {
 			$id = $event['message']['id'];
 
 
-			$messagesX = array($numrows+1);
+			$messagesX = array($numrows+2);
 			$retMsg = 0;
 			
 			if($numrows > 0)
@@ -59,7 +59,7 @@ if (!is_null($events['events'])) {
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'R2='.$return
+				'text' => 'R3='.$return
 				];
 				
 				$messagesX[0] = $messages;
