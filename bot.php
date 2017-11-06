@@ -22,8 +22,8 @@ if (!is_null($events['events'])) {
 			// Get text sent
 			$text = $event['message']['text'];
 			
-			$know = 'SELECT * FROM "KNOW" WHERE "FACTOR" like ';
-			$know = $know."'%".$text."%'";
+			$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
+			$know = $know."LOWER('%".$text."%')";
 			$result = pg_exec($dbconn, $know );
 			$numrows = pg_numrows($result);
 			
@@ -42,7 +42,7 @@ if (!is_null($events['events'])) {
 			$messages = [
 				'type' => 'text',
 				//'text' => 'Test19 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id.'rows = '.$numrows
-				'text' => 'Test20 '.$text.' query='.$know.'rows = '.$numrows
+				'text' => 'Test21 '.$text.' query='.$know.'rows = '.$numrows
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
