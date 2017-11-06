@@ -28,8 +28,16 @@ if (!is_null($events['events'])) {
 			$numrows = pg_numrows($result);
 			
 			$return = '';
-			while ($row = pg_fetch_row($result)) {					
-					$return = 'JOB='.$row[1].' '.$row[1].'; ';
+			
+			if($numrows > 0)
+			{
+				while ($row = pg_fetch_row($result)) {					
+						$return = 'JOB='.$row[1].' '.$row[2].'; ';
+				}
+			}
+			else
+			{
+				$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
 			}
 			
 			// Get replyToken
