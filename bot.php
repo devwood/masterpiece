@@ -32,7 +32,7 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			$userId = $event['source']['userId'];
-			$userX = $event['source']['userId'];
+			//$userX = $event['source']['userId'];
 			$id = $event['message']['id'];
 
 
@@ -70,7 +70,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
+				'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'//.$userX
 				];
 				$messagesX[$numrows+1] = $messages;
 			}
