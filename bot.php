@@ -66,7 +66,7 @@ if (!is_null($events['events'])) {
 			}
 			// Build message to reply back
 			
-			if(true)
+			if(1==1)
 			{
 				$messages = [
 				'type' => 'text',			
