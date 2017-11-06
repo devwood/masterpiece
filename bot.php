@@ -27,7 +27,10 @@ if (!is_null($events['events'])) {
 			$result = pg_exec($dbconn, $know );
 			$numrows = pg_numrows($result);
 			
-			
+			$return = '';
+			while ($row = pg_fetch_row($result)) {					
+					$return = 'JOB='.$row[1].' '.$row[1].'; ';
+			}
 			
 			// Get replyToken
 			$replyToken = $event['replyToken'];
@@ -42,7 +45,8 @@ if (!is_null($events['events'])) {
 			$messages = [
 				'type' => 'text',
 				//'text' => 'Test19 '.$text.' Reply='.$replyToken.' user='.$userId.' id='.$id.'rows = '.$numrows
-				'text' => 'Test21 '.$text.' query='.$know.'rows = '.$numrows
+				//'text' => 'Test21 '.$text.' query='.$know.'rows = '.$numrows
+				'text' => $return
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
