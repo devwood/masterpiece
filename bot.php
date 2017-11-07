@@ -59,7 +59,7 @@ if (!is_null($events['events'])) {
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'R13='.$return
+				'text' => 'R14='.$return
 				];
 				
 				$messagesX[0] = $messages;
@@ -72,7 +72,7 @@ if (!is_null($events['events'])) {
 				'type' => 'text',			
 				'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'//.$userX
 				];
-				$messagesX[$numrows+1] = $messages;
+				//$messagesX[$numrows+1] = $messages;
 			}
 			
 			
