@@ -59,14 +59,14 @@ if (!is_null($events['events'])) {
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'R11='.$return
+				'text' => 'R12='.$return
 				];
 				
 				$messagesX[0] = $messages;
 			}
 			// Build message to reply back
 			
-			if(1==0)
+			if(1==1)
 			{
 				$messages = [
 				'type' => 'text',			
