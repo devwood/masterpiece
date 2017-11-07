@@ -25,6 +25,7 @@ if (!is_null($events['events'])) {
 			$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
 			$know = $know."LOWER('%".$text."%')";
 			$result = pg_exec($dbconn, $know );
+			$numrows = 0;
 			$numrows = pg_numrows($result);
 			
 			$return = '';
@@ -59,7 +60,7 @@ if (!is_null($events['events'])) {
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'R16='.$return
+				'text' => 'R17='.$return
 				];
 				
 				$messagesX[0] = $messages;
@@ -70,7 +71,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.count($messagesX)//.$userX
+				'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.count($messagesX).' numrow ='.$numrows//.$userX
 				];
 				$messagesX[$numrows] = $messages;
 			}
