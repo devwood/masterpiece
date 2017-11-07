@@ -37,7 +37,7 @@ if (!is_null($events['events'])) {
 
 
 			$messagesX = array($numrows+2);
-			$retMsg = 0;
+			$retMsg = 1;
 			
 			if($numrows > 0)
 			{
@@ -46,7 +46,7 @@ if (!is_null($events['events'])) {
 					$return = 'JOB='.$row[1].' '.$row[2].'; ';
 					$messages = [
 					'type' => 'text',			
-					'text' => $return.' '.$numrows+1
+					'text' => $return
 					];
 
 					$messagesX[$retMsg] = $messages;
@@ -59,7 +59,7 @@ if (!is_null($events['events'])) {
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'R9='.$return
+				'text' => 'R10='.$return
 				];
 				
 				$messagesX[0] = $messages;
