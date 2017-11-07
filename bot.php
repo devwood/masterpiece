@@ -33,7 +33,7 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			$userId = $event['source']['userId'];
-			$userX = $event['source'][1];
+			$userX = $event['source']['userName'];
 			$id = $event['message']['id'];
 
 
@@ -60,7 +60,7 @@ if (!is_null($events['events'])) {
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'R21='.$return
+				'text' => 'R22='.$return
 				];
 				
 				$messagesX[0] = $messages;
