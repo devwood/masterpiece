@@ -60,7 +60,7 @@ if (!is_null($events['events'])) {
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'R18='.$return
+				'text' => 'R19='.$return
 				];
 				
 				$messagesX[0] = $messages;
@@ -71,7 +71,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.count($messagesX).' numrow ='.$numrows//.$userX
+				'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
 				];
 				$messagesX[$numrows] = $messages;
 			}
