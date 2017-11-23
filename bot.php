@@ -27,30 +27,27 @@ if (!is_null($events['events'])) {
 			
 			 if (strpos($text, 'online pos') !== false)
 			 {
-				 //$numrows = 0;
-			 
-				// get replytoken
-				// $return = '';
-				 $replytoken = $event['replytoken'];
-				// $userid = $event['source']['userid'];
-				// $userx = $event['source']['userid'];
-				// $id = $event['message']['id'];
-				// $messagesX = array(2);
+				 $know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
+				$know = $know."LOWER('%".$text."%')";
+				$result = pg_exec($dbconn, $know );				
+				$numrows = pg_numrows($result);
 				
+				$return = '';
 				
-				// $return = $text;
-				
-				// $messages = [
-				// 'type' => 'text',			
-				// 'text' => 'S06='
-				// ];
-				
-				// $messagesX[0] = $messages;
-				// $numrows = 1;
+				// Get replyToken
+				$replyToken = $event['replyToken'];
+				$userId = $event['source']['userId'];
+				$userX = $event['source']['userId'];
+				$id = $event['message']['id'];
+
+
+
+				$messagesX = array($numrows+1);				
+				$retMsg = 0;
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'S09'
+				'text' => 'S10'
 				];
 				$messagesX[0] = $messages;
 			}
@@ -97,7 +94,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R09='.$return
+					'text' => 'R10='.$return
 					];
 					
 					$messagesX[0] = $messages;
