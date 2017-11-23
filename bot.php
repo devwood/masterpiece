@@ -38,17 +38,21 @@ if (!is_null($events['events'])) {
 				$messagesX = array(2);
 				
 				
-				$return = $text;
+				// $return = $text;
+				
+				// $messages = [
+				// 'type' => 'text',			
+				// 'text' => 'S06='
+				// ];
+				
+				// $messagesX[0] = $messages;
+				// $numrows = 1;
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'S06='
+				'text' => 'S07'
 				];
-				
 				$messagesX[0] = $messages;
-				$numrows = 1;
-				
-				
 			}
 			else
 			
@@ -93,7 +97,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R06='.$return
+					'text' => 'R07='.$return
 					];
 					
 					$messagesX[0] = $messages;
