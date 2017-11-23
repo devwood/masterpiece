@@ -25,8 +25,10 @@ if (!is_null($events['events'])) {
 			$messagesX = array(1);
 			
 			
-			// if (strpos($text, 'online pos') !== false)
-			// {
+			 if (strpos($text, 'online pos') !== false)
+			 {
+				 $numrows = 0;
+			 }
 				// // Get replyToken
 				// $replyToken = $event['replyToken'];
 				// $userId = $event['source']['userId'];
