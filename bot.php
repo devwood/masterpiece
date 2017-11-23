@@ -27,7 +27,7 @@ if (!is_null($events['events'])) {
 			
 			 if (strpos($text, 'online pos') !== false)
 			 {
-				$know = 'SELECT "TOKEN"||'."'  Last Online='".'||age(clock_timestamp(), "LAST_UPDATE_DATE") as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
+				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
 				//$know = $know."LOWER('%".$text."%')";
 				$result = pg_exec($dbconn, $know );				
 				$numrows = pg_numrows($result);
@@ -96,7 +96,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R14='.$return
+					'text' => 'R15='.$return
 					];
 					
 					$messagesX[0] = $messages;
