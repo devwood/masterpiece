@@ -39,11 +39,17 @@ if (!is_null($events['events'])) {
 				$userId = $event['source']['userId'];
 				$userX = $event['source']['userId'];
 				$id = $event['message']['id'];
-
 				
+				$returnonline = '';
+
+				while ($row = pg_fetch_row($result)) 
+				{					
+					$returnonline = $returnonline.$row[0];					
+				}
+			
 				$messages = [
 				'type' => 'text',			
-				'text' => 'S11'
+				'text' => 'S12 '.$returnonline
 				];
 				$messagesX[0] = $messages;
 			}
@@ -90,7 +96,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R11='.$return
+					'text' => 'R12='.$return
 					];
 					
 					$messagesX[0] = $messages;
