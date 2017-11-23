@@ -30,6 +30,7 @@ if (!is_null($events['events'])) {
 				 //$numrows = 0;
 			 
 				// get replytoken
+				$return = '';
 				$replytoken = $event['replytoken'];
 				$userid = $event['source']['userid'];
 				$userx = $event['source']['userid'];
@@ -41,7 +42,7 @@ if (!is_null($events['events'])) {
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'S04='.$return
+				'text' => 'S05='
 				];
 				
 				$messagesX[0] = $messages;
@@ -92,7 +93,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R04='.$return
+					'text' => 'R05='.$return
 					];
 					
 					$messagesX[0] = $messages;
