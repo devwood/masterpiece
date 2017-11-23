@@ -25,7 +25,7 @@ if (!is_null($events['events'])) {
 			$messagesX = array(1);
 			
 			
-			 if (strpos($text, 'online pos') !== false)
+			 if (strpos($text, 'all pos') !== false)
 			 {
 				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
 				//$know = $know."LOWER('%".$text."%')";
@@ -40,6 +40,7 @@ if (!is_null($events['events'])) {
 				$userX = $event['source']['userId'];
 				$id = $event['message']['id'];
 				
+				
 				$returnonline = '';
 
 				while ($row = pg_fetch_row($result)) 
@@ -53,8 +54,46 @@ if (!is_null($events['events'])) {
 				];
 				$messagesX[0] = $messages;
 			}
-			else
-			
+			elseif(strpos($text, 'online pos') !== false)
+			{
+				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" WHERE cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) < 5 ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
+				//$know = $know."LOWER('%".$text."%')";
+				$result = pg_exec($dbconn, $know );				
+				$numrows = pg_numrows($result);
+				
+				$return = '';
+				
+				// Get replyToken
+				$replyToken = $event['replyToken'];
+				$userId = $event['source']['userId'];
+				$userX = $event['source']['userId'];
+				$id = $event['message']['id'];
+				
+				if($numrows > 0)
+				{
+					$returnonline = '';
+
+					while ($row = pg_fetch_row($result)) 
+					{					
+						$returnonline = $returnonline.$row[0]."\r\n";					
+					}
+				
+					$messages = [
+					'type' => 'text',			
+					'text' => $returnonline
+					];
+					$messagesX[0] = $messages;
+				}
+				else
+				{
+					$messages = [
+					'type' => 'text',			
+					'text' => 'ไม่มีข้อมูล POS Online ใน 5 นาทีนี้'
+					];
+					$messagesX[0] = $messages;
+				}
+			}
+			else			
 			//if(true)
 			//if (strpos($text, 'online pos') !== false)
 			{
@@ -96,7 +135,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R17='.$return
+					'text' => 'R18='.$return
 					];
 					
 					$messagesX[0] = $messages;
