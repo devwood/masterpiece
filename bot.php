@@ -34,17 +34,17 @@ if (!is_null($events['events'])) {
 				$userid = $event['source']['userid'];
 				$userx = $event['source']['userid'];
 				$id = $event['message']['id'];
-				$messagesx = array(2);
+				$messagesX = array(2);
 				
 				
 				$return = $text;
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'S03='.$return
+				'text' => 'S04='.$return
 				];
 				
-				$messagesx[0] = $messages;
+				$messagesX[0] = $messages;
 				$numrows = 1;
 				
 				
@@ -92,7 +92,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R03='.$return
+					'text' => 'R04='.$return
 					];
 					
 					$messagesX[0] = $messages;
