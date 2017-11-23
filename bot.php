@@ -44,7 +44,7 @@ if (!is_null($events['events'])) {
 
 				while ($row = pg_fetch_row($result)) 
 				{					
-					$returnonline = $returnonline.$row[0].'\r\n';					
+					$returnonline = $returnonline.$row[0]."\r\n";					
 				}
 			
 				$messages = [
@@ -96,7 +96,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R13='.$return
+					'text' => 'R14='.$return
 					];
 					
 					$messagesX[0] = $messages;
