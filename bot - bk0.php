@@ -21,86 +21,52 @@ if (!is_null($events['events'])) {
 		{
 			// Get text sent
 			$text = $event['message']['text'];
+			
+			$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
+			$know = $know."LOWER('%".$text."%')";
+			$result = pg_exec($dbconn, $know );
 			$numrows = 0;
-			$messagesX = array(1);
+			$numrows = pg_numrows($result);
 			
+			$return = '';
 			
-			if (strpos($text, 'online pos') !== false)
+			// Get replyToken
+			$replyToken = $event['replyToken'];
+			$userId = $event['source']['userId'];
+			$userX = $event['source']['userId'];
+			$id = $event['message']['id'];
+
+
+			$messagesX = array($numrows+1);
+			$retMsg = 0;
+			
+			if($numrows > 0)
 			{
-				// Get replyToken
-				$replyToken = $event['replyToken'];
-				$userId = $event['source']['userId'];
-				$userX = $event['source']['userId'];
-				$id = $event['message']['id'];
-				$messagesX = array(2);
-				
-				
-				$return = $text;
+				while ($row = pg_fetch_row($result)) 
+				{					
+					$return = 'JOB='.$row[1].' '.$row[2].'; ';
+					$messages = [
+					'type' => 'text',			
+					'text' => $return
+					];
+
+					$messagesX[$retMsg] = $messages;
+					$retMsg++;
+				}
+			}
+			else
+			{
+				$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'S01='.$return
+				'text' => 'R23='.$return
 				];
 				
 				$messagesX[0] = $messages;
 				$numrows = 1;
-				
-				
 			}
-			else
-			//if (strpos($text, 'online pos') !== false)
-			{
-				$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
-				$know = $know."LOWER('%".$text."%')";
-				$result = pg_exec($dbconn, $know );				
-				$numrows = pg_numrows($result);
-				
-				$return = '';
-				
-				// Get replyToken
-				$replyToken = $event['replyToken'];
-				$userId = $event['source']['userId'];
-				$userX = $event['source']['userId'];
-				$id = $event['message']['id'];
-
-
-				
-				$retMsg = 0;
-				
-				if($numrows > 0)
-				{
-					while ($row = pg_fetch_row($result)) 
-					{					
-						$return = 'JOB='.$row[1].' '.$row[2].'; ';
-						$messages = [
-						'type' => 'text',			
-						'text' => $return
-						];
-
-						$messagesX[$retMsg] = $messages;
-						$retMsg++;
-					}
-				}
-				else
-				{
-					$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
-					
-					$messages = [
-					'type' => 'text',			
-					'text' => 'R01='.$return
-					];
-					
-					$messagesX[0] = $messages;
-					$numrows = 1;
-				}
-				// Build message to reply back
-			}
-			
-			
-			
-			
-			
-			
+			// Build message to reply back
 			
 			if(1==1)
 			{
