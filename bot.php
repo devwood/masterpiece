@@ -41,7 +41,7 @@ if (!is_null($events['events'])) {
 				
 				// $messages = [
 				// 'type' => 'text',			
-				// 'text' => 'S01='.$return
+				// 'text' => 'S02='.$return
 				// ];
 				
 				// $messagesX[0] = $messages;
@@ -92,7 +92,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R01='.$return
+					'text' => 'R02='.$return
 					];
 					
 					$messagesX[0] = $messages;
