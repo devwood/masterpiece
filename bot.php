@@ -25,29 +25,31 @@ if (!is_null($events['events'])) {
 			$messagesX = array(1);
 			
 			
-			if (strpos($text, 'online pos') !== false)
-			{
-				// Get replyToken
-				$replyToken = $event['replyToken'];
-				$userId = $event['source']['userId'];
-				$userX = $event['source']['userId'];
-				$id = $event['message']['id'];
-				$messagesX = array(2);
+			// if (strpos($text, 'online pos') !== false)
+			// {
+				// // Get replyToken
+				// $replyToken = $event['replyToken'];
+				// $userId = $event['source']['userId'];
+				// $userX = $event['source']['userId'];
+				// $id = $event['message']['id'];
+				// $messagesX = array(2);
 				
 				
-				$return = $text;
+				// $return = $text;
 				
-				$messages = [
-				'type' => 'text',			
-				'text' => 'S01='.$return
-				];
+				// $messages = [
+				// 'type' => 'text',			
+				// 'text' => 'S01='.$return
+				// ];
 				
-				$messagesX[0] = $messages;
-				$numrows = 1;
+				// $messagesX[0] = $messages;
+				// $numrows = 1;
 				
 				
-			}
-			else
+			// }
+			// else
+			
+			if(true)
 			//if (strpos($text, 'online pos') !== false)
 			{
 				$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
@@ -64,7 +66,8 @@ if (!is_null($events['events'])) {
 				$id = $event['message']['id'];
 
 
-				
+
+				$messagesX = array($numrows+1);				
 				$retMsg = 0;
 				
 				if($numrows > 0)
