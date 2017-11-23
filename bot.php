@@ -27,8 +27,8 @@ if (!is_null($events['events'])) {
 			
 			 if (strpos($text, 'online pos') !== false)
 			 {
-				 $know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
-				$know = $know."LOWER('%".$text."%')";
+				$know = 'SELECT "TOKEN"||'."'  Last Online='".'||age(clock_timestamp(), "LAST_UPDATE_DATE") as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
+				//$know = $know."LOWER('%".$text."%')";
 				$result = pg_exec($dbconn, $know );				
 				$numrows = pg_numrows($result);
 				
@@ -40,14 +40,10 @@ if (!is_null($events['events'])) {
 				$userX = $event['source']['userId'];
 				$id = $event['message']['id'];
 
-
-
-				$messagesX = array($numrows+1);				
-				$retMsg = 0;
 				
 				$messages = [
 				'type' => 'text',			
-				'text' => 'S10'
+				'text' => 'S11'
 				];
 				$messagesX[0] = $messages;
 			}
@@ -94,7 +90,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R10='.$return
+					'text' => 'R11='.$return
 					];
 					
 					$messagesX[0] = $messages;
