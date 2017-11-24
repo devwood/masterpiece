@@ -162,12 +162,27 @@ if (!is_null($events['events'])) {
 				$messagesX = array($numrows+1);				
 				$retMsg = 0;				
 				
+				if($numrows > 0)
+				{
+					while ($row = pg_fetch_row($result)) 
+					{					
+						$return = 'JOB='.$row[1].' '.$row[2].'; ';
+						$messages = [
+						'type' => 'text',			
+						'text' => $return
+						];
+
+						$messagesX[$retMsg] = $messages;
+						$retMsg++;
+					}
+				}
+				else
 				{
 					$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R20='.$return
+					'text' => 'R23='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -262,4 +277,7 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
+
+
+
 echo "OK";
