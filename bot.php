@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R52='.$return
+					'text' => 'R53='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -246,7 +246,7 @@ WHERE "ID" IN(SELECT LP."ID"
 FROM "ACTIVE_LOOP" LP
 INNER JOIN "ACTORvsGROUP_ANSWER" GR ON LP."ACTORvsGROUP_ANSWER_ID" = GR."ID"
 INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
-WHERE AC."USER_ID" = '."'".$replyToken."'".')';
+WHERE AC."USER_ID" = '."'".$id."'".')';
 	
 	$result = pg_exec($dbconn, $delete_old_loop);		
 	
@@ -278,7 +278,7 @@ WHERE AC."USER_ID" = '."'".$replyToken."'".')';
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R52='.$return." ".$delete_old_loop
+		'text' => 'FU R53='.$return." ".$delete_old_loop
 		];
 		
 		$messagesX[0] = $messages;
@@ -342,7 +342,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R52='.$return
+		'text' => 'FU R53='.$return
 		];
 		
 		$messagesX[0] = $messages;
