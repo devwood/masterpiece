@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R32='.$return
+					'text' => 'R33='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -196,7 +196,7 @@ if (!is_null($events['events'])) {
 									
 									$messages = [
 									'type' => 'text',			
-									'text' => 'R32='.$return.' '.$err
+									'text' => 'R33='.$return.' '.$err
 									];
 									
 									$messagesX[0] = $messages;
@@ -334,26 +334,26 @@ function _resultMSG()
 {
 	$err = "STEP 1";
 	
-	// $know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
-	// $know = $know."LOWER('%".$text."%')";
-	// $result = pg_exec($dbconn, $know );				
-	// $numrows = pg_numrows($result);
+	$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
+	$know = $know."LOWER('%".$text."%')";
+	$result = pg_exec($dbconn, $know );				
+	$numrows = pg_numrows($result);
 	
-	// $return = '';
+	$return = '';
 	
-	// // Get replyToken
-	// $replyToken = $event['replyToken'];
-	// $userId = $event['source']['userId'];
-	// $userX = $event['source']['userId'];
-	// $id = $event['message']['id'];
+	// Get replyToken
+	$replyToken = $event['replyToken'];
+	$userId = $event['source']['userId'];
+	$userX = $event['source']['userId'];
+	$id = $event['message']['id'];
 	
 	
 	$err = "STEP 2";
 
 
 
-	// $messagesX = array($numrows+1);				
-	// $retMsg = 0;				
+	$messagesX = array($numrows+1);				
+	$retMsg = 0;				
 	
 	
 	$err = "STEP 3";
