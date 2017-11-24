@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R31='.$return
+					'text' => 'R32='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -154,7 +154,7 @@ if (!is_null($events['events'])) {
 			else
 			{
 				$err = "STEP 0";
-				_resultMSG();
+				$err = _resultMSG();
 				
 				$okreturn = 0;
 				
@@ -196,7 +196,7 @@ if (!is_null($events['events'])) {
 									
 									$messages = [
 									'type' => 'text',			
-									'text' => 'R31='.$return.' '.$err
+									'text' => 'R32='.$return.' '.$err
 									];
 									
 									$messagesX[0] = $messages;
@@ -415,6 +415,8 @@ function _resultMSG()
 
 		// echo $result . "\r\n";
 	// }
+	
+	return $err;
 }
 
 
