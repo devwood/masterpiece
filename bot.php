@@ -134,7 +134,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R26='.$return
+					'text' => 'R27='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -239,45 +239,48 @@ if (!is_null($events['events'])) {
 
 function _resultMSG($dbconn, $event, $text)
 {
-	$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
-	$know = $know."LOWER('%".$text."%')";
-	$result = pg_exec($dbconn, $know );				
-	$numrows = pg_numrows($result);
+	// $know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
+	// $know = $know."LOWER('%".$text."%')";
+	// $result = pg_exec($dbconn, $know );				
+	// $numrows = pg_numrows($result);
 	
-	$return = '';
+	// $return = '';
 	
-	// Get replyToken
-	$replyToken = $event['replyToken'];
-	$userId = $event['source']['userId'];
-	$userX = $event['source']['userId'];
-	$id = $event['message']['id'];
+	// // Get replyToken
+	// $replyToken = $event['replyToken'];
+	// $userId = $event['source']['userId'];
+	// $userX = $event['source']['userId'];
+	// $id = $event['message']['id'];
 
 
 
-	$messagesX = array($numrows+1);				
-	$retMsg = 0;				
+	// $messagesX = array($numrows+1);				
+	// $retMsg = 0;				
 	
-	if($numrows > 0)
-	{
-		while ($row = pg_fetch_row($result)) 
-		{					
-			$return = 'JOB='.$row[1].' '.$row[2].'; ';
-			$messages = [
-			'type' => 'text',			
-			'text' => $return
-			];
+	// if($numrows > 0)
+	// {
+		// while ($row = pg_fetch_row($result)) 
+		// {					
+			// $return = 'JOB='.$row[1].' '.$row[2].'; ';
+			// $messages = [
+			// 'type' => 'text',			
+			// 'text' => $return
+			// ];
 
-			$messagesX[$retMsg] = $messages;
-			$retMsg++;
-		}
-	}
-	else
+			// $messagesX[$retMsg] = $messages;
+			// $retMsg++;
+		// }
+	// }
+	// else
+		
+	
+	$messagesX = array(1);
 	{
 		$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'R26='.$return
+		'text' => 'R27='.$return
 		];
 		
 		$messagesX[0] = $messages;
