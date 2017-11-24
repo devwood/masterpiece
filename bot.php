@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R51='.$return
+					'text' => 'R52='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -278,7 +278,7 @@ WHERE AC."USER_ID" = '."'".$replyToken."'".')';
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R51='.$return
+		'text' => 'FU R52='.$return." ".$delete_old_loop
 		];
 		
 		$messagesX[0] = $messages;
@@ -342,7 +342,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R51='.$return
+		'text' => 'FU R52='.$return
 		];
 		
 		$messagesX[0] = $messages;
