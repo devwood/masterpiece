@@ -154,7 +154,7 @@ if (!is_null($events['events'])) {
 			else
 			{
 				$getResult = "";
-				$getResult = _resultMSG()
+				$getResult = _resultMSG();
 				
 				$okreturn = 0;
 				
