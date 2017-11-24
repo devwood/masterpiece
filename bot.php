@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R43='.$return
+					'text' => 'R44='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -172,7 +172,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 						'type' => 'text',			
-						'text' => 'R43='.$return.'  '.$getResult
+						'text' => 'R44='.$return.'  '.$getResult
 						];
 						
 						$messagesX[0] = $messages;
@@ -349,7 +349,7 @@ function _resultMSG($text, $dbconn, $event)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R43='.$return
+		'text' => 'FU R44='.$return
 		];
 		
 		$messagesX[0] = $messages;
@@ -380,7 +380,7 @@ function _resultMSG($text, $dbconn, $event)
 		echo $result . "\r\n";
 	}
 	
-	$getResult = "OK";
+	$getResult = "OK ".$replyToken;
 	return $getResult;
 }
 
