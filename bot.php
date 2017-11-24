@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R55='.$return
+					'text' => 'R56='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -264,9 +264,10 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R55='.$return." ".$delete_old_loop
+		'text' => 'FU R56='.$return." ".$delete_old_loop
 		];
-
+		$messagesX[0] = $messages;
+		$numrows = 1;
 	}
 	else
 	{		
@@ -274,9 +275,10 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R55='.$return." ".$delete_old_loop
+		'text' => 'FU R56='.$return." ".$delete_old_loop
 		];
-
+		$messagesX[0] = $messages;
+		$numrows = 1;
 	}
 		
 	
@@ -308,7 +310,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R55='.$return." ".$delete_old_loop
+		// 'text' => 'FU R56='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -372,7 +374,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R55='.$return
+		'text' => 'FU R56='.$return
 		];
 		
 		$messagesX[0] = $messages;
