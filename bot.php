@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R48='.$return
+					'text' => 'R49='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -172,7 +172,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 						'type' => 'text',			
-						'text' => 'X R48='.$return.'  '.$getResult
+						'text' => 'X R49='.$return.'  '.$getResult
 						];
 						
 						$messagesX[0] = $messages;
@@ -329,27 +329,27 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 	$getResult = "STEP 3";
 	
 	
-	// if($numrows > 0)
-	// {
-		// while ($row = pg_fetch_row($result)) 
-		// {					
-			// $return = 'JOB='.$row[1].' '.$row[2].'; ';
-			// $messages = [
-			// 'type' => 'text',			
-			// 'text' => $return
-			// ];
+	if($numrows > 0)
+	{
+		while ($row = pg_fetch_row($result)) 
+		{					
+			$return = 'JOB='.$row[1].' '.$row[2].'; ';
+			$messages = [
+			'type' => 'text',			
+			'text' => $return
+			];
 
-			// $messagesX[$retMsg] = $messages;
-			// $retMsg++;
-		// }
-	// }
-	// else
+			$messagesX[$retMsg] = $messages;
+			$retMsg++;
+		}
+	}
+	else
 	{
 		$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R48='.$return
+		'text' => 'FU R49='.$return
 		];
 		
 		$messagesX[0] = $messages;
