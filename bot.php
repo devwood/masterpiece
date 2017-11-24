@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R30='.$return
+					'text' => 'R31='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -153,7 +153,8 @@ if (!is_null($events['events'])) {
 			}
 			else
 			{
-				_resultMSG($text, $dbconn, $event);
+				$err = "STEP 0";
+				_resultMSG();
 				
 				$okreturn = 0;
 				
@@ -195,7 +196,7 @@ if (!is_null($events['events'])) {
 									
 									$messages = [
 									'type' => 'text',			
-									'text' => 'R30='.$return.' '.$err
+									'text' => 'R31='.$return.' '.$err
 									];
 									
 									$messagesX[0] = $messages;
@@ -328,33 +329,34 @@ if (!is_null($events['events'])) {
 	}
 }
 
-function _resultMSG($text, $dbconn, $event)
+//function _resultMSG($text, $dbconn, $event)
+function _resultMSG()
 {
-	$err = 'STEP 1';
+	$err = "STEP 1";
 	
-	$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
-	$know = $know."LOWER('%".$text."%')";
-	$result = pg_exec($dbconn, $know );				
-	$numrows = pg_numrows($result);
+	// $know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
+	// $know = $know."LOWER('%".$text."%')";
+	// $result = pg_exec($dbconn, $know );				
+	// $numrows = pg_numrows($result);
 	
-	$return = '';
+	// $return = '';
 	
-	// Get replyToken
-	$replyToken = $event['replyToken'];
-	$userId = $event['source']['userId'];
-	$userX = $event['source']['userId'];
-	$id = $event['message']['id'];
+	// // Get replyToken
+	// $replyToken = $event['replyToken'];
+	// $userId = $event['source']['userId'];
+	// $userX = $event['source']['userId'];
+	// $id = $event['message']['id'];
 	
 	
-	$err = 'STEP 2';
+	$err = "STEP 2";
 
 
 
-	$messagesX = array($numrows+1);				
-	$retMsg = 0;				
+	// $messagesX = array($numrows+1);				
+	// $retMsg = 0;				
 	
 	
-	$err = 'STEP 3';
+	$err = "STEP 3";
 	
 	
 	// if($numrows > 0)
