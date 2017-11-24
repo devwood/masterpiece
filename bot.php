@@ -28,8 +28,8 @@ if (!is_null($events['events'])) {
 			$messagesX = array(1);
 			
 			
-			 if (strpos($text, 'all pos') !== false)
-			 {
+			if (strpos($text, 'all pos') !== false)
+			{
 				 $okreturn = 1;
 				 
 				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R50='.$return
+					'text' => 'R51='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -155,58 +155,7 @@ if (!is_null($events['events'])) {
 			{
 				$getResult = "";
 				$getResult = _resultMSG($text, $dbconn, $event, $access_token);
-				
 				$okreturn = 0;
-				
-				if($getResult != "OK")
-				{					
-					$return = '';								
-					$replyToken = $event['replyToken'];
-					$userId = $event['source']['userId'];
-					$userX = $event['source']['userId'];
-					$id = $event['message']['id'];
-
-
-					{
-						$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
-						
-						$messages = [
-						'type' => 'text',			
-						'text' => 'X R50='.$return.'  '.$getResult
-						];
-						
-						$messagesX[0] = $messages;
-						$numrows = 1;
-					}
-					
-					if(1==1)
-					{
-						// Make a POST Request to Messaging API to reply to sender
-						$url = 'https://api.line.me/v2/bot/message/reply';
-						$data = [
-							'replyToken' => $replyToken,
-							'messages' => $messagesX,
-						];
-						
-						$post = json_encode($data);
-						$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-
-						$ch = curl_init($url);
-						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-						curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-						curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-						curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-						$result = curl_exec($ch);
-						curl_close($ch);
-
-						echo $result . "\r\n";
-					}
-				
-				
-				}
-				
-				//_resultMSG($text, $dbconn, $event);
 			}
 			
 			
@@ -228,25 +177,15 @@ if (!is_null($events['events'])) {
 		
 		if ($event['type'] == 'message' && $event['message']['type'] == 'sticker') 		
 		{
-		// Get text sent
-			//$text = $event['message']['text'];
-			// Get replyToken
 			$replyToken = $event['replyToken'];
-
-
 			$userId = $event['source']['userId'];
 			$id = $event['message']['id'];
-
-
-
-			// Build message to reply back
 			$messages = [
 				'type' => 'sticker',
 				'packageId' => '1',
 				'stickerId' => '3'
 			];
 
-			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
@@ -295,6 +234,83 @@ function _sendOut($access_token, $replyToken, $messagesX)
 function _resultMSG($text, $dbconn, $event, $access_token)
 {
 	
+	$replyToken = $event['replyToken'];
+	$userId = $event['source']['userId'];
+	$userX = $event['source']['userId'];
+	$id = $event['message']['id'];
+	
+	
+	
+	$delete_old_loop = 'DELETE FROM "ACTIVE_LOOP"
+WHERE "ID" IN(SELECT LP."ID"
+FROM "ACTIVE_LOOP" LP
+INNER JOIN "ACTORvsGROUP_ANSWER" GR ON LP."ACTORvsGROUP_ANSWER_ID" = GR."ID"
+INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
+WHERE AC."USER_ID" = '."'".$replyToken."'".')';
+	
+	$result = pg_exec($dbconn, $delete_old_loop);		
+	
+	$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
+	$know = $know."LOWER('%".$text."%')";
+	$result = pg_exec($dbconn, $know );				
+	$numrows = pg_numrows($result);
+	$return = '';
+	
+	$messagesX = array($numrows+1);				
+	$retMsg = 0;				
+	if($numrows > 0)
+	{
+		while ($row = pg_fetch_row($result)) 
+		{					
+			$return = 'JOB='.$row[1].' '.$row[2].'; ';
+			$messages = [
+			'type' => 'text',			
+			'text' => $return
+			];
+
+			$messagesX[$retMsg] = $messages;
+			$retMsg++;
+		}
+	}
+	else
+	{
+		$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
+		
+		$messages = [
+		'type' => 'text',			
+		'text' => 'FU R51='.$return
+		];
+		
+		$messagesX[0] = $messages;
+		$numrows = 1;
+	}
+	
+	if(1==1)
+	{
+		$url = 'https://api.line.me/v2/bot/message/reply';		
+		$data = [
+			'replyToken' => $replyToken,
+			'messages' => $messagesX,
+		];
+		$post = json_encode($data);
+		$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		$result = curl_exec($ch);
+		curl_close($ch);
+		echo $result . "\r\n";
+	}
+	$getResult = "OK ".$access_token;
+	return $getResult;
+}
+
+function _resultMSG_BK1($text, $dbconn, $event, $access_token)
+{
+	
 	$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
 	$know = $know."LOWER('%".$text."%')";
 	$result = pg_exec($dbconn, $know );				
@@ -326,7 +342,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R50='.$return
+		'text' => 'FU R51='.$return
 		];
 		
 		$messagesX[0] = $messages;
