@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R50='.$return
+					'text' => 'R49='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -172,7 +172,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 						'type' => 'text',			
-						'text' => 'X R50='.$return.'  '.$getResult
+						'text' => 'X R49='.$return.'  '.$getResult
 						];
 						
 						$messagesX[0] = $messages;
@@ -210,6 +210,11 @@ if (!is_null($events['events'])) {
 			}
 			
 			
+			
+			
+			
+			
+			
 			if(1==0)
 			{
 				$messages = [
@@ -222,7 +227,32 @@ if (!is_null($events['events'])) {
 			
 			if($okreturn ==1)
 			{
-				_sendOut($access_token, $replyToken, $messagesX);
+				// Make a POST Request to Messaging API to reply to sender
+				$url = 'https://api.line.me/v2/bot/message/reply';
+				/*
+				$data = [
+					'replyToken' => $replyToken,
+					'messages' => [$messages, $messages],
+				];
+				*/
+				$data = [
+					'replyToken' => $replyToken,
+					'messages' => $messagesX,
+				];
+				
+				$post = json_encode($data);
+				$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				$result = curl_exec($ch);
+				curl_close($ch);
+
+				echo $result . "\r\n";
 			}
 		}
 		
@@ -269,43 +299,36 @@ if (!is_null($events['events'])) {
 	}
 }
 
-function _sendOut($access_token, $replyToken, $messagesX)
-{
-	$url = 'https://api.line.me/v2/bot/message/reply';
-	$data = [
-		'replyToken' => $replyToken,
-		'messages' => $messagesX,
-	];
-	
-	$post = json_encode($data);
-	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-	$result = curl_exec($ch);
-	curl_close($ch);
-
-	echo $result . "\r\n";
-}
-
 function _resultMSG($text, $dbconn, $event, $access_token)
+//function _resultMSG()
 {
+	$getResult = "STEP 1";
 	
 	$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
 	$know = $know."LOWER('%".$text."%')";
 	$result = pg_exec($dbconn, $know );				
 	$numrows = pg_numrows($result);
+	
 	$return = '';
+	
+	// Get replyToken
 	$replyToken = $event['replyToken'];
 	$userId = $event['source']['userId'];
 	$userX = $event['source']['userId'];
 	$id = $event['message']['id'];
+	
+	
+	$getResult = "STEP 2";
+
+
+
 	$messagesX = array($numrows+1);				
 	$retMsg = 0;				
+	
+	
+	$getResult = "STEP 3";
+	
+	
 	if($numrows > 0)
 	{
 		while ($row = pg_fetch_row($result)) 
@@ -326,7 +349,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R50='.$return
+		'text' => 'FU R49='.$return
 		];
 		
 		$messagesX[0] = $messages;
@@ -335,13 +358,16 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 	
 	if(1==1)
 	{
+		// Make a POST Request to Messaging API to reply to sender
 		$url = 'https://api.line.me/v2/bot/message/reply';		
 		$data = [
 			'replyToken' => $replyToken,
 			'messages' => $messagesX,
 		];
+		
 		$post = json_encode($data);
 		$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -350,8 +376,10 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 		$result = curl_exec($ch);
 		curl_close($ch);
+
 		echo $result . "\r\n";
 	}
+	
 	$getResult = "OK ".$access_token;
 	return $getResult;
 }
