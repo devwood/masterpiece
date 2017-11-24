@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R56='.$return
+					'text' => 'R57='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -260,11 +260,11 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 							WHERE AC."USER_ID" = '."'".$userX."'".')';	
 		$result = pg_exec($dbconn, $delete_old_loop);
 		
-		$return = 'เริ่มสอบถามได้';
+		$return = pg_fetch_result($result, 0, 3);
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R56='.$return." ".$delete_old_loop
+		'text' => 'FU R57='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -275,7 +275,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R56='.$return." ".$delete_old_loop
+		'text' => 'FU R57='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -310,7 +310,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R56='.$return." ".$delete_old_loop
+		// 'text' => 'FU R57='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -374,7 +374,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R56='.$return
+		'text' => 'FU R57='.$return
 		];
 		
 		$messagesX[0] = $messages;
