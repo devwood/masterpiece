@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R54='.$return
+					'text' => 'R55='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -241,49 +241,79 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 	
 	
 	
-	$delete_old_loop = 'DELETE FROM "ACTIVE_LOOP"
-WHERE "ID" IN(SELECT LP."ID"
-FROM "ACTIVE_LOOP" LP
-INNER JOIN "ACTORvsGROUP_ANSWER" GR ON LP."ACTORvsGROUP_ANSWER_ID" = GR."ID"
-INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
-WHERE AC."USER_ID" = '."'".$userX."'".')';
-	
-	$result = pg_exec($dbconn, $delete_old_loop);		
-	
-	$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
-	$know = $know."LOWER('%".$text."%')";
-	$result = pg_exec($dbconn, $know );				
+	$chk_access_loop = 'SELECT GA.*
+						FROM "GROUP_ANSWER" GA
+						INNER JOIN "ACTORvsGROUP_ANSWER" GR ON GR."GROUP_ANSWER_ID" = GA."ID"
+						INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
+						WHERE AC."USER_ID" = '."'".$userX."'".'
+						AND GA."QUESTION_START_GROUP" = '."'".$text."'".'';
+	$result = pg_exec($dbconn, $chk_access_loop);
 	$numrows = pg_numrows($result);
-	$return = '';
 	
-	$messagesX = array($numrows+1);				
-	$retMsg = 0;				
 	if($numrows > 0)
 	{
-		while ($row = pg_fetch_row($result)) 
-		{					
-			$return = 'JOB='.$row[1].' '.$row[2].'; ';
-			$messages = [
-			'type' => 'text',			
-			'text' => $return
-			];
-
-			$messagesX[$retMsg] = $messages;
-			$retMsg++;
-		}
-	}
-	else
-	{
-		$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
+		$delete_old_loop = 'DELETE FROM "ACTIVE_LOOP"
+							WHERE "ID" IN(SELECT LP."ID"
+							FROM "ACTIVE_LOOP" LP
+							INNER JOIN "ACTORvsGROUP_ANSWER" GR ON LP."ACTORvsGROUP_ANSWER_ID" = GR."ID"
+							INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
+							WHERE AC."USER_ID" = '."'".$userX."'".')';	
+		$result = pg_exec($dbconn, $delete_old_loop);
+		
+		$return = 'เริ่มสอบถามได้';
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R54='.$return." ".$delete_old_loop
+		'text' => 'FU R55='.$return." ".$delete_old_loop
 		];
-		
-		$messagesX[0] = $messages;
-		$numrows = 1;
+
 	}
+	else
+	{		
+		$return = 'ไม่มีสิทธิ์ในการใช้งานระบบนี้ หรือไม่มีระบบนี้ให้ใช้แล้ว';
+		
+		$messages = [
+		'type' => 'text',			
+		'text' => 'FU R55='.$return." ".$delete_old_loop
+		];
+
+	}
+		
+	
+	// $know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
+	// $know = $know."LOWER('%".$text."%')";
+	// $result = pg_exec($dbconn, $know );				
+	// $numrows = pg_numrows($result);
+	// $return = '';
+	
+	// $messagesX = array($numrows+1);				
+	// $retMsg = 0;				
+	// if($numrows > 0)
+	// {
+		// while ($row = pg_fetch_row($result)) 
+		// {					
+			// $return = 'JOB='.$row[1].' '.$row[2].'; ';
+			// $messages = [
+			// 'type' => 'text',			
+			// 'text' => $return
+			// ];
+
+			// $messagesX[$retMsg] = $messages;
+			// $retMsg++;
+		// }
+	// }
+	// else
+	// {
+		// $return = 'ไม่มีผลลัพธ์ที่ต้องการ';
+		
+		// $messages = [
+		// 'type' => 'text',			
+		// 'text' => 'FU R55='.$return." ".$delete_old_loop
+		// ];
+		
+		// $messagesX[0] = $messages;
+		// $numrows = 1;
+	// }
 	
 	if(1==1)
 	{
@@ -342,7 +372,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R54='.$return
+		'text' => 'FU R55='.$return
 		];
 		
 		$messagesX[0] = $messages;
