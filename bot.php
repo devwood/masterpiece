@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R47='.$return
+					'text' => 'R48='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -154,7 +154,7 @@ if (!is_null($events['events'])) {
 			else
 			{
 				$getResult = "";
-				$getResult = _resultMSG($text, $dbconn, $event);
+				$getResult = _resultMSG($text, $dbconn, $event, $access_token);
 				
 				$okreturn = 0;
 				
@@ -172,7 +172,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 						'type' => 'text',			
-						'text' => 'X R47='.$return.'  '.$getResult
+						'text' => 'X R48='.$return.'  '.$getResult
 						];
 						
 						$messagesX[0] = $messages;
@@ -299,7 +299,7 @@ if (!is_null($events['events'])) {
 	}
 }
 
-function _resultMSG($text, $dbconn, $event)
+function _resultMSG($text, $dbconn, $event, $access_token)
 //function _resultMSG()
 {
 	$getResult = "STEP 1";
@@ -349,7 +349,7 @@ function _resultMSG($text, $dbconn, $event)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R47='.$return
+		'text' => 'FU R48='.$return
 		];
 		
 		$messagesX[0] = $messages;
