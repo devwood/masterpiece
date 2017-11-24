@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R57='.$return
+					'text' => 'R58='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -247,8 +247,8 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 						INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
 						WHERE AC."USER_ID" = '."'".$userX."'".'
 						AND GA."QUESTION_START_GROUP" = '."'".$text."'".'';
-	$result = pg_exec($dbconn, $chk_access_loop);
-	$numrows = pg_numrows($result);
+	$result_grp = pg_exec($dbconn, $chk_access_loop);
+	$numrows_grp = pg_numrows($result_grp);
 	
 	if($numrows > 0)
 	{
@@ -260,11 +260,10 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 							WHERE AC."USER_ID" = '."'".$userX."'".')';	
 		$result = pg_exec($dbconn, $delete_old_loop);
 		
-		$return = pg_fetch_result($result, 0, 3);
-		
+		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R57='.$return
+		'text' => 'FU R58='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -275,7 +274,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R57='.$return
+		'text' => 'FU R58='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -310,7 +309,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R57='.$return." ".$delete_old_loop
+		// 'text' => 'FU R58='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -374,7 +373,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R57='.$return
+		'text' => 'FU R58='.$return
 		];
 		
 		$messagesX[0] = $messages;
