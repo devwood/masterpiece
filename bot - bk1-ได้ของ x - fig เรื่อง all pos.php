@@ -93,8 +93,10 @@ if (!is_null($events['events'])) {
 					$messagesX[0] = $messages;
 				}
 			}
-			elseif(strpos($text, 'job') !== false)
-			{	$text = str_replace("job","",$text);
+			else			
+			//if(true)
+			//if (strpos($text, 'online pos') !== false)
+			{
 				$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
 				$know = $know."LOWER('%".$text."%')";
 				$result = pg_exec($dbconn, $know );				
@@ -140,38 +142,6 @@ if (!is_null($events['events'])) {
 					$numrows = 1;
 				}
 				// Build message to reply back
-			}
-			else
-			{
-				$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
-				$know = $know."LOWER('%".$text."%')";
-				$result = pg_exec($dbconn, $know );				
-				$numrows = pg_numrows($result);
-				
-				$return = '';
-				
-				// Get replyToken
-				$replyToken = $event['replyToken'];
-				$userId = $event['source']['userId'];
-				$userX = $event['source']['userId'];
-				$id = $event['message']['id'];
-
-
-
-				$messagesX = array($numrows+1);				
-				$retMsg = 0;				
-				
-				{
-					$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
-					
-					$messages = [
-					'type' => 'text',			
-					'text' => 'R19='.$return
-					];
-					
-					$messagesX[0] = $messages;
-					$numrows = 1;
-				}
 			}
 			
 			
