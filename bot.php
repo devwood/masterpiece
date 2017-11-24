@@ -11,6 +11,8 @@ $dbconn = pg_connect("host=ec2-107-22-252-91.compute-1.amazonaws.com port=5432 d
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
+
+$err = '';
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -141,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R29='.$return
+					'text' => 'R30='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -151,7 +153,7 @@ if (!is_null($events['events'])) {
 			}
 			else
 			{
-				
+				_resultMSG($text, $dbconn, $event);
 				
 				$okreturn = 0;
 				
@@ -193,7 +195,7 @@ if (!is_null($events['events'])) {
 									
 									$messages = [
 									'type' => 'text',			
-									'text' => 'R29='.$return
+									'text' => 'R30='.$return.' '.$err
 									];
 									
 									$messagesX[0] = $messages;
@@ -328,6 +330,8 @@ if (!is_null($events['events'])) {
 
 function _resultMSG($text, $dbconn, $event)
 {
+	$err = 'STEP 1';
+	
 	$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
 	$know = $know."LOWER('%".$text."%')";
 	$result = pg_exec($dbconn, $know );				
@@ -340,68 +344,75 @@ function _resultMSG($text, $dbconn, $event)
 	$userId = $event['source']['userId'];
 	$userX = $event['source']['userId'];
 	$id = $event['message']['id'];
+	
+	
+	$err = 'STEP 2';
 
 
 
 	$messagesX = array($numrows+1);				
 	$retMsg = 0;				
 	
-	if($numrows > 0)
-	{
-		while ($row = pg_fetch_row($result)) 
-		{					
-			$return = 'JOB='.$row[1].' '.$row[2].'; ';
-			$messages = [
-			'type' => 'text',			
-			'text' => $return
-			];
-
-			$messagesX[$retMsg] = $messages;
-			$retMsg++;
-		}
-	}
-	else
-	{
-		$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
-		
-		$messages = [
-		'type' => 'text',			
-		'text' => 'R28='.$return
-		];
-		
-		$messagesX[0] = $messages;
-		$numrows = 1;
-	}
 	
-	if(1==1)
-	{
-		// Make a POST Request to Messaging API to reply to sender
-		$url = 'https://api.line.me/v2/bot/message/reply';
-		/*
-		$data = [
-			'replyToken' => $replyToken,
-			'messages' => [$messages, $messages],
-		];
-		*/
-		$data = [
-			'replyToken' => $replyToken,
-			'messages' => $messagesX,
-		];
+	$err = 'STEP 3';
+	
+	
+	// if($numrows > 0)
+	// {
+		// while ($row = pg_fetch_row($result)) 
+		// {					
+			// $return = 'JOB='.$row[1].' '.$row[2].'; ';
+			// $messages = [
+			// 'type' => 'text',			
+			// 'text' => $return
+			// ];
+
+			// $messagesX[$retMsg] = $messages;
+			// $retMsg++;
+		// }
+	// }
+	// else
+	// {
+		// $return = 'ไม่มีผลลัพธ์ที่ต้องการ';
 		
-		$post = json_encode($data);
-		$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+		// $messages = [
+		// 'type' => 'text',			
+		// 'text' => 'R28='.$return
+		// ];
+		
+		// $messagesX[0] = $messages;
+		// $numrows = 1;
+	// }
+	
+	// if(1==1)
+	// {
+		// // Make a POST Request to Messaging API to reply to sender
+		// $url = 'https://api.line.me/v2/bot/message/reply';
+		// /*
+		// $data = [
+			// 'replyToken' => $replyToken,
+			// 'messages' => [$messages, $messages],
+		// ];
+		// */
+		// $data = [
+			// 'replyToken' => $replyToken,
+			// 'messages' => $messagesX,
+		// ];
+		
+		// $post = json_encode($data);
+		// $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-		$result = curl_exec($ch);
-		curl_close($ch);
+		// $ch = curl_init($url);
+		// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		// curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		// curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		// $result = curl_exec($ch);
+		// curl_close($ch);
 
-		echo $result . "\r\n";
-	}
+		// echo $result . "\r\n";
+	// }
 }
 
 
