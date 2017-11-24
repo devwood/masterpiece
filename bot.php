@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R58='.$return
+					'text' => 'R59='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -250,7 +250,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 	$result_grp = pg_exec($dbconn, $chk_access_loop);
 	$numrows_grp = pg_numrows($result_grp);
 	
-	if($numrows > 0)
+	if($numrows_grp > 0)
 	{
 		$delete_old_loop = 'DELETE FROM "ACTIVE_LOOP"
 							WHERE "ID" IN(SELECT LP."ID"
@@ -263,7 +263,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R58='.$return
+		'text' => 'FU R59='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -274,7 +274,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R58='.$return
+		'text' => 'FU R59='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -309,7 +309,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R58='.$return." ".$delete_old_loop
+		// 'text' => 'FU R59='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -373,7 +373,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R58='.$return
+		'text' => 'FU R59='.$return
 		];
 		
 		$messagesX[0] = $messages;
