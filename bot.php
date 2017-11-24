@@ -143,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R35='.$return
+					'text' => 'R36='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -172,7 +172,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 						'type' => 'text',			
-						'text' => 'R35='.$return
+						'text' => 'R36='.$return.'  '.$getResult
 						];
 						
 						$messagesX[0] = $messages;
@@ -349,7 +349,7 @@ function _resultMSG()
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R35='.$return
+		'text' => 'FU R36='.$return
 		];
 		
 		$messagesX[0] = $messages;
