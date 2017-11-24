@@ -93,8 +93,9 @@ if (!is_null($events['events'])) {
 					$messagesX[0] = $messages;
 				}
 			}
-			elseif(strpos($text, 'job') !== false)
-			{	$text = str_replace("job","",$text);
+			elseif(strpos(strtoupper($text), 'JOB') !== false)
+			{	$text = strtoupper($text);
+				$text = str_replace("JOB","",$text);
 				$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
 				$know = $know."LOWER('%".$text."%')";
 				$result = pg_exec($dbconn, $know );				
@@ -166,7 +167,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R19='.$return
+					'text' => 'R20='.$return
 					];
 					
 					$messagesX[0] = $messages;
