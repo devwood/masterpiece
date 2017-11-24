@@ -144,50 +144,7 @@ if (!is_null($events['events'])) {
 			}
 			else
 			{
-				$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
-				$know = $know."LOWER('%".$text."%')";
-				$result = pg_exec($dbconn, $know );				
-				$numrows = pg_numrows($result);
-				
-				$return = '';
-				
-				// Get replyToken
-				$replyToken = $event['replyToken'];
-				$userId = $event['source']['userId'];
-				$userX = $event['source']['userId'];
-				$id = $event['message']['id'];
-
-
-
-				$messagesX = array($numrows+1);				
-				$retMsg = 0;				
-				
-				if($numrows > 0)
-				{
-					while ($row = pg_fetch_row($result)) 
-					{					
-						$return = 'JOB='.$row[1].' '.$row[2].'; ';
-						$messages = [
-						'type' => 'text',			
-						'text' => $return
-						];
-
-						$messagesX[$retMsg] = $messages;
-						$retMsg++;
-					}
-				}
-				else
-				{
-					$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
-					
-					$messages = [
-					'type' => 'text',			
-					'text' => 'R23='.$return
-					];
-					
-					$messagesX[0] = $messages;
-					$numrows = 1;
-				}
+				_resultMSG($dbconn, $event, $access_token);
 			}
 			
 			
@@ -206,33 +163,35 @@ if (!is_null($events['events'])) {
 			}
 			
 			
+			if(1==0)
+			{
+				// Make a POST Request to Messaging API to reply to sender
+				$url = 'https://api.line.me/v2/bot/message/reply';
+				/*
+				$data = [
+					'replyToken' => $replyToken,
+					'messages' => [$messages, $messages],
+				];
+				*/
+				$data = [
+					'replyToken' => $replyToken,
+					'messages' => $messagesX,
+				];
+				
+				$post = json_encode($data);
+				$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
-			// Make a POST Request to Messaging API to reply to sender
-			$url = 'https://api.line.me/v2/bot/message/reply';
-			/*
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => [$messages, $messages],
-			];
-			*/
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => $messagesX,
-			];
-			
-			$post = json_encode($data);
-			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				$result = curl_exec($ch);
+				curl_close($ch);
 
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			$result = curl_exec($ch);
-			curl_close($ch);
-
-			echo $result . "\r\n";
+				echo $result . "\r\n";
+			}
 		}
 		
 		if ($event['type'] == 'message' && $event['message']['type'] == 'sticker') 		
@@ -278,6 +237,80 @@ if (!is_null($events['events'])) {
 	}
 }
 
+function _resultMSG($dbconn, $event, $access_token)
+{
+	$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
+	$know = $know."LOWER('%".$text."%')";
+	$result = pg_exec($dbconn, $know );				
+	$numrows = pg_numrows($result);
+	
+	$return = '';
+	
+	// Get replyToken
+	$replyToken = $event['replyToken'];
+	$userId = $event['source']['userId'];
+	$userX = $event['source']['userId'];
+	$id = $event['message']['id'];
+
+
+
+	$messagesX = array($numrows+1);				
+	$retMsg = 0;				
+	
+	if($numrows > 0)
+	{
+		while ($row = pg_fetch_row($result)) 
+		{					
+			$return = 'JOB='.$row[1].' '.$row[2].'; ';
+			$messages = [
+			'type' => 'text',			
+			'text' => $return
+			];
+
+			$messagesX[$retMsg] = $messages;
+			$retMsg++;
+		}
+	}
+	else
+	{
+		$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
+		
+		$messages = [
+		'type' => 'text',			
+		'text' => 'R24='.$return
+		];
+		
+		$messagesX[0] = $messages;
+		$numrows = 1;
+	}
+	
+	// Make a POST Request to Messaging API to reply to sender
+	$url = 'https://api.line.me/v2/bot/message/reply';
+	/*
+	$data = [
+		'replyToken' => $replyToken,
+		'messages' => [$messages, $messages],
+	];
+	*/
+	$data = [
+		'replyToken' => $replyToken,
+		'messages' => $messagesX,
+	];
+	
+	$post = json_encode($data);
+	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+	$result = curl_exec($ch);
+	curl_close($ch);
+
+	echo $result . "\r\n";
+}
 
 
 echo "OK";
