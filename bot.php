@@ -141,7 +141,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R29='.$return
+					'text' => 'R27='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -152,7 +152,7 @@ if (!is_null($events['events'])) {
 			else
 			{
 				$okreturn = 0;
-				//_resultMSG($text, $dbconn, $event);
+				$messagesX = _resultMSG();
 			}
 			
 			
@@ -245,7 +245,7 @@ if (!is_null($events['events'])) {
 	}
 }
 
-function _resultMSG($text, $dbconn, $event);
+function _resultMSG()
 {
 	$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
 	$know = $know."LOWER('%".$text."%')";
@@ -285,41 +285,13 @@ function _resultMSG($text, $dbconn, $event);
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'R29='.$return
+		'text' => 'R27='.$return
 		];
 		
 		$messagesX[0] = $messages;
 		$numrows = 1;
 	}
 	
-	// {
-		// // Make a POST Request to Messaging API to reply to sender
-		// $url = 'https://api.line.me/v2/bot/message/reply';
-		// /*
-		// $data = [
-			// 'replyToken' => $replyToken,
-			// 'messages' => [$messages, $messages],
-		// ];
-		// */
-		// $data = [
-			// 'replyToken' => $replyToken,
-			// 'messages' => $messagesX,
-		// ];
-		
-		// $post = json_encode($data);
-		// $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-
-		// $ch = curl_init($url);
-		// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		// curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-		// curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		// curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-		// $result = curl_exec($ch);
-		// curl_close($ch);
-
-		// echo $result . "\r\n";
-	// }
 	
 }
 
