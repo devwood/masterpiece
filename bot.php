@@ -14,6 +14,7 @@ $events = json_decode($content, true);
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
+	$okreturn = 0;
 	foreach ($events['events'] as $event) 
 	{
 		// Reply only when message sent is in 'text' format
@@ -27,6 +28,8 @@ if (!is_null($events['events'])) {
 			
 			 if (strpos($text, 'all pos') !== false)
 			 {
+				 $okreturn = 1;
+				 
 				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
 				//$know = $know."LOWER('%".$text."%')";
 				$result = pg_exec($dbconn, $know );				
@@ -56,6 +59,8 @@ if (!is_null($events['events'])) {
 			}
 			elseif(strpos($text, 'online pos') !== false)
 			{
+				$okreturn = 1;
+				
 				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" WHERE cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) < 5 ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
 				//$know = $know."LOWER('%".$text."%')";
 				$result = pg_exec($dbconn, $know );				
@@ -94,7 +99,9 @@ if (!is_null($events['events'])) {
 				}
 			}
 			elseif(strpos(strtoupper($text), 'JOB') !== false)
-			{	$text = strtoupper($text);
+			{	
+				$okreturn = 1;
+				$text = strtoupper($text);
 				$text = str_replace("JOB","",$text);
 				$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
 				$know = $know."LOWER('%".$text."%')";
@@ -134,7 +141,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R27='.$return
+					'text' => 'R28='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -144,7 +151,8 @@ if (!is_null($events['events'])) {
 			}
 			else
 			{
-				$messagesX = _resultMSG($dbconn, $event, $text);
+				$okreturn = 0;
+				$messagesX = _resultMSG();
 			}
 			
 			
@@ -163,7 +171,7 @@ if (!is_null($events['events'])) {
 			}
 			
 			
-			if(1==1)
+			if($okreturn ==1)
 			{
 				// Make a POST Request to Messaging API to reply to sender
 				$url = 'https://api.line.me/v2/bot/message/reply';
@@ -237,7 +245,7 @@ if (!is_null($events['events'])) {
 	}
 }
 
-function _resultMSG($dbconn, $event, $text)
+function _resultMSG()
 {
 	// $know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
 	// $know = $know."LOWER('%".$text."%')";
@@ -275,12 +283,13 @@ function _resultMSG($dbconn, $event, $text)
 		
 	
 	$messagesX = array(1);
+	
 	{
 		$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'R27='.$return
+		'text' => 'R28='.$return
 		];
 		
 		$messagesX[0] = $messages;
