@@ -152,7 +152,7 @@ if (!is_null($events['events'])) {
 			else
 			{
 				$okreturn = 0;
-				_resultMSG($text, $dbconn, $event);
+				//_resultMSG($text, $dbconn, $event);
 			}
 			
 			
