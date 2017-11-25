@@ -241,7 +241,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 	
 	
 	
-	$chk_access_loop = 'SELECT GA.*
+	$chk_access_loop = 'SELECT GA.*, GR."ID"
 						FROM "GROUP_ANSWER" GA
 						INNER JOIN "ACTORvsGROUP_ANSWER" GR ON GR."GROUP_ANSWER_ID" = GA."ID"
 						INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
@@ -259,6 +259,9 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 							INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
 							WHERE AC."USER_ID" = '."'".$userX."'".')';	
 		$result = pg_exec($dbconn, $delete_old_loop);
+		
+		$id_ans_grp = pg_fetch_result($result_grp, 0, 4);	
+		
 		
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
