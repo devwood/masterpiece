@@ -148,7 +148,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R06='.$return
+					'text' => 'R07='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -272,7 +272,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R06='.$return
+		'text' => 'FU R07='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -283,7 +283,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R06='.$return
+		'text' => 'FU R07='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -318,7 +318,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R06='.$return." ".$delete_old_loop
+		// 'text' => 'FU R07='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -374,16 +374,16 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	if($numrows_grp > 0)
 	{
 		$cmd_sp = explode(" ", $text);
-		
-		
-		
+		$cmd_exe = $text;
+		$cmd_exe = str_replace($cmd_sp[0],"",$cmd_exe);
+		$cmd_exe = str_replace($cmd_sp[1],"",$cmd_exe);
 		
 		
 		
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R06='.$return." ไปยัง ".$cmd_sp[1]." คำสั่ง ".$cmd_sp[2]
+		'text' => 'FU R07='.$return." ไปยัง ".$cmd_sp[1]." คำสั่ง ".$cmd_exe
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -449,7 +449,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R06='.$return
+		'text' => 'FU R07='.$return
 		];
 		
 		$messagesX[0] = $messages;
