@@ -148,7 +148,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R01='.$return
+					'text' => 'R02='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -272,7 +272,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R01='.$return
+		'text' => 'FU R02='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -283,7 +283,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R01='.$return
+		'text' => 'FU R02='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -318,7 +318,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R01='.$return." ".$delete_old_loop
+		// 'text' => 'FU R02='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -372,10 +372,17 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	
 	if($numrows_grp > 0)
 	{
+		$cmd_sp = explode(" ", $text);
+		
+		
+		
+		
+		
+		
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R01='.$return
+		'text' => 'FU R02='.$return." ไปยัง ".$cmd_sp[1]." คำสั่ง ".$cmd_sp[2]
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -441,7 +448,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R01='.$return
+		'text' => 'FU R02='.$return
 		];
 		
 		$messagesX[0] = $messages;
