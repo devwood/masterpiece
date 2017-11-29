@@ -148,7 +148,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R08='.$return
+					'text' => 'R09='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -272,7 +272,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R08='.$return
+		'text' => 'FU R09='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -283,7 +283,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R08='.$return
+		'text' => 'FU R09='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -318,7 +318,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R08='.$return." ".$delete_old_loop
+		// 'text' => 'FU R09='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -389,17 +389,17 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);		
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R08='.$return." ไปยัง ".$cmd_sp[1]." คำสั่ง ".$cmd_exe
+			'text' => 'FU R09='.$return." ไปยัง ".$cmd_sp[1]." คำสั่ง ".$cmd_exe
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
 		}
 		else
 		{
-			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$query_to
+			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$query_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R08='.$return
+			'text' => 'FU R09='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -466,7 +466,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R08='.$return
+		'text' => 'FU R09='.$return
 		];
 		
 		$messagesX[0] = $messages;
