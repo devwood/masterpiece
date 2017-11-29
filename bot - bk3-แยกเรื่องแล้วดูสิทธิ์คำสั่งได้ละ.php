@@ -27,13 +27,8 @@ if (!is_null($events['events'])) {
 			$numrows = 0;
 			$messagesX = array(1);
 			
-			if (strpos(strtoupper($text), 'XQUERY') !== false)//Case พิเศษสำหรับ XQuery XCLNC
-			{
-				$getResult = "";
-				$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
-				$okreturn = 0;
-			}
-			elseif (strpos($text, 'all pos') !== false)
+			
+			if (strpos($text, 'all pos') !== false)
 			{
 				 $okreturn = 1;
 				 
@@ -148,7 +143,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R01='.$return
+					'text' => 'R59='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -272,7 +267,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R01='.$return
+		'text' => 'FU R59='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -283,7 +278,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R01='.$return
+		'text' => 'FU R59='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -318,7 +313,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R01='.$return." ".$delete_old_loop
+		// 'text' => 'FU R59='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -347,65 +342,6 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 	$getResult = "OK ".$access_token;
 	return $getResult;
 }
-
-function _resultXQUERY($text, $dbconn, $event, $access_token)
-{
-	$getResult = '';
-	
-	
-	
-	$replyToken = $event['replyToken'];
-	$userId = $event['source']['userId'];
-	$userX = $event['source']['userId'];
-	$id = $event['message']['id'];
-	
-	
-	
-	$chk_access_loop = 'SELECT GA.*, GR."ID"
-						FROM "GROUP_ANSWER" GA
-						INNER JOIN "ACTORvsGROUP_ANSWER" GR ON GR."GROUP_ANSWER_ID" = GA."ID"
-						INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
-						WHERE AC."USER_ID" = '."'".$userX."'".'
-						AND GA."QUESTION_START_GROUP" = '."'".$text."'".'';
-	$result_grp = pg_exec($dbconn, $chk_access_loop);
-	$numrows_grp = pg_numrows($result_grp);
-	
-	if($numrows_grp > 0)
-	{
-		$return = pg_fetch_result($result_grp, 0, 3);		
-		$messages = [
-		'type' => 'text',			
-		'text' => 'FU R01='.$return
-		];
-		$messagesX[0] = $messages;
-		$numrows = 1;
-	}
-	
-	if(1==1)
-	{
-		$url = 'https://api.line.me/v2/bot/message/reply';		
-		$data = [
-			'replyToken' => $replyToken,
-			'messages' => $messagesX,
-		];
-		$post = json_encode($data);
-		$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-		$result = curl_exec($ch);
-		curl_close($ch);
-		echo $result . "\r\n";
-	}
-	$getResult = "OK ".$access_token;
-	
-	
-	return $getResult;
-}
-
 
 function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 {
@@ -441,7 +377,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R01='.$return
+		'text' => 'FU R59='.$return
 		];
 		
 		$messagesX[0] = $messages;
