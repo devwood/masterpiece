@@ -148,7 +148,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R10='.$return
+					'text' => 'R11='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -272,7 +272,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R10='.$return
+		'text' => 'FU R11='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -283,7 +283,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R10='.$return
+		'text' => 'FU R11='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -318,7 +318,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R10='.$return." ".$delete_old_loop
+		// 'text' => 'FU R11='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -384,11 +384,14 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		$numrows_touser = pg_numrows($result_touser);
 		
 		if($numrows_touser > 0)
-		{			
+		{	
+			$ins_cmd = "INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST") VALUES ('".$access_token."', '".$cmd_to."', '".$cmd_str."');";
+			$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
+	
 			$return = pg_fetch_result($result_grp, 0, 3);		
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R10='.$return." ไปยัง ".$cmd_to." คำสั่ง ".$cmd_str
+			'text' => 'FU R11='.$return." ไปยัง ".$cmd_to." คำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -398,7 +401,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R10='.$return
+			'text' => 'FU R11='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -465,7 +468,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R10='.$return
+		'text' => 'FU R11='.$return
 		];
 		
 		$messagesX[0] = $messages;
