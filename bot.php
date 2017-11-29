@@ -148,7 +148,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R09='.$return
+					'text' => 'R10='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -272,7 +272,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R09='.$return
+		'text' => 'FU R10='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -283,7 +283,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R09='.$return
+		'text' => 'FU R10='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -318,7 +318,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R09='.$return." ".$delete_old_loop
+		// 'text' => 'FU R10='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -373,14 +373,13 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	
 	if($numrows_grp > 0)
 	{
-		$cmd_sp = explode(" ", $text);
-		$cmd_exe = $text;
-		$cmd_exe = str_replace($cmd_sp[0],"",$cmd_exe);
-		$cmd_exe = str_replace($cmd_sp[1],"",$cmd_exe);
-		$query_to = trim($cmd_sp[1]);
+		$cmd_sp = explode("XQUERY", strtoupper($text));
+		$cmd_to = $cmd_sp [0];
+		$cmd_str = $cmd_sp [1];
+		$cmd_to = trim($cmd_to);
 		
 		
-		$check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE "TOKEN" = '."'".$query_to."'";
+		$check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE "TOKEN" = '."'".$cmd_to."'";
 		$result_touser = pg_exec($dbconn, $check_user);
 		$numrows_touser = pg_numrows($result_touser);
 		
@@ -389,17 +388,17 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);		
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R09='.$return." ไปยัง ".$cmd_sp[1]." คำสั่ง ".$cmd_exe
+			'text' => 'FU R10='.$return." ไปยัง ".$cmd_to." คำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
 		}
 		else
 		{
-			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$query_to;
+			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R09='.$return
+			'text' => 'FU R10='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -466,7 +465,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R09='.$return
+		'text' => 'FU R10='.$return
 		];
 		
 		$messagesX[0] = $messages;
