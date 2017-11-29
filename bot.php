@@ -148,7 +148,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R04='.$return
+					'text' => 'R05='.$return
 					];
 					
 					$messagesX[0] = $messages;
@@ -272,7 +272,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R04='.$return
+		'text' => 'FU R05='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -283,7 +283,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R04='.$return
+		'text' => 'FU R05='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -318,7 +318,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R04='.$return." ".$delete_old_loop
+		// 'text' => 'FU R05='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -361,12 +361,13 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	
 	
 	
+	$whereQ = 'xquery'
 	$chk_access_loop = 'SELECT GA.*, GR."ID"
 						FROM "GROUP_ANSWER" GA
 						INNER JOIN "ACTORvsGROUP_ANSWER" GR ON GR."GROUP_ANSWER_ID" = GA."ID"
 						INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
 						WHERE AC."USER_ID" = '."'".$userX."'".'
-						AND GA."QUESTION_START_GROUP" = '."'".$text."'".'';
+						AND GA."QUESTION_START_GROUP" = '."'".$whereQ."'".'';
 	$result_grp = pg_exec($dbconn, $chk_access_loop);
 	$numrows_grp = pg_numrows($result_grp);
 	
@@ -382,7 +383,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R04='.$return//." ไปยัง ".$cmd_sp[1]." คำสั่ง ".$cmd_sp[2]
+		'text' => 'FU R05='.$return." ไปยัง ".$cmd_sp[1]." คำสั่ง ".$cmd_sp[2]
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -448,7 +449,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R04='.$return
+		'text' => 'FU R05='.$return
 		];
 		
 		$messagesX[0] = $messages;
