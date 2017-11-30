@@ -57,4 +57,4 @@ $events = json_decode($content, true);
 			$result = curl_exec($ch);
 			curl_close($ch);
 
-			echo $result . $_GET["name"]. "  DATA=".$data;
+			echo $result . $_GET["name"]. "  DATA1=".$messages;
