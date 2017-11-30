@@ -391,7 +391,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);		
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R13='.$return." ไปยัง ".$cmd_to." คำสั่ง ".$cmd_str.'  ==> '.$ins_cmd
+			'text' => 'FU R13='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
