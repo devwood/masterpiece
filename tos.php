@@ -33,7 +33,7 @@ if (!is_null($events['events'])) {
 			
 			if(1=1)
 			{
-				$check_user = 'SELECT * FROM "TOS"."TOKEN"; WHERE "STATUS"='"'"."OK"."'".' AND "TOKEN" = '."'".$userX."'";
+				$check_user = 'SELECT * FROM "TOS"."TOKEN"; WHERE "STATUS"='."'"."OK"."'".' AND "TOKEN" = '."'".$userX."'";
 				$result = pg_exec($dbconn, $check_user);
 				$numrows = pg_numrows($result);
 				if($numrows <= 0)
