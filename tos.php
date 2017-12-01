@@ -31,7 +31,7 @@ if (!is_null($events['events'])) {
 			$userX = $event['source']['userId'];
 			$id = $event['message']['id'];
 			
-			if(1=1)
+			if(1=0)
 			{
 				$check_user = 'SELECT * FROM "TOS"."TOKEN"; WHERE "STATUS"='."'"."OK"."'".' AND "TOKEN" = '."'".$userX."'";
 				$result = pg_exec($dbconn, $check_user);
