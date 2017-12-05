@@ -38,8 +38,8 @@ if (!is_null($events['events'])) {
 				$check_user = 'SELECT * FROM "TOS"."TOKEN"; WHERE "STATUS"='."'"."OK"."'".' AND "TOKEN" = '."'".$userX."'";
 				$result = pg_exec($dbconn, $check_user);
 				$numrows = pg_numrows($result);
-				// if($numrows <= 0)
-				// {
+				if($numrows <= 0)
+				{
 					
 					// $check_user = 'SELECT * FROM "TOS"."TOKEN"; WHERE "TOKEN" = '."'".$userX."'";
 					// $result = pg_exec($dbconn, $check_user);
@@ -63,7 +63,7 @@ if (!is_null($events['events'])) {
 								// ];
 								// $messagesX[0] = $messages;
 					// }								
-				// }
+				}
 			}
 			else
 			{
@@ -77,7 +77,7 @@ if (!is_null($events['events'])) {
 			
 			$messages = [
 				'type' => 'text',			
-				'text' => 'R4 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
+				'text' => 'R5 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
 				];
 				$messagesX[0] = $messages;
 			
