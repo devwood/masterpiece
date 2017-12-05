@@ -46,7 +46,7 @@ if (!is_null($events['events'])) {
 				if($numrows <= 0)
 				{
 					
-					$check_user = 'SELECT * FROM "TOS"."TOKEN" WHERE "STATUS"='."'"."OK"."'".' AND "TOKEN" = '."'".$userX."'";
+					$check_user = 'SELECT * FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'";
 					$result = pg_exec($dbconn, $check_user);
 					$numrows = pg_numrows($result);
 					if($numrows <= 0)
@@ -57,16 +57,16 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R6 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '.$insert_newuser
+								'text' => 'R7 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '.$insert_newuser
 								];
 								$messagesX[0] = $messages;
 					}
 					else
 					{
-						$loop = '4';
+
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R6 ผู้ใช้ยังไม่ได้รับอณุญาติ'
+								'text' => 'R7 ผู้ใช้ยังไม่ได้รับอณุญาติ'
 								];
 								$messagesX[0] = $messages;
 					}								
