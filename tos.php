@@ -36,8 +36,8 @@ if (!is_null($events['events'])) {
 				$s = 1;
 				
 				$check_user = 'SELECT * FROM "TOS"."TOKEN"; WHERE "STATUS"='."'"."OK"."'".' AND "TOKEN" = '."'".$userX."'";
-				// $result = pg_exec($dbconn, $check_user);
-				// $numrows = pg_numrows($result);
+				$result = pg_exec($dbconn, $check_user);
+				$numrows = pg_numrows($result);
 				// if($numrows <= 0)
 				// {
 					
@@ -77,7 +77,7 @@ if (!is_null($events['events'])) {
 			
 			$messages = [
 				'type' => 'text',			
-				'text' => 'R3 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
+				'text' => 'R4 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
 				];
 				$messagesX[0] = $messages;
 			
