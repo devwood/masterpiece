@@ -33,10 +33,11 @@ if (!is_null($events['events'])) {
 		
 			if(1==0)
 			{
-				
+				$s = 1;
 			}
 			else
 			{
+				$s = 0;
 				// $messages = [
 				// 'type' => 'text',			
 				// 'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
@@ -46,7 +47,7 @@ if (!is_null($events['events'])) {
 			
 			$messages = [
 				'type' => 'text',			
-				'text' => 'R1 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
+				'text' => 'R2 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
 				];
 				$messagesX[0] = $messages;
 			
