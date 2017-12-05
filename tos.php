@@ -75,11 +75,11 @@ if (!is_null($events['events'])) {
 				// $messagesX[0] = $messages;
 			}
 			
-			$messages = [
-				'type' => 'text',			
-				'text' => 'R6 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
-				];
-				$messagesX[0] = $messages;
+			// $messages = [
+				// 'type' => 'text',			
+				// 'text' => 'R6 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
+				// ];
+				// $messagesX[0] = $messages;
 			
 			_sendOut($access_token, $replyToken, $messagesX);
 				
