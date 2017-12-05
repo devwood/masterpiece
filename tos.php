@@ -31,10 +31,22 @@ if (!is_null($events['events'])) {
 			$userX = $event['source']['userId'];
 			$id = $event['message']['id'];
 		
+			if(1=0)
+			{
+				
+			}
+			else
+			{
+				// $messages = [
+				// 'type' => 'text',			
+				// 'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
+				// ];
+				// $messagesX[0] = $messages;
+			}
 			
 			$messages = [
 				'type' => 'text',			
-				'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
+				'text' => 'R1 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
 				];
 				$messagesX[0] = $messages;
 			
