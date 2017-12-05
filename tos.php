@@ -57,24 +57,18 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R4 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '.$insert_newuser
+								'text' => 'R5 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '.$insert_newuser
 								];
 								$messagesX[0] = $messages;
-								
-								$loop = '2';
-								
-								
-								$loop = '3';
 					}
 					else
 					{
 						$loop = '4';
 						$messages = [
 								'type' => 'text',			
-								'text' => 'ผู้ใช้ยังไม่ได้รับอณุญาติ'
+								'text' => 'R5 ผู้ใช้ยังไม่ได้รับอณุญาติ'
 								];
 								$messagesX[0] = $messages;
-								$loop = '5';
 					}								
 				}
 			}
@@ -87,12 +81,6 @@ if (!is_null($events['events'])) {
 				// ];
 				// $messagesX[0] = $messages;
 			}
-			
-			// $messages = [
-				// 'type' => 'text',			
-				// 'text' => 'R11 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX.'  '.$loop
-				// ];
-				// $messagesX[0] = $messages;
 			
 			_sendOut($access_token, $replyToken, $messagesX);
 				
