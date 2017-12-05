@@ -31,7 +31,7 @@ if (!is_null($events['events'])) {
 			$userX = $event['source']['userId'];
 			$id = $event['message']['id'];
 		
-			if(1=0)
+			if(1==0)
 			{
 				
 			}
