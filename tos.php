@@ -31,6 +31,8 @@ if (!is_null($events['events'])) {
 			$userX = $event['source']['userId'];
 			$id = $event['message']['id'];
 		
+			$loop = '001';
+		
 			if(1==0)
 			{
 				$s = 1;
@@ -52,16 +54,21 @@ if (!is_null($events['events'])) {
 								];
 								$messagesX[0] = $messages;
 								
+								$loop = '2';
+								
 								$insert_newuser = 'INSERT INTO "TOS"."TOKEN"("TOKEN", "STATUS") VALUES ('."'".$userX."'".','."'"."'".')';
 								$result = pg_exec($dbconn, $insert_newuser);
+								$loop = '3';
 					}
 					else
 					{
+						$loop = '4';
 						$messages = [
 								'type' => 'text',			
 								'text' => 'ผู้ใช้ยังไม่ได้รับอณุญาติ'
 								];
 								$messagesX[0] = $messages;
+								$loop = '5';
 					}								
 				}
 			}
@@ -75,11 +82,11 @@ if (!is_null($events['events'])) {
 				// $messagesX[0] = $messages;
 			}
 			
-			// $messages = [
-				// 'type' => 'text',			
-				// 'text' => 'R6 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
-				// ];
-				// $messagesX[0] = $messages;
+			$messages = [
+				'type' => 'text',			
+				'text' => 'R7 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX.'  '.$loop
+				];
+				$messagesX[0] = $messages;
 			
 			_sendOut($access_token, $replyToken, $messagesX);
 				
