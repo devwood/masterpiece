@@ -41,28 +41,28 @@ if (!is_null($events['events'])) {
 				if($numrows <= 0)
 				{
 					
-					// $check_user = 'SELECT * FROM "TOS"."TOKEN"; WHERE "TOKEN" = '."'".$userX."'";
-					// $result = pg_exec($dbconn, $check_user);
-					// $numrows = pg_numrows($result);
-					// if($numrows <= 0)
-					// {
-						// $messages = [
-								// 'type' => 'text',			
-								// 'text' => 'ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ'
-								// ];
-								// $messagesX[0] = $messages;
+					$check_user = 'SELECT * FROM "TOS"."TOKEN"; WHERE "TOKEN" = '."'".$userX."'";
+					$result = pg_exec($dbconn, $check_user);
+					$numrows = pg_numrows($result);
+					if($numrows <= 0)
+					{
+						$messages = [
+								'type' => 'text',			
+								'text' => 'ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ'
+								];
+								$messagesX[0] = $messages;
 								
-								// $insert_newuser = 'INSERT INTO "TOS"."TOKEN"("TOKEN", "STATUS") VALUES ('."'".$userX."'".','."'"."'".')';
-								// $result = pg_exec($dbconn, $insert_newuser);
-					// }
-					// else
-					// {
-						// $messages = [
-								// 'type' => 'text',			
-								// 'text' => 'ผู้ใช้ยังไม่ได้รับอณุญาติ'
-								// ];
-								// $messagesX[0] = $messages;
-					// }								
+								$insert_newuser = 'INSERT INTO "TOS"."TOKEN"("TOKEN", "STATUS") VALUES ('."'".$userX."'".','."'"."'".')';
+								$result = pg_exec($dbconn, $insert_newuser);
+					}
+					else
+					{
+						$messages = [
+								'type' => 'text',			
+								'text' => 'ผู้ใช้ยังไม่ได้รับอณุญาติ'
+								];
+								$messagesX[0] = $messages;
+					}								
 				}
 			}
 			else
@@ -77,7 +77,7 @@ if (!is_null($events['events'])) {
 			
 			$messages = [
 				'type' => 'text',			
-				'text' => 'R5 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
+				'text' => 'R6 สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
 				];
 				$messagesX[0] = $messages;
 			
