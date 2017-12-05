@@ -51,16 +51,19 @@ if (!is_null($events['events'])) {
 					$numrows = pg_numrows($result);
 					if($numrows <= 0)
 					{
+						$insert_newuser = 'INSERT INTO "TOS"."TOKEN"("TOKEN", "STATUS") VALUES ('."'".$userX."'".','."'"."'".')';
+						$result = pg_exec($dbconn, $insert_newuser);
+						
+						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ'
+								'text' => 'R2 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '.insert_newuser
 								];
 								$messagesX[0] = $messages;
 								
 								$loop = '2';
 								
-								$insert_newuser = 'INSERT INTO "TOS"."TOKEN"("TOKEN", "STATUS") VALUES ('."'".$userX."'".','."'"."'".')';
-								$result = pg_exec($dbconn, $insert_newuser);
+								
 								$loop = '3';
 					}
 					else
