@@ -54,7 +54,7 @@ if (!is_null($events['events'])) {
 			
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R21 ALL POS='. $returnonline
+				'text' => 'FU R23 ALL POS='. $returnonline
 				];
 				$messagesX[0] = $messages;
 				
@@ -63,46 +63,48 @@ if (!is_null($events['events'])) {
 			elseif(strtoupper($text) == 'ONLINE POS')
 			{
 				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" WHERE cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) < 5 ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
-				$result = pg_exec($dbconn, $know );				
-				$numrows = pg_numrows($result);
+				// $result = pg_exec($dbconn, $know );				
+				// $numrows = pg_numrows($result);
 				
-				$return = '';
+				// $return = '';
 				
-				// Get replyToken
-				$replyToken = $event['replyToken'];
-				$userId = $event['source']['userId'];
-				$userX = $event['source']['userId'];
-				$id = $event['message']['id'];
+				// // Get replyToken
+				// $replyToken = $event['replyToken'];
+				// $userId = $event['source']['userId'];
+				// $userX = $event['source']['userId'];
+				// $id = $event['message']['id'];
 				
-				if($numrows > 0)
-				{
-					$returnonline = '';
+				// if($numrows > 0)
+				// {
+					// $returnonline = '';
 
-					while ($row = pg_fetch_row($result)) 
-					{					
-						$returnonline = $returnonline.$row[0]."\r\n";					
-					}
+					// while ($row = pg_fetch_row($result)) 
+					// {					
+						// $returnonline = $returnonline.$row[0]."\r\n";					
+					// }
 				
-					$messages = [
-					'type' => 'text',			
-					'text' => 'FU R21='.$returnonline
-					];
-					$messagesX[0] = $messages;
-				}
-				else
+					// $messages = [
+					// 'type' => 'text',			
+					// 'text' => 'FU R23='.$returnonline
+					// ];
+					// $messagesX[0] = $messages;
+				// }
+				// else
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => 'ไม่มีข้อมูล POS Online ใน 5 นาทีนี้'
+					'text' => 'FU R23 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้'
 					];
 					$messagesX[0] = $messages;
 				}
+				
+				_sendOut($access_token, $replyToken, $messagesX);
 			}
 			else
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R21='.strtoupper($text)
+				'text' => 'FU R23='.strtoupper($text)
 				];
 				$messagesX[0] = $messages;
 				
@@ -175,7 +177,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R21='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R23='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -185,7 +187,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R21='.$return
+			'text' => 'FU R23='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
