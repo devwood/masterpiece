@@ -46,7 +46,7 @@ if (!is_null($events['events'])) {
 			
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R26 ALL POS='. $returnonline
+				'text' => 'FU R27 ALL POS='. $returnonline
 				];
 				$messagesX[0] = $messages;
 				
@@ -61,26 +61,26 @@ if (!is_null($events['events'])) {
 				$return = '';
 				
 				
-				// if($numrows > 0)
-				// {
-					// $returnonline = '';
+				if($numrows > 0)
+				{
+					$returnonline = '';
 
-					// while ($row = pg_fetch_row($result)) 
-					// {					
-						// $returnonline = $returnonline.$row[0]."\r\n";					
-					// }
+					while ($row = pg_fetch_row($result)) 
+					{					
+						$returnonline = $returnonline.$row[0]."\r\n";					
+					}
 				
-					// $messages = [
-					// 'type' => 'text',			
-					// 'text' => 'FU R26='.$returnonline
-					// ];
-					// $messagesX[0] = $messages;
-				// }
-				// else
+					$messages = [
+					'type' => 'text',			
+					'text' => 'FU R27='.$returnonline
+					];
+					$messagesX[0] = $messages;
+				}
+				else
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => 'FU R26 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
+					'text' => 'FU R27 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
 					];
 					$messagesX[0] = $messages;
 				}
@@ -91,7 +91,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R26='.strtoupper($text)
+				'text' => 'FU R27='.strtoupper($text)
 				];
 				$messagesX[0] = $messages;
 				
@@ -164,7 +164,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R26='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R27='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -174,7 +174,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R26='.$return
+			'text' => 'FU R27='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
