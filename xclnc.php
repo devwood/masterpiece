@@ -46,7 +46,7 @@ if (!is_null($events['events'])) {
 			
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R31 ALL POS='. $returnonline
+				'text' => 'FU R32 ALL POS='. $returnonline
 				];
 				$messagesX[0] = $messages;
 				
@@ -72,7 +72,7 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => 'FU R31='.$returnonline
+					'text' => 'FU R32='.$returnonline
 					];
 					$messagesX[0] = $messages;
 				}
@@ -80,7 +80,7 @@ if (!is_null($events['events'])) {
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => 'FU R31 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
+					'text' => 'FU R32 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
 					];
 					$messagesX[0] = $messages;
 				}
@@ -91,7 +91,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R31='.strtoupper($text)
+				'text' => 'FU R32='.strtoupper($text)
 				];
 				$messagesX[0] = $messages;
 				
@@ -165,7 +165,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R31='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R32='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -175,7 +175,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R31='.$return
+			'text' => 'FU R32='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -188,10 +188,10 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
 		
 		
-		$return = $userX.' ยังไม่ได้รับอณุญาติให้เข้าระบบ';
+		$return = $userX.' ยังไม่ได้รับอณุญาติให้เข้าระบบ='.$ins_cmd;
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R31='.$return
+		'text' => 'FU R32='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
