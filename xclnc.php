@@ -37,14 +37,6 @@ if (!is_null($events['events'])) {
 				$numrows = pg_numrows($result);
 				
 				$return = '';
-				
-				// Get replyToken
-				$replyToken = $event['replyToken'];
-				$userId = $event['source']['userId'];
-				$userX = $event['source']['userId'];
-				$id = $event['message']['id'];
-				
-				
 				$returnonline = '';
 
 				while ($row = pg_fetch_row($result)) 
@@ -54,7 +46,7 @@ if (!is_null($events['events'])) {
 			
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R25 ALL POS='. $returnonline
+				'text' => 'FU R26 ALL POS='. $returnonline
 				];
 				$messagesX[0] = $messages;
 				
@@ -66,13 +58,8 @@ if (!is_null($events['events'])) {
 				$result = pg_exec($dbconn, $know );				
 				$numrows = pg_numrows($result);
 				
-				// $return = '';
+				$return = '';
 				
-				// // Get replyToken
-				// $replyToken = $event['replyToken'];
-				// $userId = $event['source']['userId'];
-				// $userX = $event['source']['userId'];
-				// $id = $event['message']['id'];
 				
 				// if($numrows > 0)
 				// {
@@ -85,7 +72,7 @@ if (!is_null($events['events'])) {
 				
 					// $messages = [
 					// 'type' => 'text',			
-					// 'text' => 'FU R25='.$returnonline
+					// 'text' => 'FU R26='.$returnonline
 					// ];
 					// $messagesX[0] = $messages;
 				// }
@@ -93,7 +80,7 @@ if (!is_null($events['events'])) {
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => 'FU R25 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้'
+					'text' => 'FU R26 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
 					];
 					$messagesX[0] = $messages;
 				}
@@ -104,7 +91,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R25='.strtoupper($text)
+				'text' => 'FU R26='.strtoupper($text)
 				];
 				$messagesX[0] = $messages;
 				
@@ -177,7 +164,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R25='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R26='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -187,7 +174,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R25='.$return
+			'text' => 'FU R26='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
