@@ -33,7 +33,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R11='
+				'text' => 'FU R12='
 				];
 				$messagesX[0] = $messages;
 				
@@ -88,12 +88,22 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	
 	if($numrows_grp > 0)
 	{
-	$return = 'ไม่มีข้อมูลฐานข้อมูล '.$text;
-			$messages = [
-			'type' => 'text',			
-			'text' => 'FU R11='.$return
-			];
-			$messagesX[0] = $messages;
+		$return = 'ไม่มีข้อมูลฐานข้อมูล '.$text;
+		$messages = [
+		'type' => 'text',			
+		'text' => 'FU R12='.$return
+		];
+		$messagesX[0] = $messages;
+	}
+	else
+	{
+		$return = 'ไม่มีข้อมูลฐานข้อมูล: '.$chk_access_loop;
+		$messages = [
+		'type' => 'text',			
+		'text' => 'FU R12='.$return
+		];
+		$messagesX[0] = $messages;
+
 	}
 	
 	// if($numrows_grp > 0)
@@ -116,7 +126,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			// $return = pg_fetch_result($result_grp, 0, 3);		
 			// $messages = [
 			// 'type' => 'text',			
-			// 'text' => 'FU R11='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			// 'text' => 'FU R12='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			// ];
 			// $messagesX[0] = $messages;
 			// $numrows = 1;
@@ -126,7 +136,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			// $return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			// $messages = [
 			// 'type' => 'text',			
-			// 'text' => 'FU R11='.$return
+			// 'text' => 'FU R12='.$return
 			// ];
 			// $messagesX[0] = $messages;
 			// $numrows = 1;
