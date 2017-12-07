@@ -27,13 +27,13 @@ if (!is_null($events['events'])) {
 			$numrows = 0;
 			$messagesX = array(1);
 			
-			if (strpos(strtoupper($text), 'XQUERY') !== false)//Case พิเศษสำหรับ XQuery XCLNC
+			if (strpos(strtoupper($text), 'XQUERY') == true)//Case พิเศษสำหรับ XQuery XCLNC
 			{
 				$getResult = "";
 				$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
 				$okreturn = 0;
 			}
-			elseif (strpos($text, 'all pos') !== false)
+			elseif (strpos($text, 'all pos') == true)
 			{
 				 $okreturn = 1;
 				 
@@ -64,7 +64,7 @@ if (!is_null($events['events'])) {
 				];
 				$messagesX[0] = $messages;
 			}
-			elseif(strpos($text, 'online pos') !== false)
+			elseif(strpos($text, 'online pos') == true)
 			{
 				$okreturn = 1;
 				
@@ -104,58 +104,7 @@ if (!is_null($events['events'])) {
 					];
 					$messagesX[0] = $messages;
 				}
-			}
-			elseif(strpos(strtoupper($text), 'JOB') !== false)
-			{	
-				$okreturn = 1;
-				$text = strtoupper($text);
-				$text = str_replace("JOB","",$text);
-				$know = 'SELECT * FROM "KNOW" WHERE LOWER("FACTOR") like ';
-				$know = $know."LOWER('%".$text."%')";
-				$result = pg_exec($dbconn, $know );				
-				$numrows = pg_numrows($result);
-				
-				$return = '';
-				
-				// Get replyToken
-				$replyToken = $event['replyToken'];
-				$userId = $event['source']['userId'];
-				$userX = $event['source']['userId'];
-				$id = $event['message']['id'];
-
-
-
-				$messagesX = array($numrows+1);				
-				$retMsg = 0;
-				
-				if($numrows > 0)
-				{
-					while ($row = pg_fetch_row($result)) 
-					{					
-						$return = 'JOB='.$row[1].' '.$row[2].'; ';
-						$messages = [
-						'type' => 'text',			
-						'text' => $return
-						];
-
-						$messagesX[$retMsg] = $messages;
-						$retMsg++;
-					}
-				}
-				else
-				{
-					$return = 'ไม่มีผลลัพธ์ที่ต้องการ';
-					
-					$messages = [
-					'type' => 'text',			
-					'text' => 'R13='.$return
-					];
-					
-					$messagesX[0] = $messages;
-					$numrows = 1;
-				}
-				// Build message to reply back
-			}
+			}			
 			else
 			{
 				$getResult = "";
@@ -272,7 +221,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R13='.$return
+		'text' => 'FU R1='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -283,7 +232,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R13='.$return
+		'text' => 'FU R1='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -318,7 +267,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R13='.$return." ".$delete_old_loop
+		// 'text' => 'FU R1='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -391,7 +340,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);		
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R13='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R1='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -401,7 +350,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R13='.$return
+			'text' => 'FU R1='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -468,7 +417,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R13='.$return
+		'text' => 'FU R1='.$return
 		];
 		
 		$messagesX[0] = $messages;
