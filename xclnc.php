@@ -54,7 +54,7 @@ if (!is_null($events['events'])) {
 			
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R17='. $returnonline
+				'text' => 'FU R18 ALL POS='. $returnonline
 				];
 				$messagesX[0] = $messages;
 				
@@ -64,7 +64,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R17='
+				'text' => 'FU R18='
 				];
 				$messagesX[0] = $messages;
 				
@@ -137,7 +137,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R17='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R18='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -147,7 +147,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R17='.$return
+			'text' => 'FU R18='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
