@@ -33,7 +33,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R7='
+				'text' => 'FU R8='
 				];
 				$messagesX[0] = $messages;
 				
@@ -75,20 +75,20 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	$userX = $event['source']['userId'];
 	$id = $event['message']['id'];
 	
-	// $whereQ = 'xquery';
-	// $chk_access_loop = 'SELECT GA.*, GR."ID"
-						// FROM "GROUP_ANSWER" GA
-						// INNER JOIN "ACTORvsGROUP_ANSWER" GR ON GR."GROUP_ANSWER_ID" = GA."ID"
-						// INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
-						// WHERE AC."USER_ID" = '."'".$userX."'".'
-						// AND GA."QUESTION_START_GROUP" = '."'".$whereQ."'".'';
+	$whereQ = 'xquery';
+	$chk_access_loop = 'SELECT GA.*, GR."ID"
+						FROM "GROUP_ANSWER" GA
+						INNER JOIN "ACTORvsGROUP_ANSWER" GR ON GR."GROUP_ANSWER_ID" = GA."ID"
+						INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
+						WHERE AC."USER_ID" = '."'".$userX."'".'
+						AND GA."QUESTION_START_GROUP" = '."'".$whereQ."'".'';
 	// $result_grp = pg_exec($dbconn, $chk_access_loop);
 	// $numrows_grp = pg_numrows($result_grp);
 	$messagesX = array(1);
 	$return = 'ไม่มีข้อมูลฐานข้อมูล '.$text;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R7='.$return
+			'text' => 'FU R8='.$return
 			];
 			$messagesX[0] = $messages;
 
@@ -114,7 +114,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			// $return = pg_fetch_result($result_grp, 0, 3);		
 			// $messages = [
 			// 'type' => 'text',			
-			// 'text' => 'FU R7='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			// 'text' => 'FU R8='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			// ];
 			// $messagesX[0] = $messages;
 			// $numrows = 1;
@@ -124,7 +124,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			// $return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			// $messages = [
 			// 'type' => 'text',			
-			// 'text' => 'FU R7='.$return
+			// 'text' => 'FU R8='.$return
 			// ];
 			// $messagesX[0] = $messages;
 			// $numrows = 1;
