@@ -27,13 +27,13 @@ if (!is_null($events['events'])) {
 			$numrows = 0;
 			$messagesX = array(1);
 			
-			if (strpos(strtoupper($text), 'XQUERY') == true)//Case พิเศษสำหรับ XQuery XCLNC
+			if (strpos(strtoupper($text), 'XQUERY') !== false)//Case พิเศษสำหรับ XQuery XCLNC
 			{
 				$getResult = "";
 				$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
 				$okreturn = 0;
 			}
-			elseif (strpos($text, 'all pos') == true)
+			elseif (strpos($text, 'all pos') !== false)
 			{
 				 $okreturn = 1;
 				 
@@ -64,7 +64,7 @@ if (!is_null($events['events'])) {
 				];
 				$messagesX[0] = $messages;
 			}
-			elseif(strpos($text, 'online pos') == true)
+			elseif(strpos($text, 'online pos') !== false)
 			{
 				$okreturn = 1;
 				
@@ -111,7 +111,7 @@ if (!is_null($events['events'])) {
 				// $getResult = _resultMSG($text, $dbconn, $event, $access_token);
 				messages = [
 				'type' => 'text',			
-				'text' => 'R2 สอบถามโดย:'.$userX
+				'text' => 'R3 สอบถามโดย:'.$userX
 				];
 				$messagesX[$numrows] = $messages;
 				
@@ -227,7 +227,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R2='.$return
+		'text' => 'FU R3='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -238,7 +238,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R2='.$return
+		'text' => 'FU R3='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -273,7 +273,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R2='.$return." ".$delete_old_loop
+		// 'text' => 'FU R3='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -346,7 +346,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);		
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R2='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R3='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -356,7 +356,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R2='.$return
+			'text' => 'FU R3='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -423,7 +423,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R2='.$return
+		'text' => 'FU R3='.$return
 		];
 		
 		$messagesX[0] = $messages;
