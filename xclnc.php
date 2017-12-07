@@ -33,7 +33,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R15='
+				'text' => 'FU R16='
 				];
 				$messagesX[0] = $messages;
 				
@@ -103,10 +103,10 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST") VALUES ('."'".$access_token."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".');';
 			$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
 	
-			$return = pg_fetch_result($result_grp, 0, 3);		
+			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R15='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R16='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -116,7 +116,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R15='.$return
+			'text' => 'FU R16='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
