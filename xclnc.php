@@ -33,7 +33,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R5='
+				'text' => 'FU R7='
 				];
 				$messagesX[0] = $messages;
 				
@@ -75,52 +75,61 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	$userX = $event['source']['userId'];
 	$id = $event['message']['id'];
 	
-	$whereQ = 'xquery';
-	$chk_access_loop = 'SELECT GA.*, GR."ID"
-						FROM "GROUP_ANSWER" GA
-						INNER JOIN "ACTORvsGROUP_ANSWER" GR ON GR."GROUP_ANSWER_ID" = GA."ID"
-						INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
-						WHERE AC."USER_ID" = '."'".$userX."'".'
-						AND GA."QUESTION_START_GROUP" = '."'".$whereQ."'".'';
-	$result_grp = pg_exec($dbconn, $chk_access_loop);
-	$numrows_grp = pg_numrows($result_grp);
-	
-	if($numrows_grp > 0)
-	{
-		$cmd_sp = explode("XQUERY", strtoupper($text));
-		$cmd_to = $cmd_sp [0];
-		$cmd_str = $cmd_sp [1];
-		$cmd_to = trim($cmd_to);
-		
-		
-		$check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE "TOKEN" = '."'".$cmd_to."'";
-		$result_touser = pg_exec($dbconn, $check_user);
-		$numrows_touser = pg_numrows($result_touser);
-		
-		if($numrows_touser > 0)
-		{	
-			$ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST") VALUES ('."'".$access_token."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".');';
-			$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
-	
-			$return = pg_fetch_result($result_grp, 0, 3);		
+	// $whereQ = 'xquery';
+	// $chk_access_loop = 'SELECT GA.*, GR."ID"
+						// FROM "GROUP_ANSWER" GA
+						// INNER JOIN "ACTORvsGROUP_ANSWER" GR ON GR."GROUP_ANSWER_ID" = GA."ID"
+						// INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
+						// WHERE AC."USER_ID" = '."'".$userX."'".'
+						// AND GA."QUESTION_START_GROUP" = '."'".$whereQ."'".'';
+	// $result_grp = pg_exec($dbconn, $chk_access_loop);
+	// $numrows_grp = pg_numrows($result_grp);
+	$messagesX = array(1);
+	$return = 'ไม่มีข้อมูลฐานข้อมูล '.$text;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R5='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R7='.$return
 			];
 			$messagesX[0] = $messages;
-			$numrows = 1;
-		}
-		else
-		{
-			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
-			$messages = [
-			'type' => 'text',			
-			'text' => 'FU R5='.$return
-			];
-			$messagesX[0] = $messages;
-			$numrows = 1;
-		}
-	}
+
+	
+	
+	// if($numrows_grp > 0)
+	// {
+		// $cmd_sp = explode("XQUERY", strtoupper($text));
+		// $cmd_to = $cmd_sp [0];
+		// $cmd_str = $cmd_sp [1];
+		// $cmd_to = trim($cmd_to);
+		
+		
+		// $check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE "TOKEN" = '."'".$cmd_to."'";
+		// $result_touser = pg_exec($dbconn, $check_user);
+		// $numrows_touser = pg_numrows($result_touser);
+		
+		// if($numrows_touser > 0)
+		// {	
+			// $ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST") VALUES ('."'".$access_token."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".');';
+			// $result_ins_cmd = pg_exec($dbconn, $ins_cmd);
+	
+			// $return = pg_fetch_result($result_grp, 0, 3);		
+			// $messages = [
+			// 'type' => 'text',			
+			// 'text' => 'FU R7='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			// ];
+			// $messagesX[0] = $messages;
+			// $numrows = 1;
+		// }
+		// else
+		// {
+			// $return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
+			// $messages = [
+			// 'type' => 'text',			
+			// 'text' => 'FU R7='.$return
+			// ];
+			// $messagesX[0] = $messages;
+			// $numrows = 1;
+		// }
+	// }
 	
 	if(1==1)
 	{
