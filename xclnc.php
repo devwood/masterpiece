@@ -33,7 +33,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R12='
+				'text' => 'FU R13='
 				];
 				$messagesX[0] = $messages;
 				
@@ -88,60 +88,40 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	
 	if($numrows_grp > 0)
 	{
-		$return = 'ไม่มีข้อมูลฐานข้อมูล '.$text;
-		$messages = [
-		'type' => 'text',			
-		'text' => 'FU R12='.$return
-		];
-		$messagesX[0] = $messages;
-	}
-	else
-	{
-		$return = 'ไม่มีข้อมูลฐานข้อมูล: '.$chk_access_loop;
-		$messages = [
-		'type' => 'text',			
-		'text' => 'FU R12='.$return
-		];
-		$messagesX[0] = $messages;
-
-	}
+		$cmd_sp = explode("XQUERY", strtoupper($text));
+		$cmd_to = $cmd_sp [0];
+		$cmd_str = $cmd_sp [1];
+		$cmd_to = trim($cmd_to);
+		
+		
+		$check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE "TOKEN" = '."'".$cmd_to."'";
+		$result_touser = pg_exec($dbconn, $check_user);
+		$numrows_touser = pg_numrows($result_touser);
+		
+		if($numrows_touser > 0)
+		{	
+			$ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST") VALUES ('."'".$access_token."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".');';
+			$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
 	
-	// if($numrows_grp > 0)
-	// {
-		// $cmd_sp = explode("XQUERY", strtoupper($text));
-		// $cmd_to = $cmd_sp [0];
-		// $cmd_str = $cmd_sp [1];
-		// $cmd_to = trim($cmd_to);
-		
-		
-		// $check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE "TOKEN" = '."'".$cmd_to."'";
-		// $result_touser = pg_exec($dbconn, $check_user);
-		// $numrows_touser = pg_numrows($result_touser);
-		
-		// if($numrows_touser > 0)
-		// {	
-			// $ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST") VALUES ('."'".$access_token."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".');';
-			// $result_ins_cmd = pg_exec($dbconn, $ins_cmd);
-	
-			// $return = pg_fetch_result($result_grp, 0, 3);		
-			// $messages = [
-			// 'type' => 'text',			
-			// 'text' => 'FU R12='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
-			// ];
-			// $messagesX[0] = $messages;
-			// $numrows = 1;
-		// }
-		// else
-		// {
-			// $return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
-			// $messages = [
-			// 'type' => 'text',			
-			// 'text' => 'FU R12='.$return
-			// ];
-			// $messagesX[0] = $messages;
-			// $numrows = 1;
-		// }
-	// }
+			$return = pg_fetch_result($result_grp, 0, 3);		
+			$messages = [
+			'type' => 'text',			
+			'text' => 'FU R13='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			];
+			$messagesX[0] = $messages;
+			$numrows = 1;
+		}
+		else
+		{
+			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
+			$messages = [
+			'type' => 'text',			
+			'text' => 'FU R13='.$return
+			];
+			$messagesX[0] = $messages;
+			$numrows = 1;
+		}
+	}
 	
 	if(1==1)
 	{
