@@ -46,7 +46,7 @@ if (!is_null($events['events'])) {
 			
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R33 ALL POS='. $returnonline
+				'text' => 'FU R34 ALL POS='. $returnonline
 				];
 				$messagesX[0] = $messages;
 				
@@ -72,7 +72,7 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => 'FU R33='.$returnonline
+					'text' => 'FU R34='.$returnonline
 					];
 					$messagesX[0] = $messages;
 				}
@@ -80,7 +80,7 @@ if (!is_null($events['events'])) {
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => 'FU R33 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
+					'text' => 'FU R34 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
 					];
 					$messagesX[0] = $messages;
 				}
@@ -91,7 +91,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R33='.strtoupper($text)
+				'text' => 'FU R34='.strtoupper($text)
 				];
 				$messagesX[0] = $messages;
 				
@@ -156,13 +156,13 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		
 		if($numrows_touser > 0)
 		{	
-			$ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST") VALUES ('."'".$access_token."'".', '."'".$userX."'".', '."'".$cmd_str."'".');';
+			$ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST") VALUES ('."'".$access_token."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".');';
 			$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
 	
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R33='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R34='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -172,7 +172,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R33='.$return
+			'text' => 'FU R34='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -180,7 +180,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	}
 	else
 	{
-		$ins_cmd = 'INSERT INTO public."ACTOR"("USER_ID", "PASSPORT_KEY", "SYS_PASSPORT_KEY")VALUES ('."'".$cmd_to."'".', '."'999'".', '."'999'".');';
+		$ins_cmd = 'INSERT INTO public."ACTOR"("USER_ID", "PASSPORT_KEY", "SYS_PASSPORT_KEY")VALUES ('."'".$userX."'".', '."'999'".', '."'999'".');';
 		//$ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST") VALUES ('."'".$access_token."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".');';
 		$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
 		
@@ -188,7 +188,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		$return = $userX.' ยังไม่ได้รับอณุญาติให้เข้าระบบ='.$ins_cmd;
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R33='.$return
+		'text' => 'FU R34='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
