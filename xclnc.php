@@ -107,9 +107,15 @@ if (!is_null($events['events'])) {
 			}			
 			else
 			{
-				$getResult = "";
-				$getResult = _resultMSG($text, $dbconn, $event, $access_token);
-				$okreturn = 0;
+				// $getResult = "";
+				// $getResult = _resultMSG($text, $dbconn, $event, $access_token);
+				messages = [
+				'type' => 'text',			
+				'text' => 'R2 สอบถามโดย:'.$userX
+				];
+				$messagesX[$numrows] = $messages;
+				
+				$okreturn = 1;
 			}
 			
 			
@@ -221,7 +227,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		$return = pg_fetch_result($result_grp, 0, 3);		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R1='.$return
+		'text' => 'FU R2='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -232,7 +238,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R1='.$return
+		'text' => 'FU R2='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
@@ -267,7 +273,7 @@ function _resultMSG($text, $dbconn, $event, $access_token)
 		
 		// $messages = [
 		// 'type' => 'text',			
-		// 'text' => 'FU R1='.$return." ".$delete_old_loop
+		// 'text' => 'FU R2='.$return." ".$delete_old_loop
 		// ];
 		
 		// $messagesX[0] = $messages;
@@ -340,7 +346,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);		
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R1='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R2='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -350,7 +356,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R1='.$return
+			'text' => 'FU R2='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -417,7 +423,7 @@ function _resultMSG_BK1($text, $dbconn, $event, $access_token)
 		
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R1='.$return
+		'text' => 'FU R2='.$return
 		];
 		
 		$messagesX[0] = $messages;
