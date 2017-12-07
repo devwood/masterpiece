@@ -29,11 +29,42 @@ if (!is_null($events['events'])) {
 				$getResult = "";
 				$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
 			}
+			elseif(strpos(strtoupper($text), 'ALL POS'))
+			{
+				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
+				//$know = $know."LOWER('%".$text."%')";
+				$result = pg_exec($dbconn, $know );				
+				$numrows = pg_numrows($result);
+				
+				$return = '';
+				
+				// Get replyToken
+				$replyToken = $event['replyToken'];
+				$userId = $event['source']['userId'];
+				$userX = $event['source']['userId'];
+				$id = $event['message']['id'];
+				
+				
+				$returnonline = '';
+
+				while ($row = pg_fetch_row($result)) 
+				{					
+					$returnonline = $returnonline.$row[0]."\r\n";					
+				}
+			
+				$messages = [
+				'type' => 'text',			
+				'text' => 'FU R17='. $returnonline
+				];
+				$messagesX[0] = $messages;
+				
+				_sendOut($access_token, $replyToken, $messagesX);
+			}
 			else
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R16='
+				'text' => 'FU R17='
 				];
 				$messagesX[0] = $messages;
 				
@@ -106,7 +137,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R16='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R17='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -116,7 +147,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R16='.$return
+			'text' => 'FU R17='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
