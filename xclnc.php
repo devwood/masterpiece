@@ -33,7 +33,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R14='
+				'text' => 'FU R15='
 				];
 				$messagesX[0] = $messages;
 				
@@ -106,7 +106,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);		
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R14='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str.' insert cmd ='.$ins_cmd
+			'text' => 'FU R15='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -116,7 +116,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R14='.$return
+			'text' => 'FU R15='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
