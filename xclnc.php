@@ -33,7 +33,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R9='
+				'text' => 'FU R10='
 				];
 				$messagesX[0] = $messages;
 				
@@ -82,13 +82,13 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 						INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
 						WHERE AC."USER_ID" = '."'".$userX."'".'
 						AND GA."QUESTION_START_GROUP" = '."'".$whereQ."'".'';
-	 $result_grp = pg_exec($dbconn, $chk_access_loop);
-	// $numrows_grp = pg_numrows($result_grp);
+	$result_grp = pg_exec($dbconn, $chk_access_loop);
+    $numrows_grp = pg_numrows($result_grp);
 	$messagesX = array(1);
 	$return = 'ไม่มีข้อมูลฐานข้อมูล '.$text;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R9='.$return
+			'text' => 'FU R10='.$return
 			];
 			$messagesX[0] = $messages;
 
@@ -114,7 +114,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			// $return = pg_fetch_result($result_grp, 0, 3);		
 			// $messages = [
 			// 'type' => 'text',			
-			// 'text' => 'FU R9='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			// 'text' => 'FU R10='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			// ];
 			// $messagesX[0] = $messages;
 			// $numrows = 1;
@@ -124,7 +124,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			// $return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			// $messages = [
 			// 'type' => 'text',			
-			// 'text' => 'FU R9='.$return
+			// 'text' => 'FU R10='.$return
 			// ];
 			// $messagesX[0] = $messages;
 			// $numrows = 1;
