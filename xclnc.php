@@ -46,7 +46,7 @@ if (!is_null($events['events'])) {
 			
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R27 ALL POS='. $returnonline
+				'text' => 'FU R28 ALL POS='. $returnonline
 				];
 				$messagesX[0] = $messages;
 				
@@ -54,7 +54,7 @@ if (!is_null($events['events'])) {
 			}
 			elseif(strtoupper($text) == 'ONLINE POS')
 			{
-				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" WHERE cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) < 5 ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
+				$know = 'SELECT "TOKEN"||'."' LOST='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" WHERE cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) < 5 ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
 				$result = pg_exec($dbconn, $know );				
 				$numrows = pg_numrows($result);
 				
@@ -72,7 +72,7 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => 'FU R27='.$returnonline
+					'text' => 'FU R28='.$returnonline
 					];
 					$messagesX[0] = $messages;
 				}
@@ -80,7 +80,7 @@ if (!is_null($events['events'])) {
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => 'FU R27 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
+					'text' => 'FU R28 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
 					];
 					$messagesX[0] = $messages;
 				}
@@ -91,7 +91,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R27='.strtoupper($text)
+				'text' => 'FU R28='.strtoupper($text)
 				];
 				$messagesX[0] = $messages;
 				
@@ -164,7 +164,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R27='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R28='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -174,7 +174,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R27='.$return
+			'text' => 'FU R28='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
