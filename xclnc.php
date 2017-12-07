@@ -29,7 +29,7 @@ if (!is_null($events['events'])) {
 				$getResult = "";
 				$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
 			}
-			elseif(strpos(strtoupper($text), 'ALL POS'))
+			elseif(strtoupper($text) == 'ALL POS')
 			{
 				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
 				//$know = $know."LOWER('%".$text."%')";
@@ -54,7 +54,7 @@ if (!is_null($events['events'])) {
 			
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R19 ALL POS='. $returnonline
+				'text' => 'FU R20 ALL POS='. $returnonline
 				];
 				$messagesX[0] = $messages;
 				
@@ -64,7 +64,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R19='.strtoupper($text)
+				'text' => 'FU R20='.strtoupper($text)
 				];
 				$messagesX[0] = $messages;
 				
@@ -137,7 +137,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R19='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R20='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -147,7 +147,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R19='.$return
+			'text' => 'FU R20='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
