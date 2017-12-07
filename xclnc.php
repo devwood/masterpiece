@@ -46,7 +46,7 @@ if (!is_null($events['events'])) {
 			
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R34 ALL POS='. $returnonline
+				'text' => 'FU R35 ALL POS='. $returnonline
 				];
 				$messagesX[0] = $messages;
 				
@@ -72,7 +72,7 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => 'FU R34='.$returnonline
+					'text' => 'FU R35='.$returnonline
 					];
 					$messagesX[0] = $messages;
 				}
@@ -80,7 +80,7 @@ if (!is_null($events['events'])) {
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => 'FU R34 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
+					'text' => 'FU R35 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
 					];
 					$messagesX[0] = $messages;
 				}
@@ -91,7 +91,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'FU R34='.strtoupper($text)
+				'text' => 'FU R35='.strtoupper($text)
 				];
 				$messagesX[0] = $messages;
 				
@@ -134,12 +134,17 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	$id = $event['message']['id'];
 	
 	$whereQ = 'xquery';
-	$chk_access_loop = 'SELECT GA.*, GR."ID"
-						FROM "GROUP_ANSWER" GA
-						INNER JOIN "ACTORvsGROUP_ANSWER" GR ON GR."GROUP_ANSWER_ID" = GA."ID"
-						INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
-						WHERE AC."USER_ID" = '."'".$userX."'".'
-						AND GA."QUESTION_START_GROUP" = '."'".$whereQ."'".'';
+	// $chk_access_loop = 'SELECT GA.*, GR."ID"
+						// FROM "GROUP_ANSWER" GA
+						// INNER JOIN "ACTORvsGROUP_ANSWER" GR ON GR."GROUP_ANSWER_ID" = GA."ID"
+						// INNER JOIN "ACTOR" AC ON GR."ACTOR_ID" = AC."ID"
+						// WHERE AC."USER_ID" = '."'".$userX."'".'
+						// AND GA."QUESTION_START_GROUP" = '."'".$whereQ."'".'';
+						
+	
+	$chk_access_loop = 'SELECT AC."ID"
+						FROM "ACTOR" AC
+						WHERE AC."USER_ID" = '."'".$userX."'";	
 	$result_grp = pg_exec($dbconn, $chk_access_loop);
     $numrows_grp = pg_numrows($result_grp);
 	$messagesX = array(1);
@@ -148,7 +153,10 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	//if(1==1)//ใช้ไปก่อน
 	{
 		
-		
+		$cmd_sp = explode("XQUERY", strtoupper($text));
+		$cmd_to = $cmd_sp [0];
+		$cmd_str = $cmd_sp [1];
+		$cmd_to = trim($cmd_to);
 		
 		$check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE "TOKEN" = '."'".$cmd_to."'";
 		$result_touser = pg_exec($dbconn, $check_user);
@@ -162,7 +170,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R34='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R35='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -172,7 +180,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R34='.$return
+			'text' => 'FU R35='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -188,7 +196,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		$return = $userX.' ยังไม่ได้รับอณุญาติให้เข้าระบบ='.$ins_cmd;
 		$messages = [
 		'type' => 'text',			
-		'text' => 'FU R34='.$return
+		'text' => 'FU R35='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
