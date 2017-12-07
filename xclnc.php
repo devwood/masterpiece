@@ -23,19 +23,22 @@ if (!is_null($events['events'])) {
 			$numrows = 0;
 			$messagesX = array(1);
 			
-			$messages = [
-			'type' => 'text',			
-			'text' => 'FU R4='
-			];
-			$messagesX[0] = $messages;
 			
-			_sendOut($access_token, $replyToken, $messagesX);
-			
-			// if (strpos(strtoupper($text), 'XQUERY'))//Case พิเศษสำหรับ XQuery XCLNC
-			// {
-				// $getResult = "";
-				// $getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
-			// }
+			if (strpos(strtoupper($text), 'XQUERY'))//Case พิเศษสำหรับ XQuery XCLNC
+			{
+				$getResult = "";
+				$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
+			}
+			else
+			{
+				$messages = [
+				'type' => 'text',			
+				'text' => 'FU R5='
+				];
+				$messagesX[0] = $messages;
+				
+				_sendOut($access_token, $replyToken, $messagesX);
+			}
 		}
 	}
 }
@@ -102,7 +105,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);		
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R4='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'FU R5='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -112,7 +115,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'FU R4='.$return
+			'text' => 'FU R5='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
