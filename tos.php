@@ -57,7 +57,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R1 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
+								'text' => 'R2 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
 								];
 								$messagesX[0] = $messages;
 					}
@@ -66,7 +66,7 @@ if (!is_null($events['events'])) {
 
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R1 ผู้ใช้ยังไม่ได้รับอณุญาติ'.json_encode($event);
+								'text' => 'R2 ผู้ใช้ยังไม่ได้รับอณุญาติ'.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 					}								
