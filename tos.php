@@ -54,10 +54,16 @@ if (!is_null($events['events'])) {
 						$insert_newuser = 'INSERT INTO "TOS"."TOKEN"("TOKEN", "STATUS") VALUES ('."'".$userX."'".','."'"."'".')';
 						$result = pg_exec($dbconn, $insert_newuser);
 						
+						$del_loop = 'DELETE FROM "TOS"."CMD_LOOP" WHERE "TOKEN_ID" = (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".')';
+						$result = pg_exec($dbconn, $del_loop);
+						
+						$insert_loop = 'INSERT INTO "TOS"."CMD_LOOP"("CMD", "TOKEN_ID")VALUES ('."'ADDUSER'".', (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".'));';
+						$result = pg_exec($dbconn, $insert_loop);
+						
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R2 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
+								'text' => 'R3 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
 								];
 								$messagesX[0] = $messages;
 					}
@@ -66,7 +72,7 @@ if (!is_null($events['events'])) {
 
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R2 ผู้ใช้ยังไม่ได้รับอณุญาติ'.json_encode($event)
+								'text' => 'R3 ผู้ใช้ยังไม่ได้รับอณุญาติ'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 					}								
