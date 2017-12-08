@@ -64,7 +64,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R4 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
+								'text' => 'R5 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
 								];
 								$messagesX[0] = $messages;
 					}
@@ -82,7 +82,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R4 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
+								'text' => 'R5 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -93,19 +93,27 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R4 รอ Admin อนุมัติสักครู่'//.json_encode($event)
+								'text' => 'R5 รอ Admin อนุมัติสักครู่'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
 								$updname_user = 'UPDATE FROM "TOS"."TOKEN" SET "NAME" = '."'".$text."'".' WHERE "STATUS"='."'"."ACTIVE"."'".' AND "TOKEN" = '."'".$userX."'";
 								$result = pg_exec($dbconn, $updname_user);
 							}
+							else
+							{
+								$messages = [
+								'type' => 'text',			
+								'text' => 'R5 อยู่นอกลูป'
+								];
+								$messagesX[0] = $messages;
+							}
 						}
 						else
 						{
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R4 ผู้ใช้ยังไม่ได้รับอณุญาติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
+							'text' => 'R5 ผู้ใช้ยังไม่ได้รับอณุญาติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
 							];
 							$messagesX[0] = $messages;
 						}
