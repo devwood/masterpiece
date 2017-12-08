@@ -64,7 +64,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R11 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
+								'text' => 'R12 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
 								];
 								$messagesX[0] = $messages;
 					}
@@ -82,7 +82,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R11 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
+								'text' => 'R12 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -91,12 +91,12 @@ if (!is_null($events['events'])) {
 							}
 							elseif($return_cmd == "REQNAME")
 							{
-								$updname_user = 'UPDATE FROM "TOS"."TOKEN" SET "NAME" = '."'".$text."'".' WHERE "TOKEN" = '."'".$userX."'";
+								$updname_user = 'UPDATE "TOS"."TOKEN" SET "NAME" = '."'".$text."'".' WHERE "TOKEN" = '."'".$userX."'";
 								$result = pg_exec($dbconn, $updname_user);
 								
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R11 รอ Admin อนุมัติสักครู่:'.$updname_user //.json_encode($event)
+								'text' => 'R12 รอ Admin อนุมัติสักครู่:'.$updname_user //.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -106,7 +106,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R11 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
+								'text' => 'R12 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
 								];
 								$messagesX[0] = $messages;
 							}
@@ -115,7 +115,7 @@ if (!is_null($events['events'])) {
 						{
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R11 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
+							'text' => 'R12 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
 							];
 							$messagesX[0] = $messages;
 						}
