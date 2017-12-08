@@ -64,7 +64,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R8 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
+								'text' => 'R9 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
 								];
 								$messagesX[0] = $messages;
 					}
@@ -76,13 +76,13 @@ if (!is_null($events['events'])) {
 						if($numrows > 0)
 						{
 							
-							$return_cmd = pg_fetch_result($result_grp, $numrows-1, 1);
+							$return_cmd = pg_fetch_result($result, $numrows-1, 1);
 							
 							if($return_cmd == "ADDUSER")
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R8 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
+								'text' => 'R9 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -93,7 +93,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R8 รอ Admin อนุมัติสักครู่'//.json_encode($event)
+								'text' => 'R9 รอ Admin อนุมัติสักครู่'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -104,7 +104,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R8 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
+								'text' => 'R9 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
 								];
 								$messagesX[0] = $messages;
 							}
@@ -113,7 +113,7 @@ if (!is_null($events['events'])) {
 						{
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R8 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
+							'text' => 'R9 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
 							];
 							$messagesX[0] = $messages;
 						}
