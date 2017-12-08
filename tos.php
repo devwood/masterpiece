@@ -64,7 +64,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R5 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
+								'text' => 'R6 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
 								];
 								$messagesX[0] = $messages;
 					}
@@ -73,7 +73,7 @@ if (!is_null($events['events'])) {
 						$get_loop = 'SELECT "ID", "CMD", "TOKEN_ID" FROM "TOS"."CMD_LOOP" WHERE "TOKEN_ID" = (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".')';
 						$result = pg_exec($dbconn, $get_loop);
 						$numrows = pg_numrows($result);
-						if($numrows <= 0)
+						if($numrows > 0)
 						{
 							
 							$return_cmd = pg_fetch_result($result_grp, $numrows-1, 1);
@@ -82,7 +82,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R5 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
+								'text' => 'R6 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -93,7 +93,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R5 รอ Admin อนุมัติสักครู่'//.json_encode($event)
+								'text' => 'R6 รอ Admin อนุมัติสักครู่'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -104,7 +104,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R5 อยู่นอกลูป'
+								'text' => 'R6 อยู่นอกลูป'
 								];
 								$messagesX[0] = $messages;
 							}
@@ -113,7 +113,7 @@ if (!is_null($events['events'])) {
 						{
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R5 ผู้ใช้ยังไม่ได้รับอณุญาติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
+							'text' => 'R6 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
 							];
 							$messagesX[0] = $messages;
 						}
