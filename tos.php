@@ -37,9 +37,8 @@ if (!is_null($events['events'])) {
 			{
 				$s = 1;
 				
-				$check_user = 'SELECT * FROM "TOS"."TOKEN"; WHERE "STATUS"='."'"."ACTIVE"."'".' AND "TOKEN" = '."'".$userX."'";
-				$result = pg_exec($dbconn, $check_user);
-				
+				$check_user = 'SELECT * FROM "TOS"."TOKEN" WHERE "STATUS"='."'"."ACTIVE"."'".' AND "TOKEN" = '."'".$userX."'";
+				$result = pg_exec($dbconn, $check_user);				
 				$loop = $check_user;
 				
 				$numrows = pg_numrows($result);
@@ -49,10 +48,12 @@ if (!is_null($events['events'])) {
 					$check_user = 'SELECT * FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'";
 					$result = pg_exec($dbconn, $check_user);
 					$numrows = pg_numrows($result);
+					
 					if($numrows <= 0)
 					{
 						$insert_newuser = 'INSERT INTO "TOS"."TOKEN"("TOKEN", "STATUS") VALUES ('."'".$userX."'".','."'"."'".')';
-						$result = pg_exec($dbconn, $insert_newuser);
+						$result = pg_exec($dbconn, $insert_newuser);						
+						
 						
 						$del_loop = 'DELETE FROM "TOS"."CMD_LOOP" WHERE "TOKEN_ID" = (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".')';
 						$result = pg_exec($dbconn, $del_loop);
@@ -63,18 +64,51 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R3 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
+								'text' => 'R4 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
 								];
 								$messagesX[0] = $messages;
 					}
-					else
+					else//เริ่มทำงาน
 					{
-
-						$messages = [
+						$get_loop = 'SELECT "ID", "CMD", "TOKEN_ID" FROM "TOS"."CMD_LOOP" WHERE "TOKEN_ID" = (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".')';
+						$result = pg_exec($dbconn, $get_loop);
+						$numrows = pg_numrows($result);
+						if($numrows <= 0)
+						{
+							
+							$return_cmd = pg_fetch_result($result_grp, $numrows-1, 1);
+							
+							if($return_cmd == "ADDUSER")
+							{
+								$messages = [
 								'type' => 'text',			
-								'text' => 'R3 ผู้ใช้ยังไม่ได้รับอณุญาติ'//.json_encode($event)
+								'text' => 'R4 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
+								
+								$insert_loop = 'INSERT INTO "TOS"."CMD_LOOP"("CMD", "TOKEN_ID")VALUES ('."'REQNAME'".', (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".'));';
+								$result = pg_exec($dbconn, $insert_loop);
+							}
+							elseif($return_cmd == "REQNAME")
+							{
+								$messages = [
+								'type' => 'text',			
+								'text' => 'R4 รอ Admin อนุมัติสักครู่'//.json_encode($event)
+								];
+								$messagesX[0] = $messages;
+								
+								$updname_user = 'UPDATE FROM "TOS"."TOKEN" SET "NAME" = '."'".$text."'".' WHERE "STATUS"='."'"."ACTIVE"."'".' AND "TOKEN" = '."'".$userX."'";
+								$result = pg_exec($dbconn, $updname_user);
+							}
+						}
+						else
+						{
+							$messages = [
+							'type' => 'text',			
+							'text' => 'R4 ผู้ใช้ยังไม่ได้รับอณุญาติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
+							];
+							$messagesX[0] = $messages;
+						}
 					}								
 				}
 				else
