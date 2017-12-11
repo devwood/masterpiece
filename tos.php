@@ -151,7 +151,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 						'type' => 'text',			
-						'text' => 'R21 พร้อมเริ่ม Loop ใหม่ '.pg_fetch_result($result, 0, 4);
+						'text' => 'R21 พร้อมเริ่ม Loop ใหม่ '.pg_fetch_result($result, 0, 4)
 						];
 						$messagesX[0] = $messages;
 					}
