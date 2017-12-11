@@ -64,7 +64,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R16 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
+								'text' => 'R17 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
 								];
 								$messagesX[0] = $messages;
 					}
@@ -82,7 +82,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R16 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
+								'text' => 'R17 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -96,7 +96,7 @@ if (!is_null($events['events'])) {
 								
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R16 รอ Admin อนุมัติสักครู่' //.json_encode($event)
+								'text' => 'R17 รอ Admin อนุมัติสักครู่' //.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -106,7 +106,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R16 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
+								'text' => 'R17 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
 								];
 								$messagesX[0] = $messages;
 							}
@@ -115,7 +115,7 @@ if (!is_null($events['events'])) {
 						{
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R16 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
+							'text' => 'R17 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
 							];
 							$messagesX[0] = $messages;
 						}
@@ -123,15 +123,58 @@ if (!is_null($events['events'])) {
 				}
 				else
 				{
-					$del_loop = 'DELETE FROM "TOS"."CMD_LOOP" WHERE "CMD" IN('."'ADDUSER'".','."'REQNAME'".') AND "TOKEN_ID" = (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".')';
-					$result = pg_exec($dbconn, $del_loop);
+					$chk_opencmd = 'SELECT Q.*
+									FROM "TOS"."QUESTION_TYPE" Q
+									INNER JOIN "TOS"."QUESTION_TYPEvsTOKEN" QvT ON QvT."QUESTION_TYPE_ID" = Q."ID"
+									INNER JOIN "TOS"."TOKEN" TK ON TK."ID" = QvT."TOKEN_ID"
+									WHERE TK."TOKEN" = '."'".$userX."'".'
+									AND Q."QUESTION_DESC" = '."'".$text."'";
 					
-					$return_user = pg_fetch_result($result, 0, 3);
-					$messages = [
-					'type' => 'text',			
-					'text' => 'R16 สวัสดี '.$return_user.' ที่คุณสอบถามไม่อยู่ใน Scope การใช้งานของคุณ'
-					];
-					$messagesX[0] = $messages;
+					$result = pg_exec($dbconn, $chk_opencmd);
+					$numrows = pg_numrows($result);
+					if($numrows <= 0)
+					{
+						$messages = [
+						'type' => 'text',			
+						'text' => 'R17 พร้อมเริ่ม Loop ใหม่'
+						];
+						$messagesX[0] = $messages;
+						
+						$del_loop = 'DELETE FROM "TOS"."CMD_LOOP" WHERE "CMD" IN('."'ADDUSER'".','."'REQNAME'".') AND "TOKEN_ID" = (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".')';
+						$result = pg_exec($dbconn, $del_loop);
+					}
+					else
+					{
+						$chk_opencmd = 'SELECT Q.*
+									FROM "TOS"."QUESTION_TYPE" Q
+									INNER JOIN "TOS"."QUESTION_TYPEvsTOKEN" QvT ON QvT."QUESTION_TYPE_ID" = Q."ID"
+									INNER JOIN "TOS"."TOKEN" TK ON TK."ID" = QvT."TOKEN_ID"
+									WHERE TK."TOKEN" = '."'".$userX."'";					
+						$result = pg_exec($dbconn, $chk_opencmd);
+						
+						$return = '';
+						while ($row = pg_fetch_row($result)) 
+						{					
+							$return = $row[1].','						
+						}
+						
+						$messages = [
+						'type' => 'text',			
+						'text' => 'R17 คุณสามารถใช้ได้เฉพาะระบบ '.$return.' เท่านั้น';
+						];
+						$messagesX[0] = $messages;
+					}
+					
+					
+					// $del_loop = 'DELETE FROM "TOS"."CMD_LOOP" WHERE "CMD" IN('."'ADDUSER'".','."'REQNAME'".') AND "TOKEN_ID" = (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".')';
+					// $result = pg_exec($dbconn, $del_loop);
+					
+					// $return_user = pg_fetch_result($result, 0, 3);
+					// $messages = [
+					// 'type' => 'text',			
+					// 'text' => 'R17 สวัสดี '.$return_user.' ที่คุณสอบถามไม่อยู่ใน Scope การใช้งานของคุณ'
+					// ];
+					// $messagesX[0] = $messages;
 				}
 			}
 			else
@@ -142,6 +185,12 @@ if (!is_null($events['events'])) {
 				// 'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
 				// ];
 				// $messagesX[0] = $messages;
+				
+				// SELECT Q.*
+				// FROM "TOS"."QUESTION_TYPE" Q
+				// INNER JOIN "TOS"."QUESTION_TYPEvsTOKEN" QvT ON QvT."QUESTION_TYPE_ID" = Q."ID"
+				// INNER JOIN "TOS"."TOKEN" TK ON TK."ID" = QvT."TOKEN_ID"
+				// WHERE TK."TOKEN" = 'Ufcac064b5bbb5ff75a34dc573b82ee1f'
 			}
 			
 			_sendOut($access_token, $replyToken, $messagesX);
