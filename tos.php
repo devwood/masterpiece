@@ -64,7 +64,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R20 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
+								'text' => 'R21 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
 								];
 								$messagesX[0] = $messages;
 					}
@@ -82,7 +82,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R20 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
+								'text' => 'R21 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -96,7 +96,7 @@ if (!is_null($events['events'])) {
 								
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R20 รอ Admin อนุมัติสักครู่' //.json_encode($event)
+								'text' => 'R21 รอ Admin อนุมัติสักครู่' //.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -106,7 +106,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R20 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
+								'text' => 'R21 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
 								];
 								$messagesX[0] = $messages;
 							}
@@ -115,7 +115,7 @@ if (!is_null($events['events'])) {
 						{
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R20 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
+							'text' => 'R21 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
 							];
 							$messagesX[0] = $messages;
 						}
@@ -127,42 +127,37 @@ if (!is_null($events['events'])) {
 									FROM "TOS"."QUESTION_TYPE" Q
 									INNER JOIN "TOS"."QUESTION_TYPEvsTOKEN" QvT ON QvT."QUESTION_TYPE_ID" = Q."ID"
 									INNER JOIN "TOS"."TOKEN" TK ON TK."ID" = QvT."TOKEN_ID"
-									WHERE TK."TOKEN" = '."'".$userX."'".'
-									AND Q."QUESTION_DESC" = '."'".$text."'";
+									WHERE TK."TOKEN" = '."'".$userX."'";
 					
 					$result = pg_exec($dbconn, $chk_opencmd);
 					$numrows = pg_numrows($result);
 					if($numrows > 0)
-					{
+					{	
+						$del_loop = 'DELETE FROM "TOS"."CMD_LOOP" WHERE "TOKEN_ID" = (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".')';
+						$result = pg_exec($dbconn, $del_loop);
+						
+						$insert_new_loop = 'INSERT INTO "TOS"."CMD_LOOP"(CMD", "TOKEN_ID", "CMD_SQL", "DESC")
+											SELECT "CMD", '."'".$userX."'".', "CMD_SQL", "DESC"
+											FROM "TOS"."CMD_LOOP_TEMPLETE"
+											WHERE "QUESTION_TYPE_ID" = (SELECT "ID" FROM "TOS"."QUESTION_TYPE" WHERE "QUESTION_DESC" = '."'PR'".')';
+						$result = pg_exec($dbconn, $insert_new_loop);
+						
+						$select_new_loop = 'SELECT "ID", "CMD", "TOKEN_ID", "CMD_SQL", "DESC", "RESULT_STATUS", "RESULT_TYPE"
+											FROM "TOS"."CMD_LOOP"
+											WHERE "TOKEN_ID" = (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".')
+											AND coalesce("RESULT_STATUS",'."''".') = '."''".'
+											ORDER BY "ID"';
+						$result = pg_exec($dbconn, $select_new_loop);
+						
 						$messages = [
 						'type' => 'text',			
-						'text' => 'R20 พร้อมเริ่ม Loop ใหม่'.$chk_opencmd
+						'text' => 'R21 พร้อมเริ่ม Loop ใหม่ '.pg_fetch_result($result, 0, 4);
 						];
 						$messagesX[0] = $messages;
-						
-						$del_loop = 'DELETE FROM "TOS"."CMD_LOOP" WHERE "CMD" IN('."'ADDUSER'".','."'REQNAME'".') AND "TOKEN_ID" = (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".')';
-						$result = pg_exec($dbconn, $del_loop);
 					}
 					else
 					{
-						$chk_opencmd = 'SELECT Q.*
-									FROM "TOS"."QUESTION_TYPE" Q
-									INNER JOIN "TOS"."QUESTION_TYPEvsTOKEN" QvT ON QvT."QUESTION_TYPE_ID" = Q."ID"
-									INNER JOIN "TOS"."TOKEN" TK ON TK."ID" = QvT."TOKEN_ID"
-									WHERE TK."TOKEN" = '."'".$userX."'";					
-						$result = pg_exec($dbconn, $chk_opencmd);
 						
-						$return = '';
-						while ($row = pg_fetch_row($result)) 
-						{					
-							$return = $row[1].',';				
-						}
-						
-						$messages = [
-						'type' => 'text',			
-						'text' => 'R20 คุณสามารถใช้ได้เฉพาะระบบ '.$return.' เท่านั้น'
-						];
-						$messagesX[0] = $messages;
 					}
 					
 					
@@ -172,7 +167,7 @@ if (!is_null($events['events'])) {
 					// $return_user = pg_fetch_result($result, 0, 3);
 					// $messages = [
 					// 'type' => 'text',			
-					// 'text' => 'R20 สวัสดี '.$return_user.' ที่คุณสอบถามไม่อยู่ใน Scope การใช้งานของคุณ'
+					// 'text' => 'R21 สวัสดี '.$return_user.' ที่คุณสอบถามไม่อยู่ใน Scope การใช้งานของคุณ'
 					// ];
 					// $messagesX[0] = $messages;
 				}
