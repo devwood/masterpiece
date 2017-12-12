@@ -64,7 +64,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 								'type' => 'text',			
-								'text' => 'R6 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
+								'text' => 'R7 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ '//.$insert_newuser
 								];
 								$messagesX[0] = $messages;
 					}
@@ -82,7 +82,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R6 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
+								'text' => 'R7 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -96,7 +96,7 @@ if (!is_null($events['events'])) {
 								
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R6 รอ Admin อนุมัติสักครู่' //.json_encode($event)
+								'text' => 'R7 รอ Admin อนุมัติสักครู่' //.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 								
@@ -106,7 +106,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R6 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
+								'text' => 'R7 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
 								];
 								$messagesX[0] = $messages;
 							}
@@ -115,7 +115,7 @@ if (!is_null($events['events'])) {
 						{
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R6 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
+							'text' => 'R7 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
 							];
 							$messagesX[0] = $messages;
 						}
@@ -152,7 +152,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 						'type' => 'text',			
-						'text' => 'R6 พร้อมเริ่ม Loop ใหม่ '.pg_fetch_result($result, 0, 4).' ins_cmd='.$chk_opencmd
+						'text' => 'R7 พร้อมเริ่ม Loop ใหม่ '.pg_fetch_result($result, 0, 4).' ins_cmd='.$chk_opencmd
 						];
 						$messagesX[0] = $messages;
 					}
@@ -173,7 +173,7 @@ if (!is_null($events['events'])) {
 						{	
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R6 กำลังค้นข้อมูลกรุณารอสักครู่  หรือหากนานเกินไปกรุณาแจ้งทางผู้ดูแลระบบ'."\r\n"."TEST"
+							'text' => 'R7 กำลังค้นข้อมูลกรุณารอสักครู่  หรือหากนานเกินไปกรุณาแจ้งทางผู้ดูแลระบบ'."\r\n"."TEST"
 							];
 							$messagesX[0] = $messages;
 						}
@@ -186,7 +186,7 @@ if (!is_null($events['events'])) {
 							
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R6 กำลังค้นข้อมูลกรุณารอสักครู่ '
+							'text' => 'R7 กำลังค้นข้อมูลกรุณารอสักครู่ '
 							];
 							$messagesX[0] = $messages;
 						}
@@ -200,7 +200,7 @@ if (!is_null($events['events'])) {
 					// $return_user = pg_fetch_result($result, 0, 3);
 					// $messages = [
 					// 'type' => 'text',			
-					// 'text' => 'R6 สวัสดี '.$return_user.' ที่คุณสอบถามไม่อยู่ใน Scope การใช้งานของคุณ'
+					// 'text' => 'R7 สวัสดี '.$return_user.' ที่คุณสอบถามไม่อยู่ใน Scope การใช้งานของคุณ'
 					// ];
 					// $messagesX[0] = $messages;
 				}
@@ -238,7 +238,7 @@ function _sendOut($access_token, $replyToken, $messagesX)
 	$post = json_encode($data);
 	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 	
-	$insert_tempx = 'INSERT INTO "TOS"."TEMPX"("TEMPX")VALUES ('."'".$post."'".');';
+	$insert_tempx = 'INSERT INTO "TOS"."TEMPX"("TEMPX")VALUES ('."'123'".');';
 	$result = pg_exec($dbconn, $insert_tempx);
 
 	$ch = curl_init($url);
