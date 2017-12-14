@@ -46,7 +46,7 @@ if (!is_null($events['events'])) {
 			
 				$messages = [
 				'type' => 'text',			
-				'text' => '7 R8 ALL POS='. $returnonline
+				'text' => '7 R9 ALL POS='. $returnonline
 				];
 				$messagesX[0] = $messages;
 				
@@ -72,7 +72,7 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => '1 R8='.$returnonline
+					'text' => '1 R9='.$returnonline
 					];
 					$messagesX[0] = $messages;
 				}
@@ -80,7 +80,7 @@ if (!is_null($events['events'])) {
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => '2 R8 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
+					'text' => '2 R9 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
 					];
 					$messagesX[0] = $messages;
 				}
@@ -91,7 +91,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => '3 R8='.strtoupper($text)
+				'text' => '3 R9='.strtoupper($text)
 				];
 				$messagesX[0] = $messages;
 				
@@ -155,7 +155,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		
 		$cmd_sp = explode("XQUERY", strtoupper($text));
 		$cmd_to = $cmd_sp [0];
-		$cmd_str = $cmd_sp [1];
+		$cmd_str = str_replace("'","''",$cmd_sp [1]);
 		$cmd_to = trim($cmd_to);
 		
 		$check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE "TOKEN" = '."'".$cmd_to."'";
@@ -173,7 +173,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => '4 R8='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str.' ins='.$ins_cmd
+			'text' => '4 R9='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str.'ins='.$ins_cmd
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -183,7 +183,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => '5 R8='.$return
+			'text' => '5 R9='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -199,7 +199,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		$return = $userX.' ยังไม่ได้รับอณุญาติให้เข้าระบบ='.$ins_cmd;
 		$messages = [
 		'type' => 'text',			
-		'text' => '6 R8='.$return
+		'text' => '6 R9='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
