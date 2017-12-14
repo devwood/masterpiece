@@ -46,7 +46,7 @@ if (!is_null($events['events'])) {
 			
 				$messages = [
 				'type' => 'text',			
-				'text' => 'R2 ALL POS='. $returnonline
+				'text' => 'R3 ALL POS='. $returnonline
 				];
 				$messagesX[0] = $messages;
 				
@@ -72,7 +72,7 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R2='.$returnonline
+					'text' => 'R3='.$returnonline
 					];
 					$messagesX[0] = $messages;
 				}
@@ -80,7 +80,7 @@ if (!is_null($events['events'])) {
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => 'R2 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
+					'text' => 'R3 ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
 					];
 					$messagesX[0] = $messages;
 				}
@@ -91,7 +91,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => 'R2='.strtoupper($text)
+				'text' => 'R3='.strtoupper($text)
 				];
 				$messagesX[0] = $messages;
 				
@@ -173,7 +173,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'R2='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str
+			'text' => 'R3='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str.' ins='.$ins_cmd
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -183,7 +183,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
-			'text' => 'R2='.$return
+			'text' => 'R3='.$return
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -199,7 +199,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		$return = $userX.' ยังไม่ได้รับอณุญาติให้เข้าระบบ='.$ins_cmd;
 		$messages = [
 		'type' => 'text',			
-		'text' => 'R2='.$return
+		'text' => 'R3='.$return
 		];
 		$messagesX[0] = $messages;
 		$numrows = 1;
