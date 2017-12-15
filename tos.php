@@ -48,20 +48,20 @@ if (!is_null($events['events'])) {
 						
 						try
 						{
+							$cmd_sp = explode("APPROVE", strtoupper($cmdSpe));
+							$cmd_user = $cmd_sp [0];
+							$cmd_modules = $cmd_sp [1];
+							$cmd_sp_count = count($cmd_sp);	
 							
-							$messages = [
-						'type' => 'text',			
-						'text' => 'R10 555'
-						];
-						$messagesX[0] = $messages;
+							$check_adduser = 'SELECT * FROM "TOS"."TOKEN" WHERE "NAME" = '."'".trim($cmd_user)."'";
+							$result = pg_exec($dbconn, $check_adduser);
+							
+							$messages = ['type' => 'text','text' => 'R11 555'];
+							$messagesX[0] = $messages;
 						
-							// $cmd_sp = explode("APPROVE", strtoupper($cmdSpe));
-							// $cmd_user = $cmd_sp [0];
-							// $cmd_modules = $cmd_sp [1];
-							// $cmd_sp_count = count($cmd_sp);							
+													
 							
-							// $check_adduser = 'SELECT * FROM "TOS"."TOKEN" WHERE "NAME" = '."'".trim($cmd_user)."'";
-							// $result = pg_exec($dbconn, $check_adduser);
+							
 							
 							// if(pg_numrows($result) > 0)
 							// {
@@ -97,7 +97,7 @@ if (!is_null($events['events'])) {
 							
 								// $messages = [
 								// 'type' => 'text',			
-								// 'text' => 'R10 '.$work
+								// 'text' => 'R11 '.$work
 								// ];
 								// $messagesX[0] = $messages;
 							// }
@@ -105,7 +105,7 @@ if (!is_null($events['events'])) {
 							// {	
 								// $messages = [
 								// 'type' => 'text',			
-								// 'text' => 'R10 ไม่พบผู้ใช้'//.$insert_newuser
+								// 'text' => 'R11 ไม่พบผู้ใช้'//.$insert_newuser
 								// ];
 								// $messagesX[0] = $messages;
 							// }
@@ -114,7 +114,7 @@ if (!is_null($events['events'])) {
 						{
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R10 มีข้อผิดพลาด'
+							'text' => 'R11 มีข้อผิดพลาด'
 							];
 							$messagesX[0] = $messages;
 						}
@@ -123,7 +123,7 @@ if (!is_null($events['events'])) {
 					{
 						$messages = [
 						'type' => 'text',			
-						'text' => 'R10 ใช้คำสั่งเหล่านี้ไม่ได้'//.$insert_newuser
+						'text' => 'R11 ใช้คำสั่งเหล่านี้ไม่ได้'//.$insert_newuser
 						];
 						$messagesX[0] = $messages;
 					}
@@ -141,7 +141,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 						'type' => 'text',			
-						'text' => 'R10 ทำการ Reset สิทธิ์เรียบร้อย'//.$insert_newuser
+						'text' => 'R11 ทำการ Reset สิทธิ์เรียบร้อย'//.$insert_newuser
 						];
 						$messagesX[0] = $messages;
 					}
@@ -149,7 +149,7 @@ if (!is_null($events['events'])) {
 					{
 						$messages = [
 						'type' => 'text',			
-						'text' => 'R10 ใช้คำสั่งเหล่านี้ไม่ได้'//.$insert_newuser
+						'text' => 'R11 ใช้คำสั่งเหล่านี้ไม่ได้'//.$insert_newuser
 						];
 						$messagesX[0] = $messages;
 					}
@@ -189,7 +189,7 @@ if (!is_null($events['events'])) {
 							
 							$messages = [
 									'type' => 'text',			
-									'text' => 'R10 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ  '//.$insert_newuser
+									'text' => 'R11 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ  '//.$insert_newuser
 									];
 									$messagesX[0] = $messages;
 						}
@@ -207,7 +207,7 @@ if (!is_null($events['events'])) {
 								{
 									$messages = [
 									'type' => 'text',			
-									'text' => 'R10 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
+									'text' => 'R11 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
 									];
 									$messagesX[0] = $messages;
 									
@@ -224,7 +224,7 @@ if (!is_null($events['events'])) {
 									
 									$messages = [
 									'type' => 'text',			
-									'text' => 'R10 รอ Admin อนุมัติสักครู่' //.json_encode($event)
+									'text' => 'R11 รอ Admin อนุมัติสักครู่' //.json_encode($event)
 									];
 									$messagesX[0] = $messages;
 								}
@@ -232,7 +232,7 @@ if (!is_null($events['events'])) {
 								{
 									$messages = [
 									'type' => 'text',			
-									'text' => 'R10 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
+									'text' => 'R11 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
 									];
 									$messagesX[0] = $messages;
 								}
@@ -241,7 +241,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R10 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
+								'text' => 'R11 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 							}
@@ -288,7 +288,7 @@ if (!is_null($events['events'])) {
 							
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R10 '.$all_module
+							'text' => 'R11 '.$all_module
 							];
 							$messagesX[0] = $messages;
 						}						
@@ -315,7 +315,7 @@ if (!is_null($events['events'])) {
 							
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R10 พร้อมเริ่ม Loop '.$text.' ใหม่ '//.$del_loop//.pg_fetch_result($result, 0, 4).' ins_cmd='.$chk_opencmd
+							'text' => 'R11 พร้อมเริ่ม Loop '.$text.' ใหม่ '//.$del_loop//.pg_fetch_result($result, 0, 4).' ins_cmd='.$chk_opencmd
 							];
 							$messagesX[0] = $messages;
 						}
@@ -337,7 +337,7 @@ if (!is_null($events['events'])) {
 							{	
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R10 กำลังค้นข้อมูลกรุณารอสักครู่  หรือหากนานเกินไปกรุณาแจ้งทางผู้ดูแลระบบ'//."\r\n"."TEST"
+								'text' => 'R11 กำลังค้นข้อมูลกรุณารอสักครู่  หรือหากนานเกินไปกรุณาแจ้งทางผู้ดูแลระบบ'//."\r\n"."TEST"
 								];
 								$messagesX[0] = $messages;
 								
@@ -360,7 +360,7 @@ if (!is_null($events['events'])) {
 								
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R10 กำลังค้นข้อมูลกรุณารอสักครู่ '
+								'text' => 'R11 กำลังค้นข้อมูลกรุณารอสักครู่ '
 								];
 								$messagesX[0] = $messages;
 							}
@@ -374,7 +374,7 @@ if (!is_null($events['events'])) {
 						// $return_user = pg_fetch_result($result, 0, 3);
 						// $messages = [
 						// 'type' => 'text',			
-						// 'text' => 'R10 สวัสดี '.$return_user.' ที่คุณสอบถามไม่อยู่ใน Scope การใช้งานของคุณ'
+						// 'text' => 'R11 สวัสดี '.$return_user.' ที่คุณสอบถามไม่อยู่ใน Scope การใช้งานของคุณ'
 						// ];
 						// $messagesX[0] = $messages;
 					}
