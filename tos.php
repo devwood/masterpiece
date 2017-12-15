@@ -70,7 +70,7 @@ if (!is_null($events['events'])) {
 								$work = '';
 								$update_user = 'UPDATE FROM "TOS"."TOKEN" SET "STATUS" = '."'ACTIVE'".' WHERE upper("NAME") = '."'".trim($cmd_user)."'";
 								$result = pg_exec($dbconn, $check_adduser);
-								$work  = 'อนุมัติ User '.$update_user."\r\n".;
+								$work  = 'อนุมัติ User '.$update_user."\r\n";
 								
 								$cmd_module = explode(",", strtoupper(trim($cmd_modules)));
 								
