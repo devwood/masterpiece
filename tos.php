@@ -44,77 +44,83 @@ if (!is_null($events['events'])) {
 					
 					if($numrows > 0)
 					{
-						try
-						{
-							$cmd_sp = explode("APPROVE", strtoupper($cmdSpe));
-							$cmd_user = $cmd_sp [0];
-							$cmd_modules = $cmd_sp [1];
-							$cmd_sp_count = count($cmd_sp);							
-							
-							$check_adduser = 'SELECT * FROM "TOS"."TOKEN" WHERE "NAME" = '."'".trim($cmd_user)."'";
-							$result = pg_exec($dbconn, $check_adduser);
-							
-							if(pg_numrows($result) > 0)
-							{
-								$row = pg_fetch_row($result)
-								$user_id = $row[0];
-								
-								$cmdspe = 'grant all on all tables in schema "TOS" to feajajzganbfiq;';
-								$result = pg_exec($dbconn, $cmdspe);
+						$messages = [
+						'type' => 'text',			
+						'text' => 'R9 มีข้อผิดพลาด'
+						];
+						$messagesX[0] = $messages;
 						
-								$work = '';
-								$update_user = 'UPDATE FROM "TOS"."TOKEN" SET "STATUS" = '."'ACTIVE'".' WHERE "NAME" = '."'".trim($cmd_user)."'";
-								$result = pg_exec($dbconn, $check_adduser);
-								$work  = 'อนุมัติ User'."\r\n";
-								
-								$cmd_module = explode(",", strtoupper(trim($cmd_modules)));
-								
-								for ($i = 0; $i <= count($cmd_module); $i++) 
-								{
-									$nm_module = $cmd_module[i];
-									$check_module = 'SELECT * FROM "TOS"."QUESTION_TYPE" WHERE "QUESTION_DESC" = '."'".trim(strtoupper($nm_module))."'";
-									$result = pg_exec($dbconn, $check_module);									
-									if(pg_numrows($result) > 0)
-									{
-										$row = pg_fetch_row($result)
-										$module_id = $row[0];										
-										
-										$insert_module = 'INSERT INTO "TOS"."QUESTION_TYPEvsTOKEN"("QUESTION_TYPE_ID", "TOKEN_ID", "STATUS")VALUES ('.$module_id.', '.$user_id.', '."'ACTIVE'".');'
-										$result = pg_exec($dbconn, $insert_module);
-										
-										$work  = $work .'เพิ่มสิทธิ์ที่ '.trim(strtoupper($nm_module))."\r\n";
-									}
-								}
+						// try
+						// {
+							// $cmd_sp = explode("APPROVE", strtoupper($cmdSpe));
+							// $cmd_user = $cmd_sp [0];
+							// $cmd_modules = $cmd_sp [1];
+							// $cmd_sp_count = count($cmd_sp);							
 							
-								$messages = [
-								'type' => 'text',			
-								'text' => 'R8 '.$work
-								];
-								$messagesX[0] = $messages;
-							}
-							else
-							{	
-								$messages = [
-								'type' => 'text',			
-								'text' => 'R8 ไม่พบผู้ใช้'//.$insert_newuser
-								];
-								$messagesX[0] = $messages;
-							}
-						}
-						catch(Exception $e)
-						{
-							$messages = [
-							'type' => 'text',			
-							'text' => 'R8 มีข้อผิดพลาด'.$e
-							];
-							$messagesX[0] = $messages;
-						}
+							// $check_adduser = 'SELECT * FROM "TOS"."TOKEN" WHERE "NAME" = '."'".trim($cmd_user)."'";
+							// $result = pg_exec($dbconn, $check_adduser);
+							
+							// if(pg_numrows($result) > 0)
+							// {
+								// $row = pg_fetch_row($result)
+								// $user_id = $row[0];
+								
+								// $cmdspe = 'grant all on all tables in schema "TOS" to feajajzganbfiq;';
+								// $result = pg_exec($dbconn, $cmdspe);
+						
+								// $work = '';
+								// $update_user = 'UPDATE FROM "TOS"."TOKEN" SET "STATUS" = '."'ACTIVE'".' WHERE "NAME" = '."'".trim($cmd_user)."'";
+								// $result = pg_exec($dbconn, $check_adduser);
+								// $work  = 'อนุมัติ User'."\r\n";
+								
+								// $cmd_module = explode(",", strtoupper(trim($cmd_modules)));
+								
+								// for ($i = 0; $i <= count($cmd_module); $i++) 
+								// {
+									// $nm_module = $cmd_module[i];
+									// $check_module = 'SELECT * FROM "TOS"."QUESTION_TYPE" WHERE "QUESTION_DESC" = '."'".trim(strtoupper($nm_module))."'";
+									// $result = pg_exec($dbconn, $check_module);									
+									// if(pg_numrows($result) > 0)
+									// {
+										// $row = pg_fetch_row($result)
+										// $module_id = $row[0];										
+										
+										// $insert_module = 'INSERT INTO "TOS"."QUESTION_TYPEvsTOKEN"("QUESTION_TYPE_ID", "TOKEN_ID", "STATUS")VALUES ('.$module_id.', '.$user_id.', '."'ACTIVE'".');'
+										// $result = pg_exec($dbconn, $insert_module);
+										
+										// $work  = $work .'เพิ่มสิทธิ์ที่ '.trim(strtoupper($nm_module))."\r\n";
+									// }
+								// }
+							
+								// $messages = [
+								// 'type' => 'text',			
+								// 'text' => 'R9 '.$work
+								// ];
+								// $messagesX[0] = $messages;
+							// }
+							// else
+							// {	
+								// $messages = [
+								// 'type' => 'text',			
+								// 'text' => 'R9 ไม่พบผู้ใช้'//.$insert_newuser
+								// ];
+								// $messagesX[0] = $messages;
+							// }
+						// }
+						// catch(Exception $e)
+						// {
+							// $messages = [
+							// 'type' => 'text',			
+							// 'text' => 'R9 มีข้อผิดพลาด'
+							// ];
+							// $messagesX[0] = $messages;
+						// }
 					}
 					else
 					{
 						$messages = [
 						'type' => 'text',			
-						'text' => 'R8 ใช้คำสั่งเหล่านี้ไม่ได้'//.$insert_newuser
+						'text' => 'R9 ใช้คำสั่งเหล่านี้ไม่ได้'//.$insert_newuser
 						];
 						$messagesX[0] = $messages;
 					}
@@ -132,7 +138,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 						'type' => 'text',			
-						'text' => 'R8 ทำการ Reset สิทธิ์เรียบร้อย'//.$insert_newuser
+						'text' => 'R9 ทำการ Reset สิทธิ์เรียบร้อย'//.$insert_newuser
 						];
 						$messagesX[0] = $messages;
 					}
@@ -140,7 +146,7 @@ if (!is_null($events['events'])) {
 					{
 						$messages = [
 						'type' => 'text',			
-						'text' => 'R8 ใช้คำสั่งเหล่านี้ไม่ได้'//.$insert_newuser
+						'text' => 'R9 ใช้คำสั่งเหล่านี้ไม่ได้'//.$insert_newuser
 						];
 						$messagesX[0] = $messages;
 					}
@@ -180,7 +186,7 @@ if (!is_null($events['events'])) {
 							
 							$messages = [
 									'type' => 'text',			
-									'text' => 'R8 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ  '//.$insert_newuser
+									'text' => 'R9 ไม่มีผู้ใช้นี้ และระบบได้เพิ่มให้แล้วกรุณาให้ admin อนุมัติ  '//.$insert_newuser
 									];
 									$messagesX[0] = $messages;
 						}
@@ -198,7 +204,7 @@ if (!is_null($events['events'])) {
 								{
 									$messages = [
 									'type' => 'text',			
-									'text' => 'R8 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
+									'text' => 'R9 กรุณาใส่ชื่อของคุณ'//.json_encode($event)
 									];
 									$messagesX[0] = $messages;
 									
@@ -215,7 +221,7 @@ if (!is_null($events['events'])) {
 									
 									$messages = [
 									'type' => 'text',			
-									'text' => 'R8 รอ Admin อนุมัติสักครู่' //.json_encode($event)
+									'text' => 'R9 รอ Admin อนุมัติสักครู่' //.json_encode($event)
 									];
 									$messagesX[0] = $messages;
 								}
@@ -223,7 +229,7 @@ if (!is_null($events['events'])) {
 								{
 									$messages = [
 									'type' => 'text',			
-									'text' => 'R8 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
+									'text' => 'R9 อยู่นอกลูป='.$return_cmd.' CMD='.$get_loop
 									];
 									$messagesX[0] = $messages;
 								}
@@ -232,7 +238,7 @@ if (!is_null($events['events'])) {
 							{
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R8 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
+								'text' => 'R9 ผู้ใช้ยังไม่ได้รับอณุญาติ หรือมีความผิดปกติ กรุณาติดต่อผู้ดูแลระบบ พร้อมแจ้ง Code='.$userX//.json_encode($event)
 								];
 								$messagesX[0] = $messages;
 							}
@@ -279,7 +285,7 @@ if (!is_null($events['events'])) {
 							
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R8 '.$all_module
+							'text' => 'R9 '.$all_module
 							];
 							$messagesX[0] = $messages;
 						}						
@@ -306,7 +312,7 @@ if (!is_null($events['events'])) {
 							
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R8 พร้อมเริ่ม Loop '.$text.' ใหม่ '//.$del_loop//.pg_fetch_result($result, 0, 4).' ins_cmd='.$chk_opencmd
+							'text' => 'R9 พร้อมเริ่ม Loop '.$text.' ใหม่ '//.$del_loop//.pg_fetch_result($result, 0, 4).' ins_cmd='.$chk_opencmd
 							];
 							$messagesX[0] = $messages;
 						}
@@ -328,7 +334,7 @@ if (!is_null($events['events'])) {
 							{	
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R8 กำลังค้นข้อมูลกรุณารอสักครู่  หรือหากนานเกินไปกรุณาแจ้งทางผู้ดูแลระบบ'//."\r\n"."TEST"
+								'text' => 'R9 กำลังค้นข้อมูลกรุณารอสักครู่  หรือหากนานเกินไปกรุณาแจ้งทางผู้ดูแลระบบ'//."\r\n"."TEST"
 								];
 								$messagesX[0] = $messages;
 								
@@ -351,7 +357,7 @@ if (!is_null($events['events'])) {
 								
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R8 กำลังค้นข้อมูลกรุณารอสักครู่ '
+								'text' => 'R9 กำลังค้นข้อมูลกรุณารอสักครู่ '
 								];
 								$messagesX[0] = $messages;
 							}
@@ -365,7 +371,7 @@ if (!is_null($events['events'])) {
 						// $return_user = pg_fetch_result($result, 0, 3);
 						// $messages = [
 						// 'type' => 'text',			
-						// 'text' => 'R8 สวัสดี '.$return_user.' ที่คุณสอบถามไม่อยู่ใน Scope การใช้งานของคุณ'
+						// 'text' => 'R9 สวัสดี '.$return_user.' ที่คุณสอบถามไม่อยู่ใน Scope การใช้งานของคุณ'
 						// ];
 						// $messagesX[0] = $messages;
 					}
