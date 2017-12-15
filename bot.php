@@ -27,7 +27,7 @@ if (!is_null($events['events'])) {
 			$numrows = 0;
 			$messagesX = array(1);
 			
-			if (strpos(strtoupper($text), 'XQUERY') !== false)//Case พิเศษสำหรับ XQuery XCLNC
+			if (strpos(strtoupper($text), 'XQUERY') != false)//Case พิเศษสำหรับ XQuery XCLNC
 			{
 				$getResult = "";
 				$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
