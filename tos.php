@@ -109,7 +109,7 @@ if (!is_null($events['events'])) {
 							{	
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R23 ไม่พบผู้ใช้'//.$insert_newuser
+								'text' => 'R23 ไม่พบผู้ใช้ '.$check_adduser
 								];
 								$messagesX[0] = $messages;
 							}
