@@ -74,7 +74,7 @@ if (!is_null($events['events'])) {
 								
 								$cmd_module = explode(",", strtoupper(trim($cmd_modules)));
 								
-								$work  = $work.'  '.count($cmd_module)
+								$work  = $work.'  '.count($cmd_module);
 								
 								for ($i = 0; $i <= count($cmd_module); $i++) 
 								{
