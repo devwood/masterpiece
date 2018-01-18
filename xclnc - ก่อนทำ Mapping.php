@@ -164,16 +164,6 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		
 		if($numrows_touser > 0)
 		{	
-	
-			$chekmapping = 'SELECT * FROM "MAPPING_CMD" WHERE "SHORT" = '."'".$cmd_str."'";
-			$result = pg_exec($dbconn, $chekmapping);
-			$expand = pg_fetch_result($result, 0, 3);
-			if($expand != '')
-			{
-				$cmd_str = $expand;
-			}
-	
-			
 			$cmdspe = 'grant all on all tables in schema public to feajajzganbfiq;';
 			$result = pg_exec($dbconn, $cmdspe);
 	
