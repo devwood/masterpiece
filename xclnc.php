@@ -24,7 +24,7 @@ if (!is_null($events['events'])) {
 			$messagesX = array(1);
 			
 			
-			if (strpos(strtoupper($text), 'XQUERY'))//Case พิเศษสำหรับ XQuery XCLNC
+			if (strpos(strtoupper($text), 'XQ'))//Case พิเศษสำหรับ XQuery XCLNC
 			{
 				$getResult = "";
 				$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
@@ -133,7 +133,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	$userX = $event['source']['userId'];
 	$id = $event['message']['id'];
 	
-	$whereQ = 'xquery';
+	$whereQ = 'xq';
 	// $chk_access_loop = 'SELECT GA.*, GR."ID"
 						// FROM "GROUP_ANSWER" GA
 						// INNER JOIN "ACTORvsGROUP_ANSWER" GR ON GR."GROUP_ANSWER_ID" = GA."ID"
@@ -153,10 +153,12 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	//if(1==1)//ใช้ไปก่อน
 	{
 		
-		$cmd_sp = explode("XQUERY", strtoupper($text));
+		$cmd_sp = explode("XQ", strtoupper($text));
 		$cmd_to = $cmd_sp [0];
 		$cmd_str = str_replace("'","''",$cmd_sp [1]);
 		$cmd_to = trim($cmd_to);
+		
+		
 		
 		$check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE "TOKEN" = '."'".$cmd_to."'";
 		$result_touser = pg_exec($dbconn, $check_user);
