@@ -80,7 +80,7 @@ if (!is_null($events['events'])) {
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => 'ไม่มีข้อมูล POS Online ใน 5 นาทีนี้:'.$know
+					'text' => 'ไม่มีข้อมูล POS Online ใน 5 นาทีนี้ :'.$know
 					];
 					$messagesX[0] = $messages;
 				}
