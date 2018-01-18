@@ -186,7 +186,6 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			//'text' => '4 R17='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str." exp=".$expand //.'ins='.$ins_cmd
 			'text' => 'ทำการเรียกข้อมูล'
 			];
 			$messagesX[0] = $messages;
