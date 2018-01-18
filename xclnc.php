@@ -168,7 +168,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$chekmapping = 'SELECT * FROM "MAPPING_CMD" WHERE "SHORT" = '."'".trim($cmd_str)."'";
 			$result = pg_exec($dbconn, $chekmapping);
 			$numrows_mapp = pg_numrows(result);
-			$expand = pg_fetch_result($result, 0, 3);
+			$expand = pg_fetch_result($result, 0, 2);
 			if($expand != '')
 			{
 				$cmd_str = $expand;
@@ -184,7 +184,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => '4 R16='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str." exp=".$chekmapping //.'ins='.$ins_cmd
+			'text' => '4 R17='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str." exp=".$expand //.'ins='.$ins_cmd
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
