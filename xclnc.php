@@ -164,7 +164,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		
 		if($numrows_touser > 0)
 		{	
-			$expand = '';
+			$expand = "";
 	
 			$chekmapping = 'SELECT * FROM "MAPPING_CMD" WHERE "SHORT" = '."'".$cmd_str."'";
 			$result = pg_exec($dbconn, $chekmapping);
@@ -184,7 +184,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => '4 R12='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str." exp=".$expand;//.'ins='.$ins_cmd
+			'text' => '4 R12='.$return." ไปยัง ".$cmd_to." ด้วยคำสั่ง ".$cmd_str;//." exp=".$expand;//.'ins='.$ins_cmd
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
