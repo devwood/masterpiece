@@ -23,12 +23,25 @@ if (!is_null($events['events'])) {
 			$numrows = 0;
 			$messagesX = array(1);
 			
-			if(strlen($text) < 500)
+			if(strlen($text) < 10000)
 			{			
 				if (strpos(strtoupper($text), 'XQ'))//Case พิเศษสำหรับ XQuery XCLNC
 				{
 					$getResult = "";
 					$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
+				}
+				elseif(strpos(strtoupper($text), 'XSP'))
+				{
+					$cmd_sp = explode("XSP", strtoupper($text));
+					$cmd_to = $cmd_sp [0];
+					
+					$messages = [
+						'type' => 'text',			
+						'text' => 'ข้อมูลขนาดใหญ่ ให้ใส่ไปที่ : https://linequery.com/xclnc_run_tool.php?shop='.$cmd_to
+						];
+						$messagesX[0] = $messages;
+						
+					_sendOut($access_token, $replyToken, $messagesX);
 				}
 				elseif(strtoupper($text) == 'KILL')
 				{
@@ -119,7 +132,7 @@ if (!is_null($events['events'])) {
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => json_encode($event)
+				'text' => 'ข้อมูลยาวเกินกว่าจะประมวลผลได้'//json_encode($event)
 				];
 				$messagesX[0] = $messages;
 				
@@ -226,7 +239,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'R4 ทำการเรียกข้อมูล'
+			'text' => 'R5 ทำการเรียกข้อมูล'
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
