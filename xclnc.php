@@ -29,6 +29,22 @@ if (!is_null($events['events'])) {
 				$getResult = "";
 				$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
 			}
+			elseif(strtoupper($text) == 'KILL')
+			{
+				$cmdspe = 'grant all on all tables in schema public to feajajzganbfiq;';
+				$result = pg_exec($dbconn, $cmdspe);
+				
+				$cmdspe = 'DELETE FROM public."QUERY_CMD";';
+				$result = pg_exec($dbconn, $cmdspe);
+				
+				$messages = [
+					'type' => 'text',			
+					'text' => 'ล้างข้อมูลทั้งหมดเรียบร้อย'
+					];
+					$messagesX[0] = $messages;
+					
+				_sendOut($access_token, $replyToken, $messagesX);
+			}
 			elseif(strtoupper($text) == 'ALL POS')
 			{
 				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
