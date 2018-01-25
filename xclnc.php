@@ -120,7 +120,7 @@ if (!is_null($events['events'])) {
 			
 			$messages = [
 				'type' => 'text',			
-				'text' => 'Other Type'//$event
+				'text' => $event
 				];
 				$messagesX[0] = $messages;
 				
@@ -214,7 +214,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'R1 ทำการเรียกข้อมูล'
+			'text' => 'R2 ทำการเรียกข้อมูล'
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
