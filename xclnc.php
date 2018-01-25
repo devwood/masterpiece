@@ -114,6 +114,16 @@ if (!is_null($events['events'])) {
 				_sendOut($access_token, $replyToken, $messagesX);
 			}
 		}
+		else
+		{
+			$messages = [
+				'type' => 'text',			
+				'text' => 'Other Type'//$event
+				];
+				$messagesX[0] = $messages;
+				
+				_sendOut($access_token, $replyToken, $messagesX);
+		}
 	}
 }
 
