@@ -23,62 +23,37 @@ if (!is_null($events['events'])) {
 			$numrows = 0;
 			$messagesX = array(1);
 			
-			
-			if (strpos(strtoupper($text), 'XQ'))//Case พิเศษสำหรับ XQuery XCLNC
-			{
-				$getResult = "";
-				$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
-			}
-			elseif(strtoupper($text) == 'KILL')
-			{
-				$cmdspe = 'grant all on all tables in schema public to feajajzganbfiq;';
-				$result = pg_exec($dbconn, $cmdspe);
-				
-				$cmdspe = 'DELETE FROM public."QUERY_CMD";';
-				$result = pg_exec($dbconn, $cmdspe);
-				
-				$messages = [
-					'type' => 'text',			
-					'text' => 'ล้างข้อมูลทั้งหมดเรียบร้อย'
-					];
-					$messagesX[0] = $messages;
-					
-				_sendOut($access_token, $replyToken, $messagesX);
-			}
-			elseif(strtoupper($text) == 'ALL POS')
-			{
-				$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
-				//$know = $know."LOWER('%".$text."%')";
-				$result = pg_exec($dbconn, $know );				
-				$numrows = pg_numrows($result);
-				
-				$return = '';
-				$returnonline = '';
-
-				while ($row = pg_fetch_row($result)) 
-				{					
-					$returnonline = $returnonline.$row[0]."\r\n";					
-				}
-			
-				$messages = [
-				'type' => 'text',			
-				'text' => 'ALL POS='. $returnonline
-				];
-				$messagesX[0] = $messages;
-				
-				_sendOut($access_token, $replyToken, $messagesX);
-			}
-			elseif(strtoupper($text) == 'ONLINE POS')
-			{
-				$know = 'SELECT "TOKEN"||'."' LOST='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" WHERE cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) < 5 ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
-				$result = pg_exec($dbconn, $know );				
-				$numrows = pg_numrows($result);
-				
-				$return = '';
-				
-				
-				if($numrows > 0)
+			if(strlen($text) < 500)
+			{			
+				if (strpos(strtoupper($text), 'XQ'))//Case พิเศษสำหรับ XQuery XCLNC
 				{
+					$getResult = "";
+					$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
+				}
+				elseif(strtoupper($text) == 'KILL')
+				{
+					$cmdspe = 'grant all on all tables in schema public to feajajzganbfiq;';
+					$result = pg_exec($dbconn, $cmdspe);
+					
+					$cmdspe = 'DELETE FROM public."QUERY_CMD";';
+					$result = pg_exec($dbconn, $cmdspe);
+					
+					$messages = [
+						'type' => 'text',			
+						'text' => 'ล้างข้อมูลทั้งหมดเรียบร้อย'
+						];
+						$messagesX[0] = $messages;
+						
+					_sendOut($access_token, $replyToken, $messagesX);
+				}
+				elseif(strtoupper($text) == 'ALL POS')
+				{
+					$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
+					//$know = $know."LOWER('%".$text."%')";
+					$result = pg_exec($dbconn, $know );				
+					$numrows = pg_numrows($result);
+					
+					$return = '';
 					$returnonline = '';
 
 					while ($row = pg_fetch_row($result)) 
@@ -88,26 +63,63 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => $returnonline
+					'text' => 'ALL POS='. $returnonline
 					];
 					$messagesX[0] = $messages;
+					
+					_sendOut($access_token, $replyToken, $messagesX);
+				}
+				elseif(strtoupper($text) == 'ONLINE POS')
+				{
+					$know = 'SELECT "TOKEN"||'."' LOST='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" WHERE cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) < 5 ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
+					$result = pg_exec($dbconn, $know );				
+					$numrows = pg_numrows($result);
+					
+					$return = '';
+					
+					
+					if($numrows > 0)
+					{
+						$returnonline = '';
+
+						while ($row = pg_fetch_row($result)) 
+						{					
+							$returnonline = $returnonline.$row[0]."\r\n";					
+						}
+					
+						$messages = [
+						'type' => 'text',			
+						'text' => $returnonline
+						];
+						$messagesX[0] = $messages;
+					}
+					else
+					{
+						$messages = [
+						'type' => 'text',			
+						'text' => 'ไม่มีข้อมูล POS Online ใน 5 นาทีนี้ :'.$know
+						];
+						$messagesX[0] = $messages;
+					}
+					
+					_sendOut($access_token, $replyToken, $messagesX);
 				}
 				else
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => 'ไม่มีข้อมูล POS Online ใน 5 นาทีนี้ :'.$know
+					'text' => strtoupper($text)
 					];
 					$messagesX[0] = $messages;
+					
+					_sendOut($access_token, $replyToken, $messagesX);
 				}
-				
-				_sendOut($access_token, $replyToken, $messagesX);
 			}
 			else
 			{
 				$messages = [
 				'type' => 'text',			
-				'text' => strtoupper($text)
+				'text' => json_encode($event)
 				];
 				$messagesX[0] = $messages;
 				
@@ -214,7 +226,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'R3 ทำการเรียกข้อมูล'
+			'text' => 'R4 ทำการเรียกข้อมูล'
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
