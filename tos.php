@@ -256,7 +256,8 @@ if (!is_null($events['events'])) {
 										FROM "TOS"."QUESTION_TYPE" Q
 										INNER JOIN "TOS"."QUESTION_TYPEvsTOKEN" QvT ON QvT."QUESTION_TYPE_ID" = Q."ID"
 										INNER JOIN "TOS"."TOKEN" TK ON TK."ID" = QvT."TOKEN_ID"
-										WHERE Q."QUESTION_DESC" = '."'".$text."'";
+										WHERE Q."QUESTION_DESC" = '."'".$cmdSpe."'";//555
+										//WHERE Q."QUESTION_DESC" = '."'".$text."'";
 						
 						$result_all = pg_exec($dbconn, $chk_opencmd_all);
 						$numrows_all = pg_numrows($result_all);
@@ -268,7 +269,8 @@ if (!is_null($events['events'])) {
 										INNER JOIN "TOS"."QUESTION_TYPEvsTOKEN" QvT ON QvT."QUESTION_TYPE_ID" = Q."ID"
 										INNER JOIN "TOS"."TOKEN" TK ON TK."ID" = QvT."TOKEN_ID"
 										WHERE TK."TOKEN" = '."'".$userX."'".'
-										AND Q."QUESTION_DESC" = '."'".$text."'";
+										AND Q."QUESTION_DESC" = '."'".$cmdSpe."'";
+										//AND Q."QUESTION_DESC" = '."'".$text."'";
 						
 						$result = pg_exec($dbconn, $chk_opencmd);
 						$numrows = pg_numrows($result);
