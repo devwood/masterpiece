@@ -365,7 +365,7 @@ if (!is_null($events['events'])) {
 								
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R5 กำลังค้นข้อมูลกรุณารอสักครู่ '.$update_loop
+								'text' => 'R5 กำลังค้นข้อมูลกรุณารอสักครู่ '.$update_loop.'XXXX'.$select_loop
 								];
 								$messagesX[0] = $messages;
 							}
