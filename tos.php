@@ -256,8 +256,8 @@ if (!is_null($events['events'])) {
 										FROM "TOS"."QUESTION_TYPE" Q
 										INNER JOIN "TOS"."QUESTION_TYPEvsTOKEN" QvT ON QvT."QUESTION_TYPE_ID" = Q."ID"
 										INNER JOIN "TOS"."TOKEN" TK ON TK."ID" = QvT."TOKEN_ID"
-										WHERE Q."QUESTION_DESC" = '."'".$cmdSpe."'";//555
-										//WHERE Q."QUESTION_DESC" = '."'".$text."'";
+										WHERE Q."QUESTION_DESC" = '."'".strtoupper($text)."'";//555
+										
 						
 						$result_all = pg_exec($dbconn, $chk_opencmd_all);
 						$numrows_all = pg_numrows($result_all);
@@ -269,8 +269,7 @@ if (!is_null($events['events'])) {
 										INNER JOIN "TOS"."QUESTION_TYPEvsTOKEN" QvT ON QvT."QUESTION_TYPE_ID" = Q."ID"
 										INNER JOIN "TOS"."TOKEN" TK ON TK."ID" = QvT."TOKEN_ID"
 										WHERE TK."TOKEN" = '."'".$userX."'".'
-										AND Q."QUESTION_DESC" = '."'".$cmdSpe."'";
-										//AND Q."QUESTION_DESC" = '."'".$text."'";
+										AND Q."QUESTION_DESC" = '."'".strtoupper($text)."'";
 						
 						$result = pg_exec($dbconn, $chk_opencmd);
 						$numrows = pg_numrows($result);
@@ -308,7 +307,7 @@ if (!is_null($events['events'])) {
 							$insert_new_loop = ' INSERT INTO "TOS"."CMD_LOOP"("CMD", "TOKEN_ID", "CMD_SQL", "DESC","RESULT_TYPE","CMD_LOOP_TEMPLETE_NEXT_ID")
 												   SELECT "CMD", (SELECT "ID" FROM "TOS"."TOKEN" WHERE "TOKEN" = '."'".$userX."'".'), "CMD_SQL", "DESC","RESULT_TYPE","NEXT_ID"
 												   FROM "TOS"."CMD_LOOP_TEMPLETE"
-												   WHERE "QUESTION_TYPE_ID" = (SELECT "ID" FROM "TOS"."QUESTION_TYPE" WHERE "QUESTION_DESC" = '."'".$text."'".')';
+												   WHERE "QUESTION_TYPE_ID" = (SELECT "ID" FROM "TOS"."QUESTION_TYPE" WHERE "QUESTION_DESC" = '."'".strtoupper($text)."'".')';
 							$result = pg_exec($dbconn, $insert_new_loop);
 							
 							$select_new_loop = 'SELECT "ID", "CMD", "TOKEN_ID", "CMD_SQL", "DESC", "RESULT_STATUS", "RESULT_TYPE"
@@ -320,7 +319,7 @@ if (!is_null($events['events'])) {
 							
 							$messages = [
 							'type' => 'text',			
-							'text' => 'R5 พร้อมเริ่ม Loop '.$text.' ใหม่ '//.$del_loop//.pg_fetch_result($result, 0, 4).' ins_cmd='.$chk_opencmd
+							'text' => 'R5 พร้อมเริ่ม Loop '.strtoupper($text)//.$del_loop//.pg_fetch_result($result, 0, 4).' ins_cmd='.$chk_opencmd
 							];
 							$messagesX[0] = $messages;
 						}
@@ -365,7 +364,7 @@ if (!is_null($events['events'])) {
 								
 								$messages = [
 								'type' => 'text',			
-								'text' => 'R5 กำลังค้นข้อมูลกรุณารอสักครู่ '.$update_loop.'XXXX'.$select_loop
+								'text' => 'R5 กำลังค้นข้อมูลกรุณารอสักครู่ '
 								];
 								$messagesX[0] = $messages;
 							}
