@@ -350,7 +350,7 @@ function _setINI($text, $dbconn, $event, $access_token)
 			$cmdspe = 'grant all on all tables in schema public to feajajzganbfiq;';
 			$result = pg_exec($dbconn, $cmdspe);
 	
-			$ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST", "TYPE_RESULT") VALUES ('."'".$userX."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".','INI');';
+			$ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST", "TYPE_RESULT") VALUES ('."'".$userX."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".','."'INI'".');';
 			$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
 	
 			$return = pg_fetch_result($result_grp, 0, 3);
