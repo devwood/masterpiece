@@ -117,6 +117,11 @@ if (!is_null($events['events'])) {
 					
 					_sendOut($access_token, $replyToken, $messagesX);
 				}
+				elseif(strpos(strtoupper($text), 'INI'))
+				{
+					$getResult = "";
+					$getResult = _setINI($text, $dbconn, $event, $access_token);
+				}
 				else
 				{
 					$messages = [
@@ -247,6 +252,118 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		else
 		{
 			$return = 'ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
+			$messages = [
+			'type' => 'text',			
+			'text' => $return
+			];
+			$messagesX[0] = $messages;
+			$numrows = 1;
+		}
+	}
+	else
+	{
+		$ins_cmd = 'INSERT INTO public."ACTOR"("USER_ID", "PASSPORT_KEY", "SYS_PASSPORT_KEY")VALUES ('."'".$userX."'".', '."'999'".', '."'999'".');';
+		//$ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST") VALUES ('."'".$access_token."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".');';
+		$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
+		
+		
+		$return = $userX.' ยังไม่ได้รับอณุญาติให้เข้าระบบ='.$ins_cmd;
+		$messages = [
+		'type' => 'text',			
+		'text' => $return
+		];
+		$messagesX[0] = $messages;
+		$numrows = 1;
+	}
+	
+	if(1==1)
+	{
+		$url = 'https://api.line.me/v2/bot/message/reply';		
+		$data = [
+			'replyToken' => $replyToken,
+			'messages' => $messagesX,
+		];
+		$post = json_encode($data);
+		$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		$result = curl_exec($ch);
+		curl_close($ch);
+		echo $result . "\r\n";
+	}
+	$getResult = "OK ".$access_token;
+	
+	
+	return $getResult;
+}
+
+
+function _setINI($text, $dbconn, $event, $access_token)
+{
+	$getResult = '';
+	
+	$replyToken = $event['replyToken'];
+	$userId = $event['source']['userId'];
+	$userX = $event['source']['userId'];
+	$id = $event['message']['id'];
+	
+	$whereQ = 'xq';
+	$chk_access_loop = 'SELECT AC."ID"
+						FROM "ACTOR" AC
+						WHERE AC."USER_ID" = '."'".$userX."'";	
+	$result_grp = pg_exec($dbconn, $chk_access_loop);
+    $numrows_grp = pg_numrows($result_grp);
+	$messagesX = array(1);
+
+	if($numrows_grp > 0)
+	//if(1==1)//ใช้ไปก่อน
+	{
+		
+		$cmd_sp = explode("INI", strtoupper($text));
+		$cmd_to = $cmd_sp [0];
+		$cmd_str = str_replace("'","''",$cmd_sp [1]);
+		$cmd_to = trim($cmd_to);
+		
+		
+		
+		$check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE "TOKEN" = '."'".$cmd_to."'";
+		$result_touser = pg_exec($dbconn, $check_user);
+		$numrows_touser = pg_numrows($result_touser);
+		
+		if($numrows_touser > 0)
+		{	
+			$expand = "";
+			$chekmapping = 'SELECT * FROM "MAPPING_CMD" WHERE "SHORT" = '."'".trim($cmd_str)."'";
+			$result = pg_exec($dbconn, $chekmapping);
+			$numrows_mapp = pg_numrows(result);
+			$expand = pg_fetch_result($result, 0, 2);
+			if($expand != '')
+			{
+				$cmd_str = $expand;
+			}
+	
+			
+			$cmdspe = 'grant all on all tables in schema public to feajajzganbfiq;';
+			$result = pg_exec($dbconn, $cmdspe);
+	
+			$ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST", "TYPE_RESULT") VALUES ('."'".$userX."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".','INI');';
+			$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
+	
+			$return = pg_fetch_result($result_grp, 0, 3);
+			$messages = [
+			'type' => 'text',			
+			'text' => 'R5 กำลัง Set INI'
+			];
+			$messagesX[0] = $messages;
+			$numrows = 1;
+		}
+		else
+		{
+			$return = 'ไม่สามารถทำการ Set INI '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
 			'text' => $return
