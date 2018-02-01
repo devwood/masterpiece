@@ -323,7 +323,7 @@ function _setINI($text, $dbconn, $event, $access_token)
 	//if(1==1)//ใช้ไปก่อน
 	{
 		
-		$cmd_sp = explode("INI", strtoupper($text));
+		$cmd_sp = explode("ini", $text);
 		$cmd_to = $cmd_sp [0];
 		$cmd_str = str_replace("'","''",$cmd_sp [1]);
 		$cmd_to = trim($cmd_to);
