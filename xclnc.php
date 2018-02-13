@@ -267,7 +267,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
 		
 		
-		$return = ' ยังไม่ได้รับอณุญาติให้เข้าระบบ รอประมาณ 1 นาที หากยังไม่ได้กรุณา แจ้ง ID['.$userX.'] ให้กับ Admin ทราบ'
+		$return = ' ยังไม่ได้รับอณุญาติให้เข้าระบบ รอประมาณ 1 นาที หากยังไม่ได้กรุณา แจ้ง ID['.$userX.'] ให้กับ Admin ทราบ';
 		//$return = $userX.' ยังไม่ได้รับอณุญาติให้เข้าระบบ='.$ins_cmd;
 		$messages = [
 		'type' => 'text',			
