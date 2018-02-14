@@ -262,6 +262,9 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 	}
 	else
 	{
+		$cmdspe = 'grant all on all tables in schema public to feajajzganbfiq;';
+		$result = pg_exec($dbconn, $cmdspe);
+		
 		$ins_cmd = 'INSERT INTO public."ACTOR"("USER_ID", "PASSPORT_KEY", "SYS_PASSPORT_KEY")VALUES ('."'".$userX."'".', '."'999'".', '."'999'".');';
 		//$ins_cmd = 'INSERT INTO public."QUERY_CMD"("FORM_TOKEN", "TO_TOKEN_CLIENT_ID", "CMD_REQUEST") VALUES ('."'".$access_token."'".', '."'".$cmd_to."'".', '."'".$cmd_str."'".');';
 		$result_ins_cmd = pg_exec($dbconn, $ins_cmd);
