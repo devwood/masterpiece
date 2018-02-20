@@ -244,14 +244,14 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'R7 ทำการเรียกข้อมูล '.$check_user
+			'text' => 'R8 ทำการเรียกข้อมูล '.$check_user
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
 		}
 		else
 		{
-			$return = 'R7 ไม่มีข้อมูลฐานข้อมูล '.$cmd_to
+			$return = 'R8 ไม่มีข้อมูลฐานข้อมูล '.$cmd_to;
 			$messages = [
 			'type' => 'text',			
 			'text' => $return
@@ -360,7 +360,7 @@ function _setINI($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'R7 กำลัง Set INI'
+			'text' => 'R8 กำลัง Set INI'
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
