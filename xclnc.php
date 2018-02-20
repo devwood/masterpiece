@@ -244,7 +244,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'R5 ทำการเรียกข้อมูล'
+			'text' => 'R6 ทำการเรียกข้อมูล '.$check_user
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
@@ -360,7 +360,7 @@ function _setINI($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'R5 กำลัง Set INI'
+			'text' => 'R6 กำลัง Set INI'
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
