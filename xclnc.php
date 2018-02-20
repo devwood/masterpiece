@@ -251,7 +251,7 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		}
 		else
 		{
-			$return = 'R6 ไม่มีข้อมูลฐานข้อมูล '//.$check_user;
+			$return = 'R6 ไม่มีข้อมูลฐานข้อมูล ';//.$check_user;
 			$messages = [
 			'type' => 'text',			
 			'text' => $return
