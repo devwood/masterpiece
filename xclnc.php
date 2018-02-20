@@ -214,11 +214,11 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 		$cmd_sp = explode("XQ", strtoupper($text));
 		$cmd_to = $cmd_sp [0];
 		$cmd_str = str_replace("'","''",$cmd_sp [1]);
-		$cmd_to = strtoupper(trim($cmd_to));
+		$cmd_to = trim($cmd_to);
 		
 		
 		
-		$check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE UPPER("TOKEN") = '."'".$cmd_to."'";
+		$check_user = 'SELECT * FROM public."QUERY_TOKEN" WHERE UPPER("TOKEN") = '."'".strtoupper($cmd_to)."'";
 		$result_touser = pg_exec($dbconn, $check_user);
 		$numrows_touser = pg_numrows($result_touser);
 		
@@ -244,14 +244,14 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'R6 ทำการเรียกข้อมูล '//.$check_user
+			'text' => 'R7 ทำการเรียกข้อมูล '//.$check_user
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
 		}
 		else
 		{
-			$return = 'R6 ไม่มีข้อมูลฐานข้อมูล ';//.$check_user;
+			$return = 'R7 ไม่มีข้อมูลฐานข้อมูล ';//.$check_user;
 			$messages = [
 			'type' => 'text',			
 			'text' => $return
@@ -360,7 +360,7 @@ function _setINI($text, $dbconn, $event, $access_token)
 			$return = pg_fetch_result($result_grp, 0, 3);
 			$messages = [
 			'type' => 'text',			
-			'text' => 'R6 กำลัง Set INI'
+			'text' => 'R7 กำลัง Set INI'
 			];
 			$messagesX[0] = $messages;
 			$numrows = 1;
