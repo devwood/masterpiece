@@ -36,16 +36,39 @@ if (!is_null($events['events'])) {
 			if(1==1)
 			{
 				$cmdSpe = strtoupper($text);
-				if(strpos(strtoupper($cmdSpe), 'APPROVE') == true)
+				if(strpos(strtoupper($cmdSpe), '?') == true)
+				{
+					$check_module = 'SELECT DISTINCT Q."QUESTION_DESC"
+										FROM "TOS"."QUESTION_TYPEvsTOKEN" QT
+										INNER JOIN "TOS"."QUESTION_TYPE" Q ON QT."QUESTION_TYPE_ID" = Q."ID"
+										INNER JOIN "TOS"."TOKEN" T ON QT."TOKEN_ID" = T."ID"
+										WHERE T."TOKEN" ='."'".$userX."'";
+					$result = pg_exec($dbconn, $check_adduser);
+					
+					
+					if(pg_numrows($result) > 0)
+					{
+						$all_module = "ระบบที่ใช้ได้สำหรับคุณ คือ"."\r\n";
+						while ($row = pg_fetch_row($result)) 
+						{					
+							$all_module = $all_module.$row[0]."\r\n";					
+						}
+						
+						$messages = [
+						'type' => 'text',			
+						'text' => 'R5 '.$all_module
+						];
+						$messagesX[0] = $messages;
+					}
+				}
+				elseif(strpos(strtoupper($cmdSpe), 'APPROVE') == true)
 				{
 					$check_user = 'SELECT * FROM "TOS"."TOKEN" WHERE "TYPE" = '."'ADMIN'".' AND "STATUS"='."'"."ACTIVE"."'".' AND "TOKEN" = '."'".$userX."'";
 					$result = pg_exec($dbconn, $check_user);				
 					$numrows = pg_numrows($result);
 					
 					if($numrows > 0)
-					{
-						
-						
+					{	
 						try
 						{
 							$cmd_sp = explode("APPROVE", strtoupper($cmdSpe));
