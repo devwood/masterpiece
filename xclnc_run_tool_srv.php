@@ -31,7 +31,7 @@ while($r = pg_fetch_row($result)) {
 }
 
 
-$myJSON = json_encode($result);
+$myJSON = json_encode($rows);
 
 echo $myJSON;
 // echo '55';
