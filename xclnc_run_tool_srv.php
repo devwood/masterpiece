@@ -22,10 +22,7 @@ $dbconn = pg_connect("host=ec2-107-22-252-91.compute-1.amazonaws.com port=5432 d
 
 
 
-$check_module = 'SELECT DISTINCT Q."QUESTION_DESC", Q."NOTE"
-										FROM "TOS"."QUESTION_TYPEvsTOKEN" QT
-										INNER JOIN "TOS"."QUESTION_TYPE" Q ON QT."QUESTION_TYPE_ID" = Q."ID"
-										INNER JOIN "TOS"."TOKEN" T ON QT."TOKEN_ID" = T."ID"';
+$check_module = 'SELECT "TOKEN", "NAME" FROM "QUERY_TOKEN"';
 $result = pg_exec($dbconn, $check_module);
 
 $rows = array();
