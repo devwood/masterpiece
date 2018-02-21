@@ -22,20 +22,20 @@ $dbconn = pg_connect("host=ec2-107-22-252-91.compute-1.amazonaws.com port=5432 d
 
 
 
-// $check_module = 'SELECT DISTINCT Q."QUESTION_DESC", Q."NOTE"
-										// FROM "TOS"."QUESTION_TYPEvsTOKEN" QT
-										// INNER JOIN "TOS"."QUESTION_TYPE" Q ON QT."QUESTION_TYPE_ID" = Q."ID"
-										// INNER JOIN "TOS"."TOKEN" T ON QT."TOKEN_ID" = T."ID"';
-// $result = pg_exec($dbconn, $check_module);
+$check_module = 'SELECT DISTINCT Q."QUESTION_DESC", Q."NOTE"
+										FROM "TOS"."QUESTION_TYPEvsTOKEN" QT
+										INNER JOIN "TOS"."QUESTION_TYPE" Q ON QT."QUESTION_TYPE_ID" = Q."ID"
+										INNER JOIN "TOS"."TOKEN" T ON QT."TOKEN_ID" = T."ID"';
+$result = pg_exec($dbconn, $check_module);
 
-// $rows = array();
-// while($r = pg_fetch_row($result)) {
-    // $rows[] = $r;
-// }
+$rows = array();
+while($r = pg_fetch_row($result)) {
+    $rows[] = $r;
+}
 
 
-// $myJSON = json_encode($rows );
+$myJSON = json_encode($rows );
 
-// echo $myJSON;
-echo '55';
+echo $myJSON;
+// echo '55';
 ?>
