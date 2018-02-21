@@ -33,6 +33,12 @@ while($r = pg_fetch_row($result)) {
 
 $myJSON = json_encode($rows);
 
-echo $myJSON;
+//echo $myJSON;
 // echo '55';
+
+echo '{
+   "time": "02:48:37 PM",
+   "milliseconds_since_epoch": 1519224517177,
+   "date": "02-21-2018"
+}';
 ?>
