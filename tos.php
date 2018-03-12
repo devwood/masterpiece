@@ -33,7 +33,7 @@ if (!is_null($events['events'])) {
 		
 			$loop = '001';
 		
-			if(1==1)
+			if(1==0)
 			{
 				$cmdSpe = strtoupper($text);
 				if($text == '?')
@@ -417,11 +417,11 @@ if (!is_null($events['events'])) {
 			else
 			{
 				$s = 0;
-				// $messages = [
-				// 'type' => 'text',			
-				// 'text' => 'สอบถามวันที่ 01/01 เวลา 02:50 โดย:'.$userX
-				// ];
-				// $messagesX[0] = $messages;
+				$messages = [
+				'type' => 'text',			
+				'text' => 'ระบบงดใช้งานชั่วคราวรอคุณมงคลอนุมัติ ขอโทษค๊าบบบบบบบ'
+				];
+				$messagesX[0] = $messages;
 				
 				// SELECT Q.*
 				// FROM "TOS"."QUESTION_TYPE" Q
