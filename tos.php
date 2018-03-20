@@ -33,7 +33,7 @@ if (!is_null($events['events'])) {
 		
 			$loop = '001';
 		
-			if(1==0)
+			if(1==1)
 			{
 				$cmdSpe = strtoupper($text);
 				if($text == '?')
