@@ -30,14 +30,11 @@ if (!is_null($events['events'])) {
 					$getResult = "";
 					$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
 				}
-				elseif(strpos(strtoupper($text), 'I AM') != NULL)
-				{
-					$cmd_sp = explode("I AM", strtoupper($text));
-					$name = $cmd_sp[0];
-					
+				elseif(substr($text ,0,4) == 'I AM')
+				{	
 					$messages = [
 						'type' => 'text',			
-						'text' => 'R14 ชื่อคุณคือ '.$name.' +'.count($cmd_sp).' +'.$cmd_sp[1].' POS=['.strpos(strtoupper($text), 'I AM').']'
+						'text' => 'R2 ชื่อคุณคือ '.substr($text ,4)
 						];
 						$messagesX[0] = $messages;
 						
