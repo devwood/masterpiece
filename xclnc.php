@@ -32,9 +32,9 @@ if (!is_null($events['events'])) {
 				}
 				elseif(strtoupper(substr($text ,0,4)) == 'I AM')
 				{	
-					$name = trim(substr($text ,4));
+					$name = strtoupper(trim(substr($text ,4)));
 					
-					$know = 'SELECT * FROM public."ACTOR" WHERE "ACTOR"."NAME_TOKEN" = '."'".$name."'";
+					$know = 'SELECT * FROM public."ACTOR" WHERE UPPER("ACTOR"."NAME_TOKEN") = '."'".$name."'";
 					//$know = $know."LOWER('%".$text."%')";
 					$result = pg_exec($dbconn, $know );				
 					$numrows = pg_numrows($result);
