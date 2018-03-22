@@ -30,6 +30,19 @@ if (!is_null($events['events'])) {
 					$getResult = "";
 					$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
 				}
+				elseif(strpos(strtoupper($text), 'I AM'))
+				{
+					$cmd_sp = explode("I AM", strtoupper($text));
+					$name = $cmd_sp [0];
+					
+					$messages = [
+						'type' => 'text',			
+						'text' => 'ชื่อคุณคือ'.$name
+						];
+						$messagesX[0] = $messages;
+						
+					_sendOut($access_token, $replyToken, $messagesX);
+				}
 				elseif(strpos(strtoupper($text), 'XSP'))
 				{
 					$cmd_sp = explode("XSP", strtoupper($text));
