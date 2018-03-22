@@ -51,7 +51,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 							'type' => 'text',			
-							'text' => 'ชื่อคุณคือ '.substr($text ,4)
+							'text' => 'ชื่อคุณคือ '.substr($text ,4).'   '.$know
 							];
 							$messagesX[0] = $messages;
 					}
