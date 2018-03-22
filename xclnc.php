@@ -33,11 +33,11 @@ if (!is_null($events['events'])) {
 				elseif(strpos(strtoupper($text), 'I AM') == 0)
 				{
 					$cmd_sp = explode("I AM", strtoupper($text));
-					$name = $cmd_sp [0];
+					$name = $cmd_sp[0];
 					
 					$messages = [
 						'type' => 'text',			
-						'text' => 'R8 ชื่อคุณคือ '.$name
+						'text' => 'R10 ชื่อคุณคือ '.$name.' +'.count($cmd_sp)
 						];
 						$messagesX[0] = $messages;
 						
@@ -46,7 +46,7 @@ if (!is_null($events['events'])) {
 				elseif(strpos(strtoupper($text), 'XSP'))
 				{
 					$cmd_sp = explode("XSP", strtoupper($text));
-					$cmd_to = $cmd_sp [0];
+					$cmd_to = $cmd_sp[0];
 					
 					$messages = [
 						'type' => 'text',			
