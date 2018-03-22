@@ -37,7 +37,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 						'type' => 'text',			
-						'text' => 'R3 ชื่อคุณคือ'.$text.' '.strpos('AM','I AM TAE')
+						'text' => 'R4 ชื่อคุณคือ'.$text.' '.strpos('I AM TAE', 'I AM')
 						];
 						$messagesX[0] = $messages;
 						
