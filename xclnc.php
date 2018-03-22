@@ -32,7 +32,7 @@ if (!is_null($events['events'])) {
 				}
 				elseif(strtoupper(substr($text ,0,4)) == 'I AM')
 				{	
-					$name = substr($text ,4);
+					$name = trim(substr($text ,4));
 					
 					$know = 'SELECT * FROM public."ACTOR" WHERE "ACTOR"."NAME_TOKEN" = '."'".$name."'";
 					//$know = $know."LOWER('%".$text."%')";
