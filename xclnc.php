@@ -32,11 +32,29 @@ if (!is_null($events['events'])) {
 				}
 				elseif(strtoupper(substr($text ,0,4)) == 'I AM')
 				{	
-					$messages = [
-						'type' => 'text',			
-						'text' => 'R3 ชื่อคุณคือ '.substr($text ,4)
-						];
-						$messagesX[0] = $messages;
+					$name = substr($text ,4);
+					
+					$know = 'SELECT * FROM public."ACTOR" WHERE "ACTOR"."NAME_TOKEN" = '."'".$name."'";
+					//$know = $know."LOWER('%".$text."%')";
+					$result = pg_exec($dbconn, $know );				
+					$numrows = pg_numrows($result);
+					
+					if($numrows > 0)
+					{				
+						$messages = [
+							'type' => 'text',			
+							'text' => 'ชื่อ '.substr($text ,4).' มีในระบบแล้ว กรุณาตั้งใหม่'
+							];
+							$messagesX[0] = $messages;
+					}
+					else{
+						
+						$messages = [
+							'type' => 'text',			
+							'text' => 'ชื่อคุณคือ '.substr($text ,4)
+							];
+							$messagesX[0] = $messages;
+					}
 						
 					_sendOut($access_token, $replyToken, $messagesX);
 				}
