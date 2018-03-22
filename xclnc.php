@@ -49,7 +49,7 @@ if (!is_null($events['events'])) {
 					}
 					else{
 						
-						$update = 'UPDATE FROM public."ACTOR" SET "ACTOR"."NAME_TOKEN" ='."'".$name."'".'  WHERE UPPER("ACTOR"."USER_ID") = '."'".$access_token."'";
+						$update = 'UPDATE FROM public."ACTOR" SET "ACTOR"."NAME_TOKEN" ='."'".$name."'".'  WHERE UPPER("ACTOR"."USER_ID") = '."'".$replyToken."'";
 						//$result = pg_exec($dbconn, $update );	
 						
 						$messages = [
