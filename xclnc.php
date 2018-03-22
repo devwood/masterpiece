@@ -50,11 +50,11 @@ if (!is_null($events['events'])) {
 					else{
 						
 						$update = 'UPDATE "public"."ACTOR" SET "NAME_TOKEN"=E'."'".trim(substr($text ,5))."'".'  WHERE "ACTOR"."USER_ID" = '."'".$userX."'";
-						//$result = pg_exec($dbconn, $update );	
+						$result = pg_exec($dbconn, $update );	
 						
 						$messages = [
 							'type' => 'text',			
-							'text' => 'ชื่อคุณคือ '.substr($text ,5).' >>>  '.$update
+							'text' => 'ชื่อคุณคือ '.substr($text ,5)//.' >>>  '.$update
 							];
 							$messagesX[0] = $messages;
 					}
