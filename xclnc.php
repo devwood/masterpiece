@@ -49,9 +49,12 @@ if (!is_null($events['events'])) {
 					}
 					else{
 						
+						$update = 'UPDATE FROM public."ACTOR" SET "ACTOR"."NAME_TOKEN" ='."'".$name."'".'  WHERE UPPER("ACTOR"."USER_ID") = '."'".$access_token."'";
+						//$result = pg_exec($dbconn, $update );	
+						
 						$messages = [
 							'type' => 'text',			
-							'text' => 'ชื่อคุณคือ '.substr($text ,5).'   '.$know
+							'text' => 'ชื่อคุณคือ '.substr($text ,5).' >>>  '.$update
 							];
 							$messagesX[0] = $messages;
 					}
