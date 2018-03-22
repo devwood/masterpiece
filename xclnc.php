@@ -37,7 +37,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 						'type' => 'text',			
-						'text' => 'R10 ชื่อคุณคือ '.$name.' +'.count($cmd_sp)
+						'text' => 'R11 ชื่อคุณคือ '.$name.' +'.count($cmd_sp)
 						];
 						$messagesX[0] = $messages;
 						
