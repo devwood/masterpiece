@@ -30,14 +30,14 @@ if (!is_null($events['events'])) {
 					$getResult = "";
 					$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
 				}
-				elseif(strpos(strtoupper($text), 'I AM'))
+				elseif(strpos(strtoupper($text), 'I AM') == 0)
 				{
 					$cmd_sp = explode("I AM", strtoupper($text));
 					$name = $cmd_sp [0];
 					
 					$messages = [
 						'type' => 'text',			
-						'text' => 'R6 ชื่อคุณคือ'.$text.' '.strpos('I AM TAE', 'I AM')
+						'text' => 'R7 ชื่อคุณคือ'.$text.' '.strpos('I AM TAE', 'I AM')
 						];
 						$messagesX[0] = $messages;
 						
