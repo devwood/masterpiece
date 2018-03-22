@@ -30,9 +30,9 @@ if (!is_null($events['events'])) {
 					$getResult = "";
 					$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
 				}
-				elseif(strtoupper(substr($text ,0,4)) == 'I AM')
+				elseif(strtoupper(substr($text ,0,5)) == 'NAME=')
 				{	
-					$name = strtoupper(trim(substr($text ,4)));
+					$name = strtoupper(trim(substr($text ,5)));
 					
 					$know = 'SELECT * FROM public."ACTOR" WHERE UPPER("ACTOR"."NAME_TOKEN") = '."'".$name."'";
 					//$know = $know."LOWER('%".$text."%')";
@@ -43,7 +43,7 @@ if (!is_null($events['events'])) {
 					{				
 						$messages = [
 							'type' => 'text',			
-							'text' => 'ชื่อ '.substr($text ,4).' มีในระบบแล้ว กรุณาตั้งใหม่'
+							'text' => 'ชื่อ '.substr($text ,5).' มีในระบบแล้ว กรุณาตั้งใหม่'
 							];
 							$messagesX[0] = $messages;
 					}
@@ -51,7 +51,7 @@ if (!is_null($events['events'])) {
 						
 						$messages = [
 							'type' => 'text',			
-							'text' => 'ชื่อคุณคือ '.substr($text ,4).'   '.$know
+							'text' => 'ชื่อคุณคือ '.substr($text ,5).'   '.$know
 							];
 							$messagesX[0] = $messages;
 					}
