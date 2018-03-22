@@ -136,7 +136,7 @@ if (!is_null($events['events'])) {
 				{
 					$messages = [
 					'type' => 'text',			
-					'text' => strtoupper($text).' R2 '.strtoupper(substr($text ,0,4))
+					'text' => strtoupper($text)//.' R2 '.strtoupper(substr($text ,0,4))
 					];
 					$messagesX[0] = $messages;
 					
