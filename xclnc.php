@@ -30,11 +30,11 @@ if (!is_null($events['events'])) {
 					$getResult = "";
 					$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
 				}
-				elseif(substr($text ,0,4) == 'I AM')
+				elseif(strtoupper(substr($text ,0,4)) == 'I AM')
 				{	
 					$messages = [
 						'type' => 'text',			
-						'text' => 'R2 ชื่อคุณคือ '.substr($text ,4)
+						'text' => 'R3 ชื่อคุณคือ '.substr($text ,4)
 						];
 						$messagesX[0] = $messages;
 						
