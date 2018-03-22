@@ -37,7 +37,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 						'type' => 'text',			
-						'text' => 'R12 ชื่อคุณคือ '.$name.' +'.count($cmd_sp).' +'.$cmd_sp[1].' POS='.strpos(strtoupper($text), 'I AM')
+						'text' => 'R13 ชื่อคุณคือ '.$name.' +'.count($cmd_sp).' +'.$cmd_sp[1].' POS=['.strpos(strtoupper($text), 'I AM').']'
 						];
 						$messagesX[0] = $messages;
 						
