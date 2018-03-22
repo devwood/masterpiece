@@ -30,6 +30,20 @@ if (!is_null($events['events'])) {
 					$getResult = "";
 					$getResult = _resultXQUERY($text, $dbconn, $event, $access_token);
 				}
+				elseif(strtoupper(substr($text ,0,9)) == 'PASSWORD=')
+				{	
+					$pass = strtoupper(trim(substr($text ,9)));
+					$update = 'UPDATE "public"."ACTOR" SET "PASSPORT_KEY"=E'."'".trim(substr($text ,9))."'".'  WHERE "ACTOR"."USER_ID" = '."'".$userX."'";
+					$result = pg_exec($dbconn, $update );	
+					
+					$messages = [
+						'type' => 'text',			
+						'text' => 'Password='.substr($text ,9)//.' >>>  '.$update
+						];
+						$messagesX[0] = $messages;
+						
+					_sendOut($access_token, $replyToken, $messagesX);
+				}
 				elseif(strtoupper(substr($text ,0,5)) == 'NAME=')
 				{	
 					$name = strtoupper(trim(substr($text ,5)));
