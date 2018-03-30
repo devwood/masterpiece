@@ -82,7 +82,7 @@ if (!is_null($events['events'])) {
 					
 					$messages = [
 						'type' => 'text',			
-						'text' => 'ข้อมูลขนาดใหญ่ ให้ใส่ไปที่ : https://linequery.com/xclnc_run_tool.php?shop='.$cmd_to
+						'text' => 'ข้อมูลขนาดใหญ่ ให้ใส่ไปที่ : http://xclnc.linequery.com/xclnc_run_tool.html'
 						];
 						$messagesX[0] = $messages;
 						
