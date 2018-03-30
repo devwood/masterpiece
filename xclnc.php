@@ -75,11 +75,10 @@ if (!is_null($events['events'])) {
 						
 					_sendOut($access_token, $replyToken, $messagesX);
 				}
-				elseif(strpos(strtoupper($text), 'XSP'))
+				elseif(strtoupper($text) == 'XSP')
 				{
 					$cmd_sp = explode("XSP", strtoupper($text));
-					$cmd_to = $cmd_sp[0];
-					
+				
 					$messages = [
 						'type' => 'text',			
 						'text' => 'ข้อมูลขนาดใหญ่ ให้ใส่ไปที่ : http://xclnc.linequery.com/xclnc_run_tool.html'
