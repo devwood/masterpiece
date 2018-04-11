@@ -277,7 +277,6 @@ function _resultXQUERY($text, $dbconn, $event, $access_token)
 			if($expand != '')
 			{
 				$cmd_str = $expand;
-				$cmd_str = str_replace(",","._.",$cmd_str);
 			}
 	
 			
