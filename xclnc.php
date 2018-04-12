@@ -120,7 +120,7 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => 'ALL POS'."\r\n".'http://xclnc.linequery.com/xclnc_monitor.html'."\r\n" $returnonline
+					'text' => 'ALL POS'."\r\n".$returnonline
 					];
 					$messagesX[0] = $messages;
 					
