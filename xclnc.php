@@ -120,11 +120,14 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => 'ALL POS='. $returnonline
+					'text' => 'ALL POS'."\r\n".'http://xclnc.linequery.com/xclnc_monitor.html'."\r\n" $returnonline
 					];
 					$messagesX[0] = $messages;
 					
 					_sendOut($access_token, $replyToken, $messagesX);
+					
+					
+					
 				}
 				elseif(strtoupper($text) == 'ONLINE POS')
 				{
