@@ -124,12 +124,12 @@ if (!is_null($events['events'])) {
 					// ];
 					// $messagesX[0] = $messages;
 					
-					
 					$messages = [
-					'type' => 'text',			
-					'text' => 'สามารถดูได้จาก = http://xclnc.linequery.com/xclnc_monitor.html'
-					];
-					$messagesX[0] = $messages;
+						'type' => 'text',			
+						'text' => 'ล้างข้อมูลทั้งหมดเรียบร้อย'
+						];
+						$messagesX[0] = $messages;
+						
 					_sendOut($access_token, $replyToken, $messagesX);
 				}
 				elseif(strtoupper($text) == 'ONLINE POS')
