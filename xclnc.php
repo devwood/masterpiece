@@ -105,18 +105,18 @@ if (!is_null($events['events'])) {
 				}
 				elseif(strtoupper($text) == 'ALL POS')
 				{
-					// $know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
-					// //$know = $know."LOWER('%".$text."%')";
-					// $result = pg_exec($dbconn, $know );				
-					// $numrows = pg_numrows($result);
+					$know = 'SELECT "TOKEN"||'."' IN='".'||cast(cast(EXTRACT(EPOCH FROM age(clock_timestamp(), "LAST_UPDATE_DATE"))/60 as bigint) as text)||'."'นาที'".' as LAST_ONLINE FROM public."QUERY_TOKEN" ORDER BY age(clock_timestamp(), "LAST_UPDATE_DATE")';
+					//$know = $know."LOWER('%".$text."%')";
+					$result = pg_exec($dbconn, $know );				
+					$numrows = pg_numrows($result);
 					
-					// $return = '';
-					// $returnonline = '';
+					$return = '';
+					$returnonline = '';
 
-					// while ($row = pg_fetch_row($result)) 
-					// {					
-						// $returnonline = $returnonline.$row[0]."\r\n";					
-					// }
+					while ($row = pg_fetch_row($result)) 
+					{					
+						$returnonline = $returnonline.$row[0]."\r\n";					
+					}
 				
 					$messages = [
 					'type' => 'text',			
