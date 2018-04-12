@@ -120,7 +120,7 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => 'ALL POS'."\r\n". $returnonline
+					'text' => 'ALL POS = http://xclnc.linequery.com/xclnc_monitor.html'//."\r\n".$returnonline
 					];
 					$messagesX[0] = $messages;
 					_sendOut($access_token, $replyToken, $messagesX);
