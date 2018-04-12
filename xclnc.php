@@ -120,9 +120,10 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => 'ALL POS'//."\r\n". $returnonline
+					'text' => 'ALL POS'."\r\n". $returnonline
 					];
 					$messagesX[0] = $messages;
+					_sendOut($access_token, $replyToken, $messagesX);
 				}
 				elseif(strtoupper($text) == 'ONLINE POS')
 				{
