@@ -120,7 +120,7 @@ if (!is_null($events['events'])) {
 				
 					$messages = [
 					'type' => 'text',			
-					'text' => 'ALL POS'."\r\n".$returnonline
+					'text' => 'ALL POS'.$returnonline
 					];
 					$messagesX[0] = $messages;
 					
